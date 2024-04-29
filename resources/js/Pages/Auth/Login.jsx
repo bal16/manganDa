@@ -67,7 +67,7 @@ export default function Login({ status, canResetPassword }) {
                             />
                         </div>
                         <div className="flex">
-                            <div className="mt-4 flex-initial w-full">
+                            <div className="flex-initial w-full mt-4">
                                 <InputLabel
                                     htmlFor="password"
                                     value="Password"
@@ -78,7 +78,7 @@ export default function Login({ status, canResetPassword }) {
                                     type={!isShow ? "password" : "text"}
                                     name="password"
                                     value={data.password}
-                                    className="block w-full mt-1  rounded-e-none"
+                                    className="block w-full mt-1 rounded-e-none"
                                     autoComplete="current-password"
                                     onChange={(e) =>
                                         setData("password", e.target.value)
@@ -90,7 +90,7 @@ export default function Login({ status, canResetPassword }) {
                                 className="mt-2"
                             /> */}
                             </div>
-                            <label className="flex mt-10 w-11 ps-0 pe-1  items-center justify-center border rounded-lg rounded-s-none border-s-0 cursor-pointer">
+                            <label className="flex items-center justify-center mt-10 border rounded-lg cursor-pointer w-11 ps-0 pe-1 rounded-s-none border-s-0">
                                 <Checkbox
                                     name="showPassword"
                                     checked={isShow}
@@ -99,7 +99,7 @@ export default function Login({ status, canResetPassword }) {
                                     }
                                     className="hidden"
                                 />
-                                <span className="text-sm text-gray-600  ms-2">
+                                <span className="text-sm text-gray-600 ms-2">
                                     <FontAwesomeIcon
                                         icon={isShow ? faEye : faEyeSlash}
                                     />
