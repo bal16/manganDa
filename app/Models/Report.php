@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "user_id",
+        "store_id",
+        "body",
+        "is_post",
+        "is_store"
+    ];
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    public function store(){
+        return $this->belongsTo(Store::class);
+    }
+    public function post(){
+        return $this->belongsTo(Post::class);   
+    }
 }
