@@ -8,8 +8,8 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+        {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
+        <link href="https://fonts.cdnfonts.com/css/sf-ui-display?styles=16103,16102,16099,16100,16101,16097,16098,16096" rel="stylesheet">
         <!-- Scripts -->
         @routes
         @viteReactRefresh
