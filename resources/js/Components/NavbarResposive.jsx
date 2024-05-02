@@ -19,7 +19,7 @@ export default function NavbarResponsive({ auth }) {
                     height="2rem"
                 />
             </NavResLink>
-            <NavResLink active={route().current("profile")}>
+            <NavResLink active={route().current("myprofile")}>
                 {/*  href={`#${auth.user.id}`}> */}
                 <Icon
                     icon="healthicons:ui-user-profile"
