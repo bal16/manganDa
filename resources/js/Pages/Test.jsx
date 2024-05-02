@@ -7,7 +7,7 @@ import Sidebar from "@/Components/Sidebar";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Test({ auth }) {
+export default function Test({ auth=false }) {
     return (
         <>
             <DefaultLayout>
@@ -15,10 +15,11 @@ export default function Test({ auth }) {
                 <Navbar auth={auth} />
                 <MainContent>
                     <Header>Header</Header>
-                    <section className="p-2 h-20 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100">
-                        Made a Post?
+                    <section className="p-2 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100">
+                        Made a Post {/*auth.user.id*/}?
                     </section>
                     <section className="">
+                        <Post />
                         <Post />
                         <Post />
                         <Post />
@@ -26,7 +27,7 @@ export default function Test({ auth }) {
                 </MainContent>
                 <Sidebar>Sidebar</Sidebar>
             </DefaultLayout>
-            <NavbarResponsive auth={auth} />
+            <NavbarResponsive auth={auth}  />
         </>
     );
 }
