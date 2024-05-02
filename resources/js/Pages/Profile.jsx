@@ -1,3 +1,4 @@
+import Header from "@/Components/Header";
 import MainContent from "@/Components/MainContent";
 import Navbar from "@/Components/Navbar";
 import NavbarResponsive from "@/Components/NavbarResposive";
@@ -12,9 +13,8 @@ export default function Profile({auth}) {
             <Head title="User" />
             <Navbar auth={auth} />
             <MainContent>
-                <>
-                    
-                </>
+                <Header></Header>
+                
             </MainContent>
             <Sidebar>Sidebar</Sidebar>
         </DefaultLayout>
