@@ -15,7 +15,7 @@ export default function Test({ auth }) {
                 <Navbar auth={auth} />
                 <MainContent>
                     <Header>Header</Header>
-                    <section className="p-2 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100">
+                    <section className="p-2 h-20 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100">
                         Made a Post?
                     </section>
                     <section className="">
