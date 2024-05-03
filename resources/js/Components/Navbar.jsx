@@ -12,7 +12,7 @@ export default function Navbar({ auth }) {
                 </div>
                 <ul class="space-y-2 font-medium ">
                     <li>
-                        <NavbarLink active={route().current("home")}>
+                        <NavbarLink active={route().current("test")} href={route("test")}>
                             <Icon icon="ion:home" width="2rem" height="2rem" />
                             <span class="flex-1 ms-3 whitespace-nowrap">
                                 Home
@@ -45,7 +45,7 @@ export default function Navbar({ auth }) {
                         </NavbarLink>
                     </li>
                     <li>
-                        <NavbarLink active={route().current("myprofile")} href="/myprofile">
+                        <NavbarLink active={route().current("profile")} href={route("profile")}>
                             <Icon
                                 icon="healthicons:ui-user-profile"
                                 width="2rem"
@@ -57,7 +57,7 @@ export default function Navbar({ auth }) {
                         </NavbarLink>
                     </li>
                     <li>
-                        <NavbarLink active={route().current("test")} href="/test">
+                        <NavbarLink  >
                             <Icon
                                 icon="ph:dots-three-circle-light"
                                 width="2rem"

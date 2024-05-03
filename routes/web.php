@@ -15,7 +15,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -24,8 +25,8 @@ Route::get('/test', function(){
     return Inertia::render('Test');
 })->name('test');
 
-Route::get('/myprofile', function(){
-    return Inertia::render('Profile');
-})->name('myprofile');
+// Route::get('/myprofile', function(){
+//     return Inertia::render('Profile');
+// })->name('myprofile');
 
 require __DIR__.'/auth.php';
