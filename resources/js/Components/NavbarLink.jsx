@@ -1,5 +1,5 @@
 export default function NavbarLink({ href = "#", children, active = false }) {
-    const activeStyle = active ? "text-marshland-950" : "text-marshland-600";
+    const activeStyle = active ? "text-marshland-950 bg-ecru-white-300" : "text-marshland-600 ";
     return (
         <a
             href={href}

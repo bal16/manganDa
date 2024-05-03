@@ -6,7 +6,7 @@ import NavbarLink from "./NavbarLink";
 export default function Navbar({ auth }) {
     return (
         <nav className="top-0 hidden w-2/5 h-screen -mb-1  p-2 border-r-[0.4px] border-marshland-950 md:sticky md:flex  text-marshland-950 bg-ecru-white-100">
-            <div class="h-full px-3 py-4 overflow-y-auto w-full">
+            <div class="h-full px-3 py-4  w-full">
                 <div className="h-10">
                     <h1 className="">Navbar</h1>
                 </div>
@@ -45,7 +45,7 @@ export default function Navbar({ auth }) {
                         </NavbarLink>
                     </li>
                     <li>
-                        <NavbarLink active={route().current("myprofile")}>
+                        <NavbarLink active={route().current("myprofile")} href="/myprofile">
                             <Icon
                                 icon="healthicons:ui-user-profile"
                                 width="2rem"
@@ -57,7 +57,7 @@ export default function Navbar({ auth }) {
                         </NavbarLink>
                     </li>
                     <li>
-                        <NavbarLink>
+                        <NavbarLink active={route().current("test")} href="/test">
                             <Icon
                                 icon="ph:dots-three-circle-light"
                                 width="2rem"
