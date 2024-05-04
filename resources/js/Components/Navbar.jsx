@@ -1,19 +1,22 @@
-// import { } from "@inertiajs/react";
-
 import { Icon } from "@iconify/react";
 import NavbarLink from "./NavbarLink";
-import { memo } from "react";
+import { memo, useState } from "react";
+import { Link } from "@inertiajs/react";
 
 export default memo(function Navbar({ auth }) {
+    const [open, setOpen] = useState(false);
     return (
-        <nav className="top-0 hidden w-2/5 h-screen -mb-1  p-2 border-r-[0.4px] border-marshland-950 md:sticky md:flex  text-marshland-950 bg-ecru-white-100">
+        <nav className="top-0 hidden w-2/5 h-screen -mb-1  p-2 border-r-[0.4px] border-marshland-950 md:sticky sm:flex  text-marshland-950 bg-ecru-white-100">
             <div className="w-full h-full px-3 py-4">
                 <div className="h-10">
                     <h1 className="">Navbar</h1>
                 </div>
                 <ul className="space-y-2 font-medium ">
                     <li>
-                        <NavbarLink active={route().current("test")} href={route("test")}>
+                        <NavbarLink
+                            active={route().current("test")}
+                            href={route("test")}
+                        >
                             <Icon icon="ion:home" width="2rem" height="2rem" />
                             <span className="flex-1 ms-3 whitespace-nowrap">
                                 Home
@@ -46,7 +49,10 @@ export default memo(function Navbar({ auth }) {
                         </NavbarLink>
                     </li>
                     <li>
-                        <NavbarLink active={route().current("profile")} href={route("profile")}>
+                        <NavbarLink
+                            active={route().current("profile")}
+                            href={route("profile")}
+                        >
                             <Icon
                                 icon="healthicons:ui-user-profile"
                                 width="2rem"
@@ -57,21 +63,56 @@ export default memo(function Navbar({ auth }) {
                             </span>
                         </NavbarLink>
                     </li>
-                    <li>
-                        <NavbarLink  >
+                    <li className={open&&"bg-ecru-white-200 rounded-xl"}>
+                        <button
+                            className={"flex items-center w-full p-2 rounded-lg hover:text-marshland-950 hover:bg-ecru-white-300 text-marshland-600 "+ (open&&" text-marshland-950") }
+                            onClick={() => setOpen(!open)}
+                        >
                             <Icon
                                 icon="ph:dots-three-circle-light"
                                 width="2rem"
                                 height="2rem"
                                 rotate="90deg"
                             />
-                            <span className="flex-1 ms-3 whitespace-nowrap">
+                            <span className="flex-1 w-full text-start ms-3 whitespace-nowrap ">
                                 Others
                             </span>
-                        </NavbarLink>
+                            <Icon icon="uit:direction" />
+                        </button>
+                        <ul
+                            id="dropdown"
+                            className={
+                                "py-2 space-y-2 ps-7  " + (!open && " hidden ")
+                            }
+                        >
+                            <li>
+                                <NavbarLink
+                                    href="#"
+                                    linkStyle="  transition duration-150 "
+                                >
+                                    <span className="">Bookmark</span>
+                                </NavbarLink>
+                            </li>
+                            <li>
+                                <NavbarLink
+                                    href="#"
+                                    linkStyle="  transition duration-150 "
+                                >
+                                    <span className="">Mode</span>
+                                </NavbarLink>
+                            </li>
+                            <li>
+                                <NavbarLink
+                                    href="#"
+                                    linkStyle="  transition duration-150 "
+                                >
+                                    <span className="">Settings</span>
+                                </NavbarLink>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
         </nav>
     );
-})
+});
