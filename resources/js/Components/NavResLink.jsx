@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
+import { memo } from "react";
 
-export const NavResLink = ({ auth, children, active = false, href = "#" }) => {
+function NavResLink({ auth, children, active = false, href = "#" })  {
     const activeStyle = active
         ? "text-marshland-950 bg-ecru-white-300"
         : "text-marshland-600";
@@ -11,3 +12,4 @@ export const NavResLink = ({ auth, children, active = false, href = "#" }) => {
         </Link>
     );
 };
+export default memo(NavResLink)

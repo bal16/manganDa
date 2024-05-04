@@ -1,8 +1,9 @@
 // import { } from "@inertiajs/react";
 import { Icon } from "@iconify/react";
-import { NavResLink } from "./NavResLink";
+import  NavResLink from "./NavResLink";
+import { memo } from "react";
 
-export default function NavbarResponsive({ auth }) {
+export default memo(function NavbarResponsive({ auth }) {
     return (
         <nav className="sticky bottom-0 w-full h-16 p-1 pb-2 text-center border-t-[0.1px] md:hidden border-marshland-950  bg-ecru-white-100 grid grid-cols-5 ">
             <NavResLink active={route().current("test")} href="/test">
@@ -39,4 +40,4 @@ export default function NavbarResponsive({ auth }) {
             </NavResLink>
         </nav>
     );
-}
+})

@@ -1,4 +1,6 @@
-export default function Post() {
+import { memo } from "react";
+
+export default memo(function Post() {
     return (
         <a
             href="#"
@@ -9,4 +11,4 @@ export default function Post() {
             </>
         </a>
     );
-}
+})

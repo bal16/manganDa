@@ -2,19 +2,20 @@
 
 import { Icon } from "@iconify/react";
 import NavbarLink from "./NavbarLink";
+import { memo } from "react";
 
-export default function Navbar({ auth }) {
+export default memo(function Navbar({ auth }) {
     return (
         <nav className="top-0 hidden w-2/5 h-screen -mb-1  p-2 border-r-[0.4px] border-marshland-950 md:sticky md:flex  text-marshland-950 bg-ecru-white-100">
-            <div class="h-full px-3 py-4  w-full">
+            <div className="w-full h-full px-3 py-4">
                 <div className="h-10">
                     <h1 className="">Navbar</h1>
                 </div>
-                <ul class="space-y-2 font-medium ">
+                <ul className="space-y-2 font-medium ">
                     <li>
                         <NavbarLink active={route().current("test")} href={route("test")}>
                             <Icon icon="ion:home" width="2rem" height="2rem" />
-                            <span class="flex-1 ms-3 whitespace-nowrap">
+                            <span className="flex-1 ms-3 whitespace-nowrap">
                                 Home
                             </span>
                         </NavbarLink>
@@ -27,7 +28,7 @@ export default function Navbar({ auth }) {
                                 height="2rem"
                             />
 
-                            <span class="flex-1 ms-3 whitespace-nowrap">
+                            <span className="flex-1 ms-3 whitespace-nowrap">
                                 Explore
                             </span>
                         </NavbarLink>
@@ -39,7 +40,7 @@ export default function Navbar({ auth }) {
                                 width="2rem"
                                 height="2rem"
                             />
-                            <span class="flex-1 ms-3 whitespace-nowrap">
+                            <span className="flex-1 ms-3 whitespace-nowrap">
                                 Stores
                             </span>
                         </NavbarLink>
@@ -51,7 +52,7 @@ export default function Navbar({ auth }) {
                                 width="2rem"
                                 height="2rem"
                             />
-                            <span class="flex-1 ms-3 whitespace-nowrap">
+                            <span className="flex-1 ms-3 whitespace-nowrap">
                                 Profile
                             </span>
                         </NavbarLink>
@@ -64,7 +65,7 @@ export default function Navbar({ auth }) {
                                 height="2rem"
                                 rotate="90deg"
                             />
-                            <span class="flex-1 ms-3 whitespace-nowrap">
+                            <span className="flex-1 ms-3 whitespace-nowrap">
                                 Others
                             </span>
                         </NavbarLink>
@@ -73,4 +74,4 @@ export default function Navbar({ auth }) {
             </div>
         </nav>
     );
-}
+})
