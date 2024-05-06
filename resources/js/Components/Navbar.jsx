@@ -9,7 +9,7 @@ export default memo(function Navbar({ auth }) {
         <nav className="top-0 hidden w-2/5 h-screen -mb-1  p-2 border-r-[0.4px] border-marshland-950 md:sticky sm:flex  text-marshland-950 bg-ecru-white-100">
             <div className="w-full h-full px-3 py-4">
                 <div className="h-15">
-                    <h1 className="text-marshland-950 font-bold text-2xl mb-5">Navbar</h1>
+                    <h1 className="mb-5 text-2xl font-bold text-marshland-950">Navbar</h1>
                 </div>
                 <ul className="space-y-2 font-medium ">
                     <li>
@@ -63,7 +63,7 @@ export default memo(function Navbar({ auth }) {
                             </span>
                         </NavbarLink>
                     </li>
-                    <li className={open&&"bg-ecru-white-200 rounded-xl"}>
+                    <li className={open?"bg-ecru-white-200 rounded-xl":""}>
                         <button
                             className={"flex items-center w-full p-2 rounded-lg hover:text-marshland-950 hover:bg-ecru-white-300 text-marshland-600 "+ (open&&" text-marshland-950") }
                             onClick={() => setOpen(!open)}
