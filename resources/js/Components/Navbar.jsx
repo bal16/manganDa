@@ -7,7 +7,7 @@ export default memo(function Navbar({ auth }) {
     const [open, setOpen] = useState(false);
     return (
         <nav className="top-0 hidden w-2/5 h-screen -mb-1  p-2 border-r-[0.4px] border-marshland-950 md:sticky sm:flex  text-marshland-950 bg-ecru-white-100">
-            <div className="w-full h-full px-3 py-4">
+            <div className="w-full h-full px-3 py-4 ">
                 <div className="h-15">
                     <h1 className="mb-5 text-2xl font-bold text-marshland-950">Navbar</h1>
                 </div>
@@ -112,6 +112,7 @@ export default memo(function Navbar({ auth }) {
                         </ul>
                     </li>
                 </ul>
+                <a href="" className="relative block w-full p-2 text-center rounded-full top-[35rem] bg-green-yellow-500">Posting</a>
             </div>
         </nav>
     );

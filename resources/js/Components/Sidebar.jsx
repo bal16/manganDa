@@ -15,6 +15,34 @@ export default memo(function Sidebar({}) {
             name: "Nama Menu",
             stores: "Nama Toko",
         },
+        {
+            name: "Nama Menu",
+            stores: "Nama Toko",
+        },
+        {
+            name: "Nama Menu",
+            stores: "Nama Toko",
+        },
+        {
+            name: "Nama Menu",
+            stores: "Nama Toko",
+        },
+        {
+            name: "Nama Menu",
+            stores: "Nama Toko",
+        },
+        {
+            name: "Nama Menu",
+            stores: "Nama Toko",
+        },
+        {
+            name: "Nama Menu",
+            stores: "Nama Toko",
+        },
+        {
+            name: "Nama Menu",
+            stores: "Nama Toko",
+        },
     ];
     return (
         <aside className="hidden w-3/5 p-2 -mb-1 text-center border-l-[0.1px] border-marshland-950 md:flex text-marshland-950 bg-ecru-white-100 ">
@@ -22,8 +50,13 @@ export default memo(function Sidebar({}) {
                 {/* <h2 className="mb-5 text-2xl font-bold text-marshland-950">
                     Sidebar
                 </h2> */}
-                <div className="w-full mb-5 ">
+                <div className={" w-full mb-5 h" + (route().current("explore")&&"idden")}>
                     <SearchBar />
+                </div>
+                <div className="w-full px-4 pt-3 pb-6 mb-4 border rounded-2xl border-marshland-950 text-start">
+                    <h3 className="text-xl font-bold ">Hubungi <br />Kontak Kami</h3>
+                    <p className="py-2 mb-2 font-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore rem optio nobis, quidem vero alias?</p>
+                    <a href="" target="_blank" className="px-4 py-2 rounded-full bg-green-yellow-500">Hubungi Kami</a>
                 </div>
                 <div className="w-full px-4 pt-3 pb-10 border rounded-2xl border-marshland-950 text-start">
                     <h3 className="text-xl font-bold">
@@ -31,7 +64,7 @@ export default memo(function Sidebar({}) {
                         Makanan Untukmu
                     </h3>
                     {/* Section Makanan Populer */}
-                    <section>
+                    <section className="">
                         {food.map((item, i) => (
                             <div key={i} className="py-2">
                                 <h4 className="font-semibold">{item.name}</h4>
