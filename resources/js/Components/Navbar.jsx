@@ -112,7 +112,7 @@ export default memo(function Navbar({ auth }) {
                         </ul>
                     </li>
                 </ul>
-                <a href="" className="relative block w-full p-2 text-center rounded-full top-[35rem] bg-green-yellow-500">Posting</a>
+                <a href="" className={"relative block w-full p-2 text-center rounded-full  bg-green-yellow-500 "+(!open?" top-[35rem]":"top-[25.5rem]")}>Posting</a>
             </div>
         </nav>
     );
