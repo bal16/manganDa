@@ -44,6 +44,8 @@ export default memo(function Sidebar({}) {
             stores: "Nama Toko",
         },
     ];
+    const number = '12345'
+    const message = 'Halo,Admin%0aSaya%20ingin%20tanya%20makanan%20di%20sini%3F'
     return (
         <aside className="hidden w-3/5 p-2 -mb-1 text-center border-l-[0.1px] border-marshland-950 md:flex text-marshland-950 bg-ecru-white-100 ">
             <div className="w-full h-full px-3 py-4 text-start">
@@ -56,7 +58,7 @@ export default memo(function Sidebar({}) {
                 <div className="w-full px-4 pt-3 pb-6 mb-4 border rounded-2xl border-marshland-950 text-start">
                     <h3 className="text-xl font-bold ">Hubungi <br />Kontak Kami</h3>
                     <p className="py-2 mb-2 font-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore rem optio nobis, quidem vero alias?</p>
-                    <a href="" target="_blank" className="px-4 py-2 rounded-full bg-green-yellow-500">Hubungi Kami</a>
+                    <a href={`https://wa.me/${number}?text=${message}`} target="_blank" className="px-4 py-2 rounded-full bg-green-yellow-600">Hubungi Kami</a>
                 </div>
                 <div className="w-full px-4 pt-3 pb-10 border rounded-2xl border-marshland-950 text-start">
                     <h3 className="text-xl font-bold">
