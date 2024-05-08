@@ -4,7 +4,7 @@ export default memo(function Post({}) {
     return (
         <a
             href="#"
-            className="block border-b-[0.1px] px-10 py-3 border-marshland-950 min-h-[15rem] "
+            className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-[15rem] "
         >
             {/* ? Ini header post*/}
             <div className="flex">
@@ -15,15 +15,25 @@ export default memo(function Post({}) {
                     />
                 </div>
                 <div className="ps-1">
-                    <p className="text-sm font-light"><span className="font-semibold">Nazih</span> @nazihjkt24 - 2 Hours</p>
+                    <p className="text-sm font-light">
+                        <span className="font-semibold">Nazih</span> @nazihjkt24
+                        - 2 Hours
+                    </p>
                 </div>
 
                 {/* </input> */}
             </div>
             {/* ? Ini body post*/}
-            <div>INI ADALAH POSTINGAN</div>
-            {/* ? Ini image post*/}
-            <div></div>
+            <div className="-mt-5 font-light ms-[3.75rem] text-start">
+                <p>INI ADALAH POSTINGAN</p>
+            <div className="object-cover overflow-hidden bg-slate-700 rounded-xl">
+                {/* ? Ini image post*/}
+                <img className="w-full"
+                    src="https://source.unsplash.com/400x300?post"
+                    alt=""
+                />
+            </div>
+            </div>
         </a>
     );
 });
