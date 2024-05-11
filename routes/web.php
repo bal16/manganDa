@@ -25,8 +25,4 @@ Route::get('/test', function(){
     return Inertia::render('Test');
 })->name('test');
 
-// Route::get('/myprofile', function(){
-//     return Inertia::render('Profile');
-// })->name('myprofile');
-
 require __DIR__.'/auth.php';

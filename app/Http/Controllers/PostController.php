@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -37,7 +37,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return inertia::render('test',Post::all())
     }
 
     /**
