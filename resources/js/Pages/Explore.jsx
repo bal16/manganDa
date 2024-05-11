@@ -8,7 +8,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Test({ auth, post }) {
+export default function Explore({ auth, post }) {
     // console.log(post);
     const [postModal, setPostModal] = useState(false);
     return (
@@ -29,7 +29,7 @@ export default function Test({ auth, post }) {
                 </div>
             </div>
             <DefaultLayout>
-                <Head title="Test" />
+                <Head title="explore" />
                 <Navbar auth={auth} />
                 <MainContent>
                     <Header></Header>
@@ -68,9 +68,10 @@ export default function Test({ auth, post }) {
                         </div>
                     </section>
                     <section className="">
-                        {post.map((post, index) => (
+                        {/* {post.map((post, index) => (
                             <Post />
-                        ))}
+                        ))} */}
+                        INI HALAMAN EXPLORE
                     </section>
                 </MainContent>
                 <Sidebar />

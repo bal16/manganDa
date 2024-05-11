@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\User;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
@@ -21,7 +23,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -37,7 +39,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return inertia::render('test',Post::all())
+
+        return Inertia::render('Home',['post'=>Post::all()]);
     }
 
     /**

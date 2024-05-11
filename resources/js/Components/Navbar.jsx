@@ -9,13 +9,15 @@ export default memo(function Navbar({ auth }) {
         <nav className="top-0 hidden w-2/5 h-screen -mb-1  p-2 border-r-[0.4px] border-marshland-950 md:sticky sm:flex  text-marshland-950 bg-ecru-white-100">
             <div className="w-full h-full px-3 py-4 ">
                 <div className="h-15">
-                    <h1 className="mb-5 text-2xl font-bold text-marshland-950">Navbar</h1>
+                    <h1 className="mb-5 text-2xl font-bold text-marshland-950">
+                        Navbar
+                    </h1>
                 </div>
                 <ul className="space-y-2 font-medium ">
                     <li>
                         <NavbarLink
-                            active={route().current("test")}
-                            href={route("test")}
+                            active={route().current("home")}
+                            href={route("home")}
                         >
                             <Icon icon="ion:home" width="2rem" height="2rem" />
                             <span className="flex-1 ms-3 whitespace-nowrap">
@@ -24,7 +26,10 @@ export default memo(function Navbar({ auth }) {
                         </NavbarLink>
                     </li>
                     <li>
-                        <NavbarLink active={route().current("explore")}>
+                        <NavbarLink
+                            active={route().current("explore")}
+                            href={route("explore")}
+                        >
                             <Icon
                                 icon="mdi:compass-outline"
                                 width="2rem"
@@ -37,7 +42,10 @@ export default memo(function Navbar({ auth }) {
                         </NavbarLink>
                     </li>
                     <li>
-                        <NavbarLink active={route().current("stores")}>
+                        <NavbarLink
+                            active={route().current("stores")}
+                            href={route("stores")}
+                        >
                             <Icon
                                 icon="material-symbols:store"
                                 width="2rem"
@@ -45,6 +53,21 @@ export default memo(function Navbar({ auth }) {
                             />
                             <span className="flex-1 ms-3 whitespace-nowrap">
                                 Stores
+                            </span>
+                        </NavbarLink>
+                    </li>
+                    <li>
+                        <NavbarLink
+                            active={route().current("bookmark")}
+                            href={route("bookmark")}
+                        >
+                            <Icon
+                                icon="majesticons:bookmark-line"
+                                width="2rem"
+                                height="2rem"
+                            />
+                            <span className="flex-1 ms-3 whitespace-nowrap">
+                                Bookmark
                             </span>
                         </NavbarLink>
                     </li>
@@ -63,9 +86,12 @@ export default memo(function Navbar({ auth }) {
                             </span>
                         </NavbarLink>
                     </li>
-                    <li className={open?"bg-ecru-white-200 rounded-xl":""}>
+                    {/* <li className={open ? "bg-ecru-white-200 rounded-xl" : ""}>
                         <button
-                            className={"flex items-center w-full p-2 rounded-lg hover:text-marshland-950 hover:bg-ecru-white-300 text-marshland-600 "+ (open&&" text-marshland-950") }
+                            className={
+                                "flex items-center w-full p-2 rounded-lg hover:text-marshland-950 hover:bg-ecru-white-300 text-marshland-600 " +
+                                (open && " text-marshland-950")
+                            }
                             onClick={() => setOpen(!open)}
                         >
                             <Icon
@@ -110,9 +136,17 @@ export default memo(function Navbar({ auth }) {
                                 </NavbarLink>
                             </li>
                         </ul>
-                    </li>
+                    </li>*/}
                 </ul>
-                <a href="" className={"relative block w-full p-2 text-center rounded-full  bg-green-yellow-600 "+(!open?" top-[35rem]":"top-[25.5rem]")}>Posting</a>
+                <a
+                    href=""
+                    className={
+                        "relative block w-full p-2 text-center rounded-full  bg-green-yellow-600 " +
+                        (!open ? " top-[35rem]" : "top-[25.5rem]")
+                    }
+                >
+                    Posting
+                </a>
             </div>
         </nav>
     );

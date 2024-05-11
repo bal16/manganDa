@@ -5,6 +5,7 @@ export default memo(function Post({}) {
         <a
             href="#"
             className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-[15rem] "
+            // key={index}
         >
             {/* ? Ini header post*/}
             <div className="flex">
@@ -45,11 +46,7 @@ export default memo(function Post({}) {
                             src="https://source.unsplash.com/400x300?post"
                             alt="post"
                         />
-
-
-
                     </div>
-
                 </div>
             </div>
         </a>
