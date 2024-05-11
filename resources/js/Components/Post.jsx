@@ -26,13 +26,31 @@ export default memo(function Post({}) {
             {/* ? Ini body post*/}
             <div className="-mt-5 font-light ms-[3.75rem] text-start">
                 <p>INI ADALAH POSTINGAN</p>
-            <div className="object-cover overflow-hidden bg-slate-700 rounded-xl">
-                {/* ? Ini image post*/}
-                <img className="w-full"
-                    src="https://source.unsplash.com/400x300?post"
-                    alt=""
-                />
-            </div>
+                <div className="object-cover overflow-hidden bg-slate-700 rounded-xl">
+                    {/* ? Ini image post*/}
+                    <div className="grid grid-cols-2 grid-rows-2 grid-flow-dense">
+                        {/* row-span-full + h-full */}
+                        <img
+                            className="h-full row-span-full"
+                            src="https://source.unsplash.com/400x300?post"
+                            alt="post"
+                        />
+                        <img
+                            className="h-full"
+                            src="https://source.unsplash.com/400x300?post"
+                            alt="post"
+                        />
+                        <img
+                            className="h-full"
+                            src="https://source.unsplash.com/400x300?post"
+                            alt="post"
+                        />
+
+
+
+                    </div>
+
+                </div>
             </div>
         </a>
     );
