@@ -9,7 +9,7 @@ import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Home({ auth, post }) {
-    console.log(post);
+    // console.log(post);
     const [postModal, setPostModal] = useState(false);
     return (
         <>
