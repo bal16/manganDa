@@ -2,14 +2,13 @@ import Header from "@/Components/Header";
 import MainContent from "@/Components/MainContent";
 import Navbar from "@/Components/Navbar";
 import NavbarResponsive from "@/Components/NavbarResposive";
-import Post from "@/Components/Post";
 import Sidebar from "@/Components/Sidebar";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Stores({ auth, post }) {
-    // console.log(post);
+export default function Stores({ auth, store }) {
+    // console.log(store);
     const [postModal, setPostModal] = useState(false);
     return (
         <>

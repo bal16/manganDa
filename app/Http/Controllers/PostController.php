@@ -6,7 +6,11 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Carbon;
 use Inertia\Inertia;
+use illuminate\Http\Request;
+use Psy\Readline\Hoa\Console;
 
 class PostController extends Controller
 {
@@ -39,8 +43,22 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-
         return Inertia::render('Home',['post'=>Post::all()]);
+    }
+
+    public function addPost(Request $request): RedirectResponse
+    {
+        // $id = $request -> input('id');
+        $user_id = $request -> input('user_id');
+        $store_id = $request -> input('store_id');
+        $image = $request -> input('image');
+        $is_store = $request -> input('is_store');
+        $tanggalWaktu = Carbon::now('YmdHis');
+
+        $id = $user_id . $store_id . $tanggalWaktu;
+        $request -> input($id);
+
+        return redirect('/');
     }
 
     /**

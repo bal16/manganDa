@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Http\Requests\StorecommentRequest;
 use App\Http\Requests\UpdatecommentRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class CommentController extends Controller
 {
@@ -30,6 +32,17 @@ class CommentController extends Controller
     public function store(StorecommentRequest $request)
     {
         //
+    }
+
+    public function addComment( Request $request )
+    {
+        $tanggalWaktu = Carbon::now('YmdHis');
+        $user_id = $request -> input('user_id'); 
+        $post_id = $request -> input('post_id'); 
+        $id = $user_id . $post_id . $tanggalWaktu;
+        $request -> input($id);
+        $body = $request -> input('body'); 
+
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Store;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
+use Inertia\Inertia;
 
 class StoreController extends Controller
 {
@@ -37,7 +38,7 @@ class StoreController extends Controller
      */
     public function show(Store $store)
     {
-        //
+        return Inertia::render('Stores',['store'=>Store::all()]);
     }
 
     /**

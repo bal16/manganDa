@@ -1,19 +1,21 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Route::get('/test', [PostController::class, 'show'])->name('test');
 Route::get('/', [PostController::class, 'show'])->name('home');
+Route::post('/', [CommentController::class, 'addPost']);
+
 Route::get('/explore', function () {
     return Inertia::render('Explore',);
 })->name('explore');
-Route::get('/stores', function () {
-    return Inertia::render('Stores',);
-})->name('stores');
+Route::get('/stores',[StoreController::class, 'show'])->name('stores');
 Route::get('/bookmark', function () {
     return Inertia::render('Bookmark',);
 })->name('bookmark');

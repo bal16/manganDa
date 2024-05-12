@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bookmark;
+use App\Models\Bookmark;
 use App\Http\Requests\StorebookmarkRequest;
 use App\Http\Requests\UpdatebookmarkRequest;
+use Inertia\Inertia;
 
 class BookmarkController extends Controller
 {
@@ -35,9 +36,9 @@ class BookmarkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(bookmark $bookmark)
+    public function show($id)
     {
-        //
+        return Inertia::render('bookmark',['bookmark'=>Bookmark::find($id)]);
     }
 
     /**
