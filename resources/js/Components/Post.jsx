@@ -24,11 +24,13 @@ export default memo(function Post({ content }) {
                         @{content.user.username} - {}
                         {moment(content.updated_at).fromNow()}
                     </p>
-                    {content.is_store &&
-                    (<div className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-green-yellow-500">
-                        Toko
-                    </div>)
-}
+                    {content.is_store ? (
+                        <div className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-green-yellow-500">
+                            Toko
+                        </div>
+                    ) : (
+                        ""
+                    )}
                 </div>
 
                 {/* </input> */}
