@@ -39,7 +39,7 @@ class CommentController extends Controller
         $tanggalWaktu = Carbon::now('YmdHis');
         $user_id = $request -> input('user_id'); 
         $post_id = $request -> input('post_id'); 
-        $id = $user_id . $post_id . $tanggalWaktu;
+        $id = "c" . $user_id . $post_id . $tanggalWaktu;
         $request -> input($id);
         $body = $request -> input('body'); 
     }
