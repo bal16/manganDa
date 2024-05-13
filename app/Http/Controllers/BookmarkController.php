@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Bookmark;
 use App\Http\Requests\StorebookmarkRequest;
 use App\Http\Requests\UpdatebookmarkRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Auth;
 
 class BookmarkController extends Controller
 {
@@ -14,7 +16,7 @@ class BookmarkController extends Controller
      */
     public function index()
     {
-        //
+    
     }
 
     /**
@@ -36,9 +38,13 @@ class BookmarkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        return Inertia::render('bookmark',['bookmark'=>Bookmark::find($id)]);
+        $id = auth()->user()->id;
+        $bookmarks = Bookmark::where('user_id', $id)->get();
+        return Inertia::render('Bookmark',[
+            'user'=>$bookmarks
+        ]);
     }
 
     /**

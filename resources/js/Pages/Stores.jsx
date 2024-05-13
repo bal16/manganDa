@@ -8,7 +8,7 @@ import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Stores({ auth, store }) {
-    // console.log(store);
+    console.log(store);
     const [postModal, setPostModal] = useState(false);
     return (
         <>

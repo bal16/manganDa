@@ -42,7 +42,6 @@ class CommentController extends Controller
         $id = $user_id . $post_id . $tanggalWaktu;
         $request -> input($id);
         $body = $request -> input('body'); 
-
     }
 
     /**

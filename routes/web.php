@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -16,9 +17,8 @@ Route::get('/explore', function () {
     return Inertia::render('Explore',);
 })->name('explore');
 Route::get('/stores',[StoreController::class, 'show'])->name('stores');
-Route::get('/bookmark', function () {
-    return Inertia::render('Bookmark',);
-})->name('bookmark');
+Route::get('/bookmark',[BookmarkController::class, 'show'])->name('bookmark');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark');
 });
 
 
