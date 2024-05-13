@@ -1,6 +1,8 @@
+import moment from "moment";
 import { memo } from "react";
 
-export default memo(function Post({}) {
+
+export default memo(function Post({content}) {
     return (
         <a
             href="#"
@@ -18,7 +20,8 @@ export default memo(function Post({}) {
                 <div className="ps-1">
                     <p className="text-sm font-light">
                         <span className="font-semibold">Nazih</span> @nazihjkt24
-                        - 2 Hours
+                        - {moment(content.updated_at).fromNow()}
+                        {/* {new Intl.DateTimeFormat('id-ID').format(Date.parse(content.updated_at))} */}
                     </p>
                 </div>
 
@@ -26,7 +29,7 @@ export default memo(function Post({}) {
             </div>
             {/* ? Ini body post*/}
             <div className="-mt-5 font-light ms-[3.75rem] text-start">
-                <p>INI ADALAH POSTINGAN</p>
+                <p>{content.body}</p>
                 <div className="object-cover overflow-hidden bg-slate-700 rounded-xl">
                     {/* ? Ini image post*/}
                     <div className="grid grid-cols-2 grid-rows-2 grid-flow-dense">
