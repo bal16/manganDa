@@ -1,8 +1,7 @@
 import moment from "moment";
 import { memo } from "react";
 
-
-export default memo(function Post({content}) {
+export default memo(function Post({ content }) {
     return (
         <a
             href="#"
@@ -17,12 +16,19 @@ export default memo(function Post({content}) {
                         alt=""
                     />
                 </div>
-                <div className="ps-1">
+                <div className="flex w-2/3 ps-1">
                     <p className="text-sm font-light">
-                        <span className="font-semibold">Nazih</span> @nazihjkt24
-                        - {moment(content.updated_at).fromNow()}
-                        {/* {new Intl.DateTimeFormat('id-ID').format(Date.parse(content.updated_at))} */}
+                        <span className="font-semibold">
+                            {content.user.name}
+                        </span>{" "}
+                        @{content.user.username} - {}
+                        {moment(content.updated_at).fromNow()}
                     </p>
+                    {content.is_store &&
+                    (<div className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-green-yellow-500">
+                        Toko
+                    </div>)
+}
                 </div>
 
                 {/* </input> */}
@@ -30,26 +36,15 @@ export default memo(function Post({content}) {
             {/* ? Ini body post*/}
             <div className="-mt-5 font-light ms-[3.75rem] text-start">
                 <p>{content.body}</p>
-                <div className="object-cover overflow-hidden bg-slate-700 rounded-xl">
+                <div className="overflow-hidden bg-slate-700 rounded-xl">
                     {/* ? Ini image post*/}
-                    <div className="grid grid-cols-2 grid-rows-2 grid-flow-dense">
-                        {/* row-span-full + h-full */}
-                        <img
-                            className="h-full row-span-full"
-                            src="https://source.unsplash.com/400x300?post"
-                            alt="post"
-                        />
-                        <img
-                            className="h-full"
-                            src="https://source.unsplash.com/400x300?post"
-                            alt="post"
-                        />
-                        <img
-                            className="h-full"
-                            src="https://source.unsplash.com/400x300?post"
-                            alt="post"
-                        />
-                    </div>
+
+                    {/* row-span-full + h-full */}
+                    <img
+                        className="w-full"
+                        src="https://source.unsplash.com/400x300?post"
+                        alt="post"
+                    />
                 </div>
             </div>
         </a>

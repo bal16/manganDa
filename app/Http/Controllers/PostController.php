@@ -46,7 +46,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return Inertia::render('Home',['post'=>Post::all()]);
+        $posts =$post->with(['user'])->get();
+        return Inertia::render('Home',['post'=>$posts]);
     }
 
     public function showSearch(Request $request)
@@ -58,7 +59,7 @@ class PostController extends Controller
 
         // cari postingan
         $posts = Post::where('body','like',"%$query%")->get();
-        
+
         // redirect()->route('/explore');
 
         return Inertia::render('Explore',['post'=>$posts,'store'=>$stores]);
@@ -75,7 +76,7 @@ class PostController extends Controller
         $tanggalWaktu = Carbon::now('YmdHis');
 
         $id_post = "p" . $user_id . $store_id . $tanggalWaktu;
-        
+
         $existing_post = Post::find('id',$id_post)->first();
         if($existing_post){
             Session::flash('error','mohon ulangi postingan!');

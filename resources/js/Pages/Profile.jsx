@@ -18,12 +18,12 @@ export default function Profile({ auth }) {
                     <section className="p-2 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100">
                         Ini Profile {auth?.user?.name}
                     </section>
-                    <section className="">
+                    {/* <section className="">
                         <Post />
                         <Post />
                         <Post />
                         <Post />
-                    </section>
+                    </section> */}
                 </MainContent>
                 <Sidebar>Sidebar</Sidebar>
             </DefaultLayout>

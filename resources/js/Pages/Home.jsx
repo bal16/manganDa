@@ -9,7 +9,7 @@ import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Home({ auth, post }) {
-    console.log(post);
+    // console.log(post);
     const [postModal, setPostModal] = useState(false);
     return (
         <>
@@ -38,7 +38,7 @@ export default function Home({ auth, post }) {
                         <div className="flex">
                             <div className="w-12 h-12 overflow-hidden bg-black rounded-full me-2">
                                 <img
-                                    className="object-cover"
+                                    className="w-full"
                                     src="https://source.unsplash.com/50x50?photo-profile"
                                     alt=""
                                 />
