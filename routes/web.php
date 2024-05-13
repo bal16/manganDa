@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
 
     // post
     Route::post('/bookmark/{user_id}/{store_id}',[PostController::class, 'create'])->name('post.create');
+    Route::delete('/post/{id_post}',[PostController::class, 'destroy'])->name('post.destroy');
 
     // bookmark
     Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark');
