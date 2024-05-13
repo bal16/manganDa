@@ -33,6 +33,6 @@ class Post extends Model
         return $this->hasMany(Report::class);
     }
     public function store(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Store::class);
     }
 }

@@ -15,6 +15,7 @@ use Psy\Readline\Hoa\Console;
 use Illuminate\Support\Facades\Session;
 
 
+
 class PostController extends Controller
 {
     /**
@@ -46,7 +47,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $posts =$post->with(['user'])->get();
+        $posts =$post->with(['user','store'])->get();
+        
         return Inertia::render('Home',['post'=>$posts]);
     }
 
@@ -59,8 +61,6 @@ class PostController extends Controller
 
         // cari postingan
         $posts = Post::where('body','like',"%$query%")->get();
-
-        // redirect()->route('/explore');
 
         return Inertia::render('Explore',['post'=>$posts,'store'=>$stores]);
     }
@@ -76,7 +76,7 @@ class PostController extends Controller
         $tanggalWaktu = Carbon::now('YmdHis');
 
         $id_post = "p" . $user_id . $store_id . $tanggalWaktu;
-
+        
         $existing_post = Post::find('id',$id_post)->first();
         if($existing_post){
             Session::flash('error','mohon ulangi postingan!');
@@ -115,8 +115,17 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post, Request $request, $id_post)
     {
-        //
+        $post = Post::findOrFail($id_post);
+
+        if ($post->user_id !== auth()->user()->id){
+            abort(403);
+        }
+
+        $post -> delete();
+
+        Session::flash('success','postingan berhasil dihapus');
+        return redirect()->back();
     }
 }
