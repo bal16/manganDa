@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 use illuminate\Http\Request;
 use Psy\Readline\Hoa\Console;
+use Illuminate\Support\Facades\Session;
+
 
 class PostController extends Controller
 {
@@ -46,19 +49,50 @@ class PostController extends Controller
         return Inertia::render('Home',['post'=>Post::all()]);
     }
 
+    public function showSearch(Request $request)
+    {
+        $query = $request -> input('query');
+
+        // cari toko
+        $stores = Store::where('name','like',"%$query%")->get();
+
+        // cari postingan
+        $posts = Post::where('body','like',"%$query%")->get();
+        
+        // redirect()->route('/explore');
+
+        return Inertia::render('Explore',['post'=>$posts,'store'=>$stores]);
+    }
+
     public function addPost(Request $request): RedirectResponse
     {
         // $id = $request -> input('id');
         $user_id = $request -> input('user_id');
         $store_id = $request -> input('store_id');
+        $body = $request -> input('body');
         $image = $request -> input('image');
         $is_store = $request -> input('is_store');
         $tanggalWaktu = Carbon::now('YmdHis');
 
-        $id = $user_id . $store_id . $tanggalWaktu;
-        $request -> input($id);
+        $id_post = "p" . $user_id . $store_id . $tanggalWaktu;
+        
+        $existing_post = Post::find('id',$id_post)->first();
+        if($existing_post){
+            Session::flash('error','mohon ulangi postingan!');
+        }else{
+            $post = new Post();
+            $post->id = $id_post;
+            $post->user_id = $user_id;
+            $post->store_id = $store_id;
+            $post->body = $body;
+            $post->image = $image;
+            $post->is_store = $is_store;
+            $post->save();
 
-        return redirect('/');
+            Session::flash('success','berhasil menambahkan postingan!');
+        }
+
+        return redirect()->back();
     }
 
     /**

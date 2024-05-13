@@ -8,8 +8,8 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Bookmark({ auth, user }) {
-    console.log(user);
+export default function Bookmark({ auth, bookmark }) {
+    console.log(bookmark);
     const [postModal, setPostModal] = useState(false);
     return (
         <>

@@ -9,27 +9,36 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Route::get('/test', [PostController::class, 'show'])->name('test');
+// 
 Route::get('/', [PostController::class, 'show'])->name('home');
 Route::post('/', [CommentController::class, 'addPost']);
 
-Route::get('/explore', function () {
-    return Inertia::render('Explore',);
-})->name('explore');
-Route::get('/stores',[StoreController::class, 'show'])->name('stores');
-Route::get('/bookmark',[BookmarkController::class, 'show'])->name('bookmark');
 
-
+// dashboard
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// store
+Route::get('/stores',[StoreController::class, 'show'])->name('stores');
+
+// explore
+Route::get('/explore',[PostController::class, 'showSearch'])->name('explore');
+
 Route::middleware('auth')->group(function () {
+    // profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // post
+    Route::post('/bookmark/{user_id}/{store_id}',[PostController::class, 'create'])->name('post.create');
+
+    // bookmark
     Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark');
+    Route::delete('/bookmark/{id}',[BookmarkController::class, 'destroy'])->name('bookmark.destroy');
+    Route::post('/bookmarks/{post_id}/{user_id}',[BookmarkController::class, 'create'])->name('bookmark.create');
 });
 
 
