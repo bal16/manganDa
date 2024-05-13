@@ -5,6 +5,7 @@ import NavbarResponsive from "@/Components/NavbarResposive";
 import Post from "@/Components/Post";
 import Sidebar from "@/Components/Sidebar";
 import DefaultLayout from "@/Layouts/DefaultLayout";
+import { Icon } from "@iconify/react";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
@@ -52,12 +53,27 @@ export default function Home({ auth, post }) {
                         </div>
                         <div className="flex mt-3">
                             <div className="flex w-5/6 mt-3 ">
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
+                                <input
+                                    type="file"
+                                    name="uploadFile"
+                                    id="uploadFile"
+                                    className="hidden"
+                                />
+                                <label
+                                    htmlFor="uploadFile"
+                                    className="w-6 h-6 me-2"
+                                >
+                                    <Icon
+                                        icon="bxs:image-add"
+                                        width="1,25em"
+                                        height="1,25em"
+                                    />
+                                </label>
+                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
+                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
+                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
+                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
+                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
                             </div>
                             <button
                                 onClick={() => setPostModal(!postModal)}
