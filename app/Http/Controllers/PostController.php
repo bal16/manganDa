@@ -48,8 +48,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $posts =$post->with(['user','store'])->get();
-        
-        return Inertia::render('Home',['post'=>$posts]);
+        $stores = Store::select('id','name')->get();
+        return Inertia::render('Home',['post'=>$posts, 'store'=>$stores]);
     }
 
     public function showSearch(Request $request)

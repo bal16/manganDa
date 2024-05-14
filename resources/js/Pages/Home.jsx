@@ -9,8 +9,9 @@ import { Icon } from "@iconify/react";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Home({ auth, post }) {
-    // console.log(post);
+export default function Home({ auth, post, store }) {
+    console.log(post);
+    console.log(store);
     const [postModal, setPostModal] = useState(false);
     return (
         <>
