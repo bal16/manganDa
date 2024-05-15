@@ -45,13 +45,19 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $id = 'p' . auth()->user()->id . date('Y-m-d H:i:s');
+        dd($id);
         $validatedData = $request->validate([
+            'id'=>'unique',
             'image' => 'image|file|max:1024',
             'body' => 'required',
+            'created_at' => ''
         ]);
 
-        if(Store::select('user_id')->where('user_id','=',auth()->user()->id)){
+        if(Store::select('user_id')->where('user_id','=', auth()->user()->id)){
             $validatedData['is_store'] = true;
+        }else{
+            $validatedData['is_store'] = false;
         }
 
         if($request ->file('image')){
@@ -59,8 +65,9 @@ class PostController extends Controller
         }
 
         $validatedData['user_id'] = auth()->user()->id;
-        
-        Post::create($validatedData);
+        $validatedData['id'] = $id;
+
+        Post::insert($validatedData);
         Session::flash('success','berhasil menambahkan postingan!');
 
     }

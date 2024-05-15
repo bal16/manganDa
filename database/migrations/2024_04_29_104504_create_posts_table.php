@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('body');
             $table->integer('like')->nullable();
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('image')->nullable();
             $table->boolean('is_store')->default(false);
             $table->timestamps();
+            
         });
     }
 
