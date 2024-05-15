@@ -47,41 +47,22 @@ class PostController extends Controller
         // dd($request);
         $validatedData = $request->validate([
             'image' => 'image|file|max:1024',
-            'body' => 'required'
+            'body' => 'required',
         ]);
-        // $id = $request -> input('id');
-        // $user_id = $request -> input('user_id');
+
+        if(Store::select('user_id')->where('user_id','=',auth()->user()->id)){
+            $validatedData['is_store'] = true;
+        }
+
+        if($request ->file('image')){
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
+
         $validatedData['user_id'] = auth()->user()->id;
-        // $validatedData['created_at'] = time();
-        // $validatedData['updated_at'] = time();
-        // $validatedData['user_id'] = auth()->user()->id;
-        // $validatedData[''] = auth()->user()->id;
-        // $store_id = $request -> input('store_id');
-        // $body = $request -> input('body');
-        // $image = $request -> input('image');
-        // $is_store = $request -> input('is_store');
-        // $tanggalWaktu = Carbon::now('YmdHis');
-
-        // dd($validatedData);
-        // $validatedData['id'] = "p" . $validatedData['user_id'] . $validatedData['store_id'];
-
-        // $existing_post = Post::find('id',$validatedData['id_post'])->first();
-        // if($existing_post){
-        //     Session::flash('error','mohon ulangi postingan!');
-        // }else{
-            // $post = new Post();
-            // $post->id = $id_post;
-            // $post->user_id = $user_id;
-            // $post->store_id = $store_id;
-            // $post->body = $body;
-            // $post->image = $image;
-            // $post->is_store = $is_store;
-            // $post->save();
+        
         Post::create($validatedData);
         Session::flash('success','berhasil menambahkan postingan!');
-        // }
 
-        // return redirect('home');
     }
 
     /**
@@ -107,50 +88,6 @@ class PostController extends Controller
         return Inertia::render('Explore',['post'=>$posts,'store'=>$stores]);
     }
 
-    // public function store(Request $request): RedirectResponse
-    // {
-    //     $validatedData = $request->validate([
-    //         'image' => 'image|file|max:1024',
-    //         'body' => 'required'
-    //     ]);
-    //     // $id = $request -> input('id');
-    //     // $user_id = $request -> input('user_id');
-    //     $validatedData['user_id'] = auth()->user()->id;
-    //     // $validatedData['created_at'] = time();
-    //     // $validatedData['updated_at'] = time();
-    //     // $validatedData['user_id'] = auth()->user()->id;
-    //     // $validatedData[''] = auth()->user()->id;
-    //     // $store_id = $request -> input('store_id');
-    //     // $body = $request -> input('body');
-    //     // $image = $request -> input('image');
-    //     // $is_store = $request -> input('is_store');
-    //     // $tanggalWaktu = Carbon::now('YmdHis');
-
-    //     // dd($validatedData);
-    //     // $validatedData['id'] = "p" . $validatedData['user_id'] . $validatedData['store_id'];
-
-    //     // $existing_post = Post::find('id',$validatedData['id_post'])->first();
-    //     // if($existing_post){
-    //     //     Session::flash('error','mohon ulangi postingan!');
-    //     // }else{
-    //         // $post = new Post();
-    //         // $post->id = $id_post;
-    //         // $post->user_id = $user_id;
-    //         // $post->store_id = $store_id;
-    //         // $post->body = $body;
-    //         // $post->image = $image;
-    //         // $post->is_store = $is_store;
-    //         // $post->save();
-    //     Post::create($validatedData);
-    //     Session::flash('success','berhasil menambahkan postingan!');
-    //     // }
-
-    //     return redirect('home');
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Post $post)
     {
         //
