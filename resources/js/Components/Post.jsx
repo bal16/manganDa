@@ -5,7 +5,6 @@ import { useState } from "react";
 
 export default memo(function Post({ content }) {
 
-    // console.log(content);
     const [isBookmarked, setIsBookmarked] = useState(false);
 
     const handleBookmark = async () => {
