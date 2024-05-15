@@ -13,7 +13,8 @@ class Post extends Model
         "like",
         "image",
         "is_store",
-        "user_id"
+        "user_id",
+        "id"
     ];
 
     public function user(){

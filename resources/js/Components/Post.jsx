@@ -1,10 +1,32 @@
 import moment from "moment";
 import { memo } from "react";
+import { Icon } from "@iconify/react";
+import { useState } from "react";
 
 export default memo(function Post({ content }) {
+
+    // console.log(content);
+    const [isBookmarked, setIsBookmarked] = useState(false);
+
+    const handleBookmark = async () => {
+        try {
+            const response = await axios.post(`/bookmark/${content.id}`, {
+                // Jika Anda perlu mengirim data tambahan, Anda bisa tambahkan di sini
+            });
+
+            if (response.status === 200) {
+                setIsBookmarked(true);
+                // Tambahkan logika lain jika bookmark berhasil
+            } else {
+                // Tambahkan logika untuk menangani kasus ketika bookmark gagal
+                console.error('Failed to bookmark post');
+            }
+        } catch (error) {
+            console.error('Error bookmarking post:', error);
+        }
+    };
     return (
-        <a
-            href="#"
+        <div
             className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-[15rem] "
             // key={index}
         >
@@ -36,7 +58,9 @@ export default memo(function Post({ content }) {
                 {/* </input> */}
             </div>
             {/* ? Ini body post*/}
-            <div className="-mt-5 font-light ms-[3.75rem] text-start">
+            <a 
+            href="#"
+            className="-mt-5 font-light ms-[3.75rem] text-start">
                 <p>{content.body}</p>
                 <div className="overflow-hidden bg-slate-700 rounded-xl">
                     {/* ? Ini image post*/}
@@ -48,7 +72,20 @@ export default memo(function Post({ content }) {
                         alt="post"
                     />
                 </div>
+            </a>
+            <div className="flex justify-end mt-2 space-x-4">
+                <button className="text-gray-600 hover:text-gray-800"
+                    onClick={handleBookmark}
+                    disabled={isBookmarked}
+                >
+                    {/* <i className="fas fa-bookmark">bookmark</i> */}
+                    <Icon icon="material-symbols:bookmark" width="2rem" height="2rem" />
+                </button>
+                <button className="text-gray-600 hover:text-gray-800">
+                    {/* <i className="fas fa-comment">comment</i> */}
+                    <Icon icon="material-symbols:comment" width="2rem" height="2rem" />
+                </button>
             </div>
-        </a>
+        </div>
     );
 });

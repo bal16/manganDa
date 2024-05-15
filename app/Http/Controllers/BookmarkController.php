@@ -24,6 +24,7 @@ class BookmarkController extends Controller
      */
     public function create(Request $request)
     {
+        dd($request->id);
         $user_id = $request -> input('user_id');
         $post_id = $request -> input('post_id');
         $bookmark_id = $request -> input("b" . $user_id . $post_id);

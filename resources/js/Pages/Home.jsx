@@ -10,7 +10,7 @@ import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Home({ auth, posts, store }) {
-    // console.log(post);
+    console.log(posts);
     // console.log(store);
     const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({

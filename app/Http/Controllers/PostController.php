@@ -45,19 +45,15 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        $id = 'p' . auth()->user()->id . date('Y-m-d H:i:s');
-        dd($id);
+        $id = 'p' . auth()->user()->id . str_replace([':', '-', ' '], '', date('Y-m-d H:i:s'));
         $validatedData = $request->validate([
             'id'=>'unique',
             'image' => 'image|file|max:1024',
             'body' => 'required',
-            'created_at' => ''
         ]);
 
-        if(Store::select('user_id')->where('user_id','=', auth()->user()->id)){
+        if(Store::where('user_id',auth()->user()->id)->exists()){
             $validatedData['is_store'] = true;
-        }else{
-            $validatedData['is_store'] = false;
         }
 
         if($request ->file('image')){
@@ -66,6 +62,8 @@ class PostController extends Controller
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['id'] = $id;
+        $validatedData['created_at'] = date('Y-m-d H:i:s');
+        $validatedData['updated_at'] = date('Y-m-d H:i:s');
 
         Post::insert($validatedData);
         Session::flash('success','berhasil menambahkan postingan!');
@@ -77,8 +75,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $posts =$post->with(['user','store'])->get();
+        $posts = Post::with(['user','store','bookmark'])->orderBy('created_at','desc')->get();
         $stores = Store::select('id','name')->get();
+
         return Inertia::render('Home',['posts'=>$posts, 'store'=>$stores]);
     }
 
