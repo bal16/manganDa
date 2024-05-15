@@ -1,17 +1,21 @@
 <?php
 
-use App\Http\Controllers\BookmarkController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StoreController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BookmarkController;
 
-// 
+//
 Route::get('/', [PostController::class, 'show'])->name('home');
-Route::post('/', [CommentController::class, 'addPost']);
+Route::post('/', [PostController::class, 'store']);
+// Route::post('/', function (Request $request){
+//     dd($request);
+// });
 
 
 // dashboard
