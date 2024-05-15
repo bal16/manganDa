@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bookmark;
 use App\Models\Post;
 use App\Models\User;
 use Inertia\Inertia;
@@ -77,8 +78,9 @@ class PostController extends Controller
     {
         $posts = Post::with(['user','store','bookmark'])->orderBy('created_at','desc')->get();
         $stores = Store::select('id','name')->get();
+        $bookmark = Bookmark::where('user_id',auth()->user()->id)->get();
 
-        return Inertia::render('Home',['posts'=>$posts, 'store'=>$stores]);
+        return Inertia::render('Home',['posts'=>$posts, 'store'=>$stores, 'bookmark'=>$bookmark]);
     }
 
     public function showSearch(Request $request)

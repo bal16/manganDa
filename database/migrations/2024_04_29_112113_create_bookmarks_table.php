@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bookmarks', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();    
             $table->unsignedBigInteger('user_id');
             $table->string('post_id');
             $table->timestamps();

@@ -2,26 +2,29 @@ import moment from "moment";
 import { memo } from "react";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import axios from "axios";
 
-export default memo(function Post({ content }) {
+export default memo(function Post({ content}) {
+    
+    const id = content.bookmark.map((a) => a.id);
+    const post_id = content.bookmark.map((a) => a.post_id);
 
-    const [isBookmarked, setIsBookmarked] = useState(false);
+    const [isBookmarked, setIsBookmarked] = useState(id.length > 0);
 
     const handleBookmark = async () => {
         try {
-            const response = await axios.post(`/bookmark/${content.id}`, {
-                // Jika Anda perlu mengirim data tambahan, Anda bisa tambahkan di sini
-            });
-
-            if (response.status === 200) {
-                setIsBookmarked(true);
-                // Tambahkan logika lain jika bookmark berhasil
+            if (isBookmarked) {
+                await axios.delete(`/bookmark/${id[0]}`);
+                setIsBookmarked(false);
             } else {
-                // Tambahkan logika untuk menangani kasus ketika bookmark gagal
-                console.error('Failed to bookmark post');
+                const response = await axios.post(`/bookmarks/${content.id}`);
+                console.log('Bookmark berhasil ditambahkan:', response.data);
+                setIsBookmarked(true);
             }
+            window.location.reload();
         } catch (error) {
-            console.error('Error bookmarking post:', error);
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat menambahkan bookmark');
         }
     };
     return (
@@ -75,10 +78,9 @@ export default memo(function Post({ content }) {
             <div className="flex justify-end mt-2 space-x-4">
                 <button className="text-gray-600 hover:text-gray-800"
                     onClick={handleBookmark}
-                    disabled={isBookmarked}
                 >
                     {/* <i className="fas fa-bookmark">bookmark</i> */}
-                    <Icon icon="material-symbols:bookmark" width="2rem" height="2rem" />
+                    <Icon icon="material-symbols:bookmark" style={{ color: isBookmarked ? '#ff0000' : '#fffff' }} width="2rem" height="2rem" />
                 </button>
                 <button className="text-gray-600 hover:text-gray-800">
                     {/* <i className="fas fa-comment">comment</i> */}

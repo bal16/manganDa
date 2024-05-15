@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Bookmark;
 use App\Http\Requests\StorebookmarkRequest;
 use App\Http\Requests\UpdatebookmarkRequest;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Session;
+
 
 class BookmarkController extends Controller
 {
@@ -22,25 +24,22 @@ class BookmarkController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create(Request $request, $post_id)
     {
-        dd($request->id);
-        $user_id = $request -> input('user_id');
-        $post_id = $request -> input('post_id');
-        $bookmark_id = $request -> input("b" . $user_id . $post_id);
+        $user_id = auth()->user()->id;
+        $id = 'b' . $post_id . $user_id;
 
-        $existingBookmark = Bookmark::find('id',$bookmark_id)->first();
+        $existingBookmark = Bookmark::where('id', $id)->exists();
 
         if($existingBookmark){
-            Session::flash('error','Bookmark telah tersedia!');
+            return redirect()->back()->with('alert','bookmark sudah ada');
         }else{
-            $bookmark = new Bookmark();
-            $bookmark->id = $bookmark_id;
-            $bookmark->user_id = $user_id;
-            $bookmark->post_id = $post_id;
-            $bookmark->save();
+            $validatedData['id'] = $id;
+            $validatedData['user_id'] = auth()->user()->id;
+            $validatedData['post_id'] = $post_id;
 
-            Session::flash('success','Bookmark berhasil ditambahkan');
+            Bookmark::insert($validatedData);
+            
         }
         return redirect()->back();
     }
@@ -58,10 +57,14 @@ class BookmarkController extends Controller
      */
     public function show(Request $request)
     {
-        $id = auth()->user()->id;
-        $bookmarks = Bookmark::where('user_id', $id)->get();
+        $user = $request->user();
+
+        $posts = Post::whereHas('bookmark', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->with(['user','bookmark'])->get();
+
         return Inertia::render('Bookmark',[
-            'bookmark'=>$bookmarks
+            'post'=>$posts
         ]);
     }
 
@@ -86,15 +89,12 @@ class BookmarkController extends Controller
      */
     public function destroy(bookmark $bookmark, Request $request, $id)
     {
+        try {
         $bookmark = Bookmark::findOrFail($id);
-
-        if ($bookmark->user_id !== auth()->user()->id) {
-            abort(403); 
-        }
-
         $bookmark->delete();
-
-        Session::flash('success','bookmark telah dihapus');
-        return redirect()->back();
+        return response()->json(['message' => 'Bookmark berhasil dihapus'], 200);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Gagal menghapus bookmark'], 500);
+    }
     }
 }

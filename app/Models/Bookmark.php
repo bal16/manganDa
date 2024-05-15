@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bookmark extends Model
 {
+    public $incrementing = false;
+
     use HasFactory;
     protected $fillable = [
         'user_id',
         'post_id',
+        'id'
     ];
     public function user()
     {

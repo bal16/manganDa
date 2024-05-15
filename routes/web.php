@@ -37,13 +37,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // post
-    Route::post('/bookmark/{id}',[PostController::class, 'create'])->name('bookmark.create');
+    Route::post('/post/{user_id}/{store_id}',[PostController::class, 'create'])->name('post.create');
     Route::delete('/post/{id_post}',[PostController::class, 'destroy'])->name('post.destroy');
 
     // bookmark
     Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark');
     Route::delete('/bookmark/{id}',[BookmarkController::class, 'destroy'])->name('bookmark.destroy');
-    Route::post('/bookmarks/{post_id}/{user_id}',[BookmarkController::class, 'create'])->name('bookmark.create');
+    Route::post('/bookmarks/{id}',[BookmarkController::class, 'create'])->name('bookmark.create');
 });
 
 
