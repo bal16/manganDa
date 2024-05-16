@@ -4,22 +4,27 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 import axios from "axios";
 
-export default memo(function Post({ content}) {
-    
-    const id = content.bookmark.map((a) => a.id);
-    const post_id = content.bookmark.map((a) => a.post_id);
+export default memo(function Post({auth, content, bookmark}) {
 
-    const [isBookmarked, setIsBookmarked] = useState(id.length > 0);
+
+    console.log(bookmark)
+    // console.log(content)
+
+    const cek_user = auth
+    console.log(cek_user)
 
     const handleBookmark = async () => {
         try {
-            if (isBookmarked) {
-                await axios.delete(`/bookmark/${id[0]}`);
-                setIsBookmarked(false);
+            if (!auth || !auth.user) {
+                window.location.href = '/login';
+                return;
+            }
+
+            if (bookmark.bookmarked) {
+                await axios.delete(`/bookmark/${bookmark.bookmark_id}`);
             } else {
                 const response = await axios.post(`/bookmarks/${content.id}`);
                 console.log('Bookmark berhasil ditambahkan:', response.data);
-                setIsBookmarked(true);
             }
             window.location.reload();
         } catch (error) {
@@ -27,6 +32,7 @@ export default memo(function Post({ content}) {
             alert('Terjadi kesalahan saat menambahkan bookmark');
         }
     };
+
     return (
         <div
             className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-[15rem] "
@@ -80,7 +86,10 @@ export default memo(function Post({ content}) {
                     onClick={handleBookmark}
                 >
                     {/* <i className="fas fa-bookmark">bookmark</i> */}
-                    <Icon icon="material-symbols:bookmark" style={{ color: isBookmarked ? '#ff0000' : '#fffff' }} width="2rem" height="2rem" />
+                    <Icon icon="material-symbols:bookmark" 
+                        style={{ color: bookmark.bookmarked ? '#FF0000' : '#808080' }}
+                        width="2rem" height="2rem" 
+                    />
                 </button>
                 <button className="text-gray-600 hover:text-gray-800">
                     {/* <i className="fas fa-comment">comment</i> */}

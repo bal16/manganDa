@@ -10,18 +10,43 @@ import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Home({ auth, posts, store, bookmark }) {
-    // console.log(posts);
-    // console.log(store);
-    // console.log(bookmark);
+
     const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
     });
+
+    // Check if bookmark data is available
+    const bookmarkMap = bookmark ? {} : null;
+
+    if (bookmark) {
+        bookmark.forEach((b) => {
+            bookmarkMap[b.post_id] = {
+                bookmark_id: b.id,
+                bookmarked: true
+            };
+        });
+    }
+
+    const getBookmarkStatus = (postId) => {
+        if (bookmarkMap && bookmarkMap[postId]) {
+            return {
+                bookmark_id: bookmarkMap[postId].bookmark_id,
+                bookmarked: true
+            };
+        } else {
+            return {
+                bookmark_id: null,
+                bookmarked: false
+            };
+        }
+    };
+
     const submit = (e) => {
         e.preventDefault();
-
         post(route("home"));
     };
+
     return (
         <>
             <div
@@ -43,13 +68,11 @@ export default function Home({ auth, posts, store, bookmark }) {
                 <Head title="Test" />
                 <Navbar auth={auth} />
                 <MainContent>
-                    <Header></Header>
+                    <Header />
                     <form
                         onSubmit={submit}
-                        // action=""
-                        className="pt-5 px-4 md:px-10 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100  "
+                        className="pt-5 px-4 md:px-10 h-36 border-b-[0.1px] border-marshland-950 bg-ecru-white-100"
                     >
-                        {/* Made a Post{auth&&","} {auth?.user?.name}? */}
                         <div className="flex">
                             <div className="w-12 h-12 overflow-hidden bg-black rounded-full me-2">
                                 <img
@@ -58,7 +81,6 @@ export default function Home({ auth, posts, store, bookmark }) {
                                     alt=""
                                 />
                             </div>
-
                             <textarea
                                 className="w-4/5 h-12 px-5 py-3 font-light bg-transparent border-none resize-none overscroll-none focus:ring-0"
                                 name="body"
@@ -68,7 +90,6 @@ export default function Home({ auth, posts, store, bookmark }) {
                                 }
                                 placeholder="Ada Rekomendasi Makanan?!"
                             />
-                            {/* </input> */}
                         </div>
                         <div className="flex mt-3">
                             <div className="flex w-5/6 mt-3">
@@ -84,12 +105,10 @@ export default function Home({ auth, posts, store, bookmark }) {
                                 >
                                     <Icon
                                         icon="bxs:image-add"
-                                        width="1,25em"
-                                        height="1,25em"
+                                        width="1.25em"
+                                        height="1.25em"
                                     />
                                 </label>
-                                {/* store */}
-                                {/* */}
                                 <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
                                 <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
                                 <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
@@ -97,23 +116,25 @@ export default function Home({ auth, posts, store, bookmark }) {
                                 <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
                             </div>
                             <button
-                                // type="submit"
                                 disabled={processing}
-                                // onClick={() => setPostModal(!postModal)}
                                 className="py-2 mt-1 rounded-full px-7 bg-green-yellow-600"
                             >
                                 Post
                             </button>
                         </div>
                     </form>
-                    <section className="">
-                        {posts.map((a, index) => (
-                            <Post 
-                                key={index} 
-                                content={a}
-                                
-                            />
-                        ))}
+                    <section>
+                        {posts.map((a, index) => {
+                            const bookmarkStatus = getBookmarkStatus(a.id);
+                            return (
+                                <Post 
+                                    key={index} 
+                                    content={a}
+                                    bookmark={bookmarkStatus}
+                                    auth={auth}
+                                />
+                            );
+                        })}
                     </section>
                 </MainContent>
                 <Sidebar />

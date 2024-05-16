@@ -10,15 +10,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Post;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function show(Request $request): Response
+    public function show(Request $request)
     {
-        return Inertia::render('Profile');
+        $user = auth()->user()->id;
+
+        $post = Post::where('user_id',$user)->with(['user','bookmark'])->orderBy('created_at','desc')->get();
+
+        return Inertia::render('Profile',[
+            'post'=>$post
+        ]);
     }
     public function edit(Request $request): Response
     {

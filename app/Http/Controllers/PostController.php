@@ -74,12 +74,15 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Post $post, Request $request)
     {
         $posts = Post::with(['user','store','bookmark'])->orderBy('created_at','desc')->get();
         $stores = Store::select('id','name')->get();
-        $bookmark = Bookmark::where('user_id',auth()->user()->id)->get();
+        $bookmark = null; 
 
+        if ($request->user()) {
+            $bookmark = Bookmark::where('user_id', $request->user()->id)->get(); 
+        }
         return Inertia::render('Home',['posts'=>$posts, 'store'=>$stores, 'bookmark'=>$bookmark]);
     }
 
