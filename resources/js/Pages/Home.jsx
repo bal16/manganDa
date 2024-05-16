@@ -1,4 +1,5 @@
 import Header from "@/Components/Header";
+import InputError from "@/Components/InputError";
 import MainContent from "@/Components/MainContent";
 import Navbar from "@/Components/Navbar";
 import NavbarResponsive from "@/Components/NavbarResposive";
@@ -22,6 +23,7 @@ export default function Home({ auth, posts, store, bookmark }) {
         e.preventDefault();
 
         post(route("home"));
+        reset(["body", "image"]);
     };
     return (
         <>
@@ -106,6 +108,10 @@ export default function Home({ auth, posts, store, bookmark }) {
                                 Post
                             </button>
                         </div>
+                        <InputError
+                                message={errors.image}
+                                className="mt-2"
+                            />
                     </form>
                     <section className="">
                         {posts.map((a, index) => (
