@@ -8,7 +8,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Bookmark({ auth, post }) {
+export default function Bookmark({ auth, post, bookmark }) {
     console.log(post);
     const [postModal, setPostModal] = useState(false);
     return (
@@ -32,46 +32,12 @@ export default function Bookmark({ auth, post }) {
                 <Head title="Bookmark" />
                 <Navbar auth={auth} />
                 <MainContent>
-                    <Header></Header>
-                    <section className="pt-5 px-4 md:px-10 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100  ">
-                        {/* Made a Post{auth&&","} {auth?.user?.name}? */}
-                        <div className="flex">
-                            <div className="w-12 h-12 overflow-hidden bg-black rounded-full me-2">
-                                <img
-                                    className="object-cover"
-                                    src="https://source.unsplash.com/50x50?photo-profile"
-                                    alt=""
-                                />
-                            </div>
-
-                            <textarea
-                                className="w-4/5 h-12 px-5 py-3 font-light bg-transparent border-none resize-none overscroll-none focus:ring-0"
-                                placeholder="Ada Rekomendasi Makanan?!"
-                            />
-                            {/* </input> */}
-                        </div>
-                        <div className="flex mt-3">
-                            <div className="flex w-5/6 mt-3 ">
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-5 h-5 bg-green-yellow-600 me-2"></span>
-                            </div>
-                            <button
-                                onClick={() => setPostModal(!postModal)}
-                                className="py-2 mt-1 rounded-full px-7 bg-green-yellow-600"
-                            >
-                                Post
-                            </button>
-                        </div>
-                    </section>
                     <section className="">
                         {post.map((a, index) => (
                             <Post 
                                 key={index}
                                 content={a}
+                                Bookmark={bookmark}
                             />
                         ))}
                     </section>

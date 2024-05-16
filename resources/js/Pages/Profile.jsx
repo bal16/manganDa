@@ -7,7 +7,7 @@ import Sidebar from "@/Components/Sidebar";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Profile({ auth }) {
+export default function Profile({ auth, post }) {
     return (
         <>
             <DefaultLayout>
@@ -18,12 +18,14 @@ export default function Profile({ auth }) {
                     <section className="p-2 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100">
                         Ini Profile {auth?.user?.name}
                     </section>
-                    {/* <section className="">
-                        <Post />
-                        <Post />
-                        <Post />
-                        <Post />
-                    </section> */}
+                    <section className="">                      
+                        {post.map((a, index) => (
+                            <Post 
+                            key={index}
+                            content={a}
+                            />
+                        ))}
+                    </section>
                 </MainContent>
                 <Sidebar>Sidebar</Sidebar>
             </DefaultLayout>
