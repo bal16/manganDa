@@ -4,38 +4,31 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 import axios from "axios";
 
-export default memo(function Post({auth, content, bookmark}) {
+export default memo(function Post({ content }) {
+    const id = content.bookmark.map((a) => a.id);
+    const post_id = content.bookmark.map((a) => a.post_id);
 
-
-    console.log(bookmark)
-    // console.log(content)
-
-    const cek_user = auth
-    console.log(cek_user)
+    const [isBookmarked, setIsBookmarked] = useState(id.length > 0);
 
     const handleBookmark = async () => {
         try {
-            if (!auth || !auth.user) {
-                window.location.href = '/login';
-                return;
-            }
-
-            if (bookmark.bookmarked) {
-                await axios.delete(`/bookmark/${bookmark.bookmark_id}`);
+            if (isBookmarked) {
+                await axios.delete(`/bookmark/${id[0]}`);
+                setIsBookmarked(false);
             } else {
                 const response = await axios.post(`/bookmarks/${content.id}`);
-                console.log('Bookmark berhasil ditambahkan:', response.data);
+                console.log("Bookmark berhasil ditambahkan:", response.data);
+                setIsBookmarked(true);
             }
             window.location.reload();
         } catch (error) {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat menambahkan bookmark');
+            console.error("Error:", error);
+            alert("Terjadi kesalahan saat menambahkan bookmark");
         }
     };
-
     return (
         <div
-            className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-[15rem] "
+            className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-full "
             // key={index}
         >
             {/* ? Ini header post*/}
@@ -66,34 +59,41 @@ export default memo(function Post({auth, content, bookmark}) {
                 {/* </input> */}
             </div>
             {/* ? Ini body post*/}
-            <a 
-            href="#"
-            className="-mt-5 font-light ms-[3.75rem] text-start">
+            <a href="#" className="-mt-5 font-light ms-[3.75rem] text-start">
                 <p>{content.body}</p>
                 <div className="overflow-hidden bg-slate-700 rounded-xl">
                     {/* ? Ini image post*/}
 
                     {/* row-span-full + h-full */}
-                    <img
-                        className="w-full"
-                        src="https://source.unsplash.com/400x300?post"
-                        alt="post"
-                    />
+                    {(content.image)?
+                        (<img
+                            className="w-full"
+                            src={"/storage/" + content.image}
+                            alt={"postimage-"+content.id}
+                        />):""
+                    }
                 </div>
             </a>
             <div className="flex justify-end mt-2 space-x-4">
-                <button className="text-gray-600 hover:text-gray-800"
+                <button
+                    className="text-gray-600 hover:text-gray-800"
                     onClick={handleBookmark}
                 >
                     {/* <i className="fas fa-bookmark">bookmark</i> */}
-                    <Icon icon="material-symbols:bookmark" 
-                        style={{ color: bookmark.bookmarked ? '#FF0000' : '#808080' }}
-                        width="2rem" height="2rem" 
+                    <Icon
+                        icon="material-symbols:bookmark"
+                        style={{ color: isBookmarked ? "#ff0000" : "#fffff" }}
+                        width="2rem"
+                        height="2rem"
                     />
                 </button>
                 <button className="text-gray-600 hover:text-gray-800">
                     {/* <i className="fas fa-comment">comment</i> */}
-                    <Icon icon="material-symbols:comment" width="2rem" height="2rem" />
+                    <Icon
+                        icon="material-symbols:comment"
+                        width="2rem"
+                        height="2rem"
+                    />
                 </button>
             </div>
         </div>
