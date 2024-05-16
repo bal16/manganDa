@@ -16,6 +16,7 @@ export default function Home({ auth, posts, store, bookmark }) {
     const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
+        image: null,
     });
     const submit = (e) => {
         e.preventDefault();
@@ -74,14 +75,14 @@ export default function Home({ auth, posts, store, bookmark }) {
                             <div className="flex w-5/6 mt-3">
                                 <input
                                     type="file"
-                                    name="uploadFile"
-                                    id="uploadFile"
+                                    name="image"
+                                    id="image"
+                                    onChange={(e) =>
+                                        setData("image", e.target.files[0])
+                                    }
                                     className="hidden"
                                 />
-                                <label
-                                    htmlFor="uploadFile"
-                                    className="w-6 h-6 me-2"
-                                >
+                                <label htmlFor="image" className="w-6 h-6 me-2">
                                     <Icon
                                         icon="bxs:image-add"
                                         width="1,25em"
@@ -108,11 +109,7 @@ export default function Home({ auth, posts, store, bookmark }) {
                     </form>
                     <section className="">
                         {posts.map((a, index) => (
-                            <Post 
-                                key={index} 
-                                content={a}
-                                
-                            />
+                            <Post key={index} content={a} />
                         ))}
                     </section>
                 </MainContent>
