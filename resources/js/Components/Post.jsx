@@ -4,21 +4,22 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 import axios from "axios";
 
-export default memo(function Post({ content }) {
-    const id = content.bookmark.map((a) => a.id);
-    const post_id = content.bookmark.map((a) => a.post_id);
+export default memo(function Post({auth, content }) {
 
-    const [isBookmarked, setIsBookmarked] = useState(id.length > 0);
+    console.log(content)
+
 
     const handleBookmark = async () => {
         try {
-            if (isBookmarked) {
-                await axios.delete(`/bookmark/${id[0]}`);
-                setIsBookmarked(false);
+            if(!auth || !auth.user){
+                window.location = '/login';
+                return;
+            }
+            if (content.isBookmark) {
+                await axios.delete(`/bookmark/${content.bookmark_id}`);
             } else {
                 const response = await axios.post(`/bookmarks/${content.id}`);
                 console.log("Bookmark berhasil ditambahkan:", response.data);
-                setIsBookmarked(true);
             }
             window.location.reload();
         } catch (error) {
@@ -82,7 +83,7 @@ export default memo(function Post({ content }) {
                     {/* <i className="fas fa-bookmark">bookmark</i> */}
                     <Icon
                         icon="material-symbols:bookmark"
-                        style={{ color: isBookmarked ? "#ff0000" : "#fffff" }}
+                        style={{ color: content.isBookmark ? "#ff0000" : "#fffff" }}
                         width="2rem"
                         height="2rem"
                     />

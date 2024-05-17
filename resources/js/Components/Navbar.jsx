@@ -86,6 +86,24 @@ export default memo(function Navbar({ auth }) {
                             </span>
                         </NavbarLink>
                     </li>
+                    <li>
+                        <NavbarLink
+                            active={route().current("logout")}
+                            href={route("logout")}
+                            method='post'
+                            as="button"
+                        >
+                            <Icon 
+                                icon="material-symbols:logout"  
+                                style={{color: '#595952'}} 
+                                width="2rem"
+                                height="2rem"
+                            />
+                            <span className="flex-1 ms-3 whitespace-nowrap">
+                                Log-out
+                            </span>
+                        </NavbarLink>
+                    </li>
                     {/* <li className={open ? "bg-ecru-white-200 rounded-xl" : ""}>
                         <button
                             className={

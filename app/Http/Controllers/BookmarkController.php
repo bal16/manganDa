@@ -64,9 +64,10 @@ class BookmarkController extends Controller
         })->with(['user','bookmark'])->get();
 
         $bookmark = Bookmark::where('user_id',$request->user()->id)->get();
+        $posts->isBookmark = true;
 
         return Inertia::render('Bookmark',[
-            'post'=>$posts,'bookmark'=>$bookmark
+            'posts'=>$posts,'bookmark'=>$bookmark
         ]);
     }
 

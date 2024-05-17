@@ -8,8 +8,8 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Bookmark({ auth, post, bookmark }) {
-    console.log(post);
+export default function Bookmark({ auth, posts, bookmark }) {
+    console.log(posts);
     const [postModal, setPostModal] = useState(false);
     return (
         <>
@@ -33,7 +33,7 @@ export default function Bookmark({ auth, post, bookmark }) {
                 <Navbar auth={auth} />
                 <MainContent>
                     <section className="">
-                        {post.map((a, index) => (
+                        {posts.map((a, index) => (
                             <Post 
                                 key={index}
                                 content={a}

@@ -74,16 +74,40 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post, Request $request)
+    public function show(Request $request)
     {
-        $posts = Post::with(['user','store','bookmark'])->orderBy('created_at','desc')->get();
-        $stores = Store::select('id','name')->get();
-        $bookmark = null; 
+        // Mendapatkan semua post dengan relasi user, store, dan bookmark
+        $posts = Post::with(['user', 'store', 'bookmark'])->orderBy('created_at', 'desc')->get();
 
+        // Mendapatkan semua store
+        $stores = Store::select('id', 'name')->get();
+
+        // Inisialisasi variabel bookmark
+        $userBookmarks = collect();
+
+        // Memeriksa apakah pengguna telah login
         if ($request->user()) {
-            $bookmark = Bookmark::where('user_id', $request->user()->id)->get(); 
+            // Mendapatkan semua bookmark milik pengguna yang sedang login
+            $userBookmarks = Bookmark::where('user_id', $request->user()->id)->get()->keyBy('post_id');
         }
-        return Inertia::render('Home',['posts'=>$posts, 'store'=>$stores, 'bookmark'=>$bookmark]);
+
+        // Menambahkan kolom isBookmark ke setiap post
+        $posts->each(function ($post) use ($userBookmarks) {
+            if ($userBookmarks->has($post->id)) {
+                $post->isBookmark = true;
+                $post->bookmark_id = $userBookmarks->get($post->id)->id;
+            } else {
+                $post->isBookmark = false;
+                $post->bookmark_id = null;
+            }
+        });
+
+        // Mengembalikan response dengan data yang telah dimodifikasi
+        return Inertia::render('Home', [
+            'posts' => $posts,
+            'stores' => $stores,
+            'bookmark' => $userBookmarks
+        ]);
     }
 
     public function showSearch(Request $request)

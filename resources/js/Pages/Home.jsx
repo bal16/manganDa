@@ -10,10 +10,8 @@ import { Icon } from "@iconify/react";
 import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Home({ auth, posts, store, bookmark }) {
+export default function Home({ auth, posts, stores, bookmark }) {
     // console.log(posts);
-    // console.log(store);
-    // console.log(bookmark);
     const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
@@ -115,7 +113,10 @@ export default function Home({ auth, posts, store, bookmark }) {
                     </form>
                     <section className="">
                         {posts.map((a, index) => (
-                            <Post key={index} content={a} />
+                            <Post key={index} 
+                            content={a} 
+                            auth={auth}
+                            />
                         ))}
                     </section>
                 </MainContent>
