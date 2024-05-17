@@ -86,23 +86,6 @@ export default memo(function Navbar({ auth }) {
                             </span>
                         </NavbarLink>
                     </li>
-                    {/* <li>
-                        <NavbarLink
-                            href={route("logout")}
-                            method="post"
-                            as="button"
-                        >
-                            <Icon
-                                icon="material-symbols:logout"
-                                // style={{ color: "#595952" }}
-                                width="2rem"
-                                height="2rem"
-                            />
-                            <span className="flex-1 text-start ms-3 whitespace-nowrap">
-                                Log-out
-                            </span>
-                        </NavbarLink>
-                    </li> */}
                 </ul>
                 <div className="fixed bottom-24">
                     <a
@@ -116,7 +99,7 @@ export default memo(function Navbar({ auth }) {
                     </a>
                 </div>
 
-                <div className="fixed bottom-10">
+                <div className="fixed bottom-10 ">
                     <NavbarLink
                         href={route("logout")}
                         method="post"
@@ -128,7 +111,7 @@ export default memo(function Navbar({ auth }) {
                             width="2rem"
                             height="2rem"
                         />
-                        <span className="flex-1 text-start ms-3 whitespace-nowrap">
+                        <span className="flex-1 me-24 text-start ms-3 whitespace-nowrap">
                             Log-out
                         </span>
                     </NavbarLink>
