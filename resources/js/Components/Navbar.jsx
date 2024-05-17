@@ -86,85 +86,53 @@ export default memo(function Navbar({ auth }) {
                             </span>
                         </NavbarLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavbarLink
-                            active={route().current("logout")}
                             href={route("logout")}
-                            method='post'
+                            method="post"
                             as="button"
                         >
-                            <Icon 
-                                icon="material-symbols:logout"  
-                                style={{color: '#595952'}} 
+                            <Icon
+                                icon="material-symbols:logout"
+                                // style={{ color: "#595952" }}
                                 width="2rem"
                                 height="2rem"
                             />
-                            <span className="flex-1 ms-3 whitespace-nowrap">
+                            <span className="flex-1 text-start ms-3 whitespace-nowrap">
                                 Log-out
                             </span>
                         </NavbarLink>
-                    </li>
-                    {/* <li className={open ? "bg-ecru-white-200 rounded-xl" : ""}>
-                        <button
-                            className={
-                                "flex items-center w-full p-2 rounded-lg hover:text-marshland-950 hover:bg-ecru-white-300 text-marshland-600 " +
-                                (open && " text-marshland-950")
-                            }
-                            onClick={() => setOpen(!open)}
-                        >
-                            <Icon
-                                icon="ph:dots-three-circle-light"
-                                width="2rem"
-                                height="2rem"
-                                rotate="90deg"
-                            />
-                            <span className="flex-1 w-full text-start ms-3 whitespace-nowrap ">
-                                Others
-                            </span>
-                            <Icon icon="uit:direction" />
-                        </button>
-                        <ul
-                            id="dropdown"
-                            className={
-                                "py-2 space-y-2 ps-7  " + (!open && " hidden ")
-                            }
-                        >
-                            <li>
-                                <NavbarLink
-                                    href="#"
-                                    linkStyle="  transition duration-150 "
-                                >
-                                    <span className="">Bookmark</span>
-                                </NavbarLink>
-                            </li>
-                            <li>
-                                <NavbarLink
-                                    href="#"
-                                    linkStyle="  transition duration-150 "
-                                >
-                                    <span className="">Mode</span>
-                                </NavbarLink>
-                            </li>
-                            <li>
-                                <NavbarLink
-                                    href="#"
-                                    linkStyle="  transition duration-150 "
-                                >
-                                    <span className="">Settings</span>
-                                </NavbarLink>
-                            </li>
-                        </ul>
-                    </li>*/}
+                    </li> */}
                 </ul>
-                <a
-                    href=""
-                    className={
-                        "relative block w-full p-2 text-center rounded-full  bg-green-yellow-600 " +
-                        (!open ? " top-[35rem]" : "top-[25.5rem]")
-                    }
-                >
-                    Posting
-                </a>
+                <div className="fixed bottom-24">
+                    <a
+                        href=""
+                        className={
+                            " block w-full p-2 px-14 text-center rounded-full  bg-green-yellow-600 " +
+                            (!open ? " top-[35rem]" : "top-[25.5rem]")
+                        }
+                    >
+                        Posting
+                    </a>
+                </div>
+
+                <div className="fixed bottom-10">
+                    <NavbarLink
+                        href={route("logout")}
+                        method="post"
+                        as="button"
+                    >
+                        <Icon
+                            icon="material-symbols:logout"
+                            // style={{ color: "#595952" }}
+                            width="2rem"
+                            height="2rem"
+                        />
+                        <span className="flex-1 text-start ms-3 whitespace-nowrap">
+                            Log-out
+                        </span>
+                    </NavbarLink>
+                </div>
             </div>
         </nav>
     );
