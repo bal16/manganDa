@@ -15,7 +15,6 @@ export default function Home({ auth, posts, stores, bookmark }) {
     const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
-        image: null,
     });
     const submit = (e) => {
         e.preventDefault();
@@ -106,17 +105,11 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                 Post
                             </button>
                         </div>
-                        <InputError
-                                message={errors.image}
-                                className="mt-2"
-                            />
+                        <InputError message={errors.image} className="mt-2" />
                     </form>
                     <section className="">
                         {posts.map((a, index) => (
-                            <Post key={index} 
-                            content={a} 
-                            auth={auth}
-                            />
+                            <Post key={index} content={a} auth={auth} />
                         ))}
                     </section>
                 </MainContent>
