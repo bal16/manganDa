@@ -46,6 +46,10 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        if(!auth()->user()){
+            return redirect('/login');
+        }
+
         $id = 'p' . auth()->user()->id . str_replace([':', '-', ' '], '', date('Y-m-d H:i:s'));
         $validatedData = $request->validate([
             'id'=>'unique',

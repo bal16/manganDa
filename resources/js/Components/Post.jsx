@@ -6,6 +6,12 @@ import axios from "axios";
 function Post({ auth, content }) {
     const [bookmarked, setBookmarked] = useState(content.isBookmark);
 
+    const isOwner = false
+    if(auth.user){
+        const isOwner = auth.user.id  === content.user_id;
+    }
+
+
     const handleBookmark = async () => {
         if (!auth || !auth.user) {
             window.location = "/login";
@@ -64,6 +70,17 @@ function Post({ auth, content }) {
             </a>
 
             <div className="flex justify-end mt-2 space-x-4">
+                <button
+                    className="text-gray-600 hover:text-gray-800"
+                    onClick={'/'}
+                >
+                    <Icon 
+                        icon="ic:round-report-problem"  
+                        style={{color: '#4B5563', display: isOwner? 'none' : 'block'}} 
+                        width="2rem"
+                        height="2rem"
+                    />
+                </button>
                 <button
                     className="text-gray-600 hover:text-gray-800"
                     onClick={handleBookmark}
