@@ -20,11 +20,11 @@ class ProfileController extends Controller
     public function show(Request $request)
     {
         $user = auth()->user()->id;
-
         $post = Post::where('user_id',$user)->with(['user','bookmark'])->orderBy('created_at','desc')->get();
-
+        // dd(auth()->user());
         return Inertia::render('Profile',[
-            'post'=>$post
+            'post'=>$post,
+            // 'user'=>auth()->user()
         ]);
     }
     public function edit(Request $request): Response

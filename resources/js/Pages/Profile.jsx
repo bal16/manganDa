@@ -8,6 +8,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Profile({ auth, post }) {
+    // console.log("ini",auth);
     return (
         <>
             <DefaultLayout>
@@ -18,11 +19,12 @@ export default function Profile({ auth, post }) {
                     <section className="p-2 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100">
                         Ini Profile {auth?.user?.name}
                     </section>
-                    <section className="">                      
+                    <section className="">
                         {post.map((a, index) => (
-                            <Post 
+                            <Post
                             key={index}
                             content={a}
+                            auth={auth}
                             />
                         ))}
                     </section>

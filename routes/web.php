@@ -11,8 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookmarkController;
 
 //
-Route::get('/', [PostController::class, 'show'])->name('home');
-Route::post('/', [PostController::class, 'store']);
+
 // Route::post('/', function (Request $request){
 //     dd($request);
 // });
@@ -30,6 +29,11 @@ Route::get('/stores',[StoreController::class, 'show'])->name('stores');
 Route::get('/explore',[PostController::class, 'showSearch'])->name('explore');
 
 Route::middleware('auth')->group(function () {
+    //Home
+    Route::get('/', [PostController::class, 'show'])->name('home');
+    Route::post('/', [PostController::class, 'store']);
+    Route::get('/post/{id}', [PostController::class, 'index']);
+    Route::post('/post/{id}', [CommentController::class, 'store']);
     // profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');

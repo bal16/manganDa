@@ -27,7 +27,12 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
+        $post = Post::with(['user', 'store', 'bookmark'])->find($request->id);
 
+        // dd($post);
+        return Inertia::render('SinglePost',[
+            'post' => $post
+        ]);
     }
 
     /**
