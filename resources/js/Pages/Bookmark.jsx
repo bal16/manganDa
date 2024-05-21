@@ -9,7 +9,7 @@ import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Bookmark({ auth, posts, bookmark }) {
-    console.log(posts);
+    // console.log(posts);
     const [postModal, setPostModal] = useState(false);
     return (
         <>
@@ -34,9 +34,10 @@ export default function Bookmark({ auth, posts, bookmark }) {
                 <MainContent>
                     <section className="">
                         {posts.map((a, index) => (
-                            <Post 
+                            <Post
                                 key={index}
                                 content={a}
+                                auth={auth}
                                 Bookmark={bookmark}
                             />
                         ))}

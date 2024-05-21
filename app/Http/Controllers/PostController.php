@@ -101,7 +101,7 @@ class PostController extends Controller
                 $post->bookmark_id = null;
             }
         });
-
+        // dd($posts);
         // Mengembalikan response dengan data yang telah dimodifikasi
         return Inertia::render('Home', [
             'posts' => $posts,

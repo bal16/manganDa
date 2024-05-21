@@ -18,7 +18,7 @@ class BookmarkController extends Controller
      */
     public function index()
     {
-    
+
     }
 
     /**
@@ -39,7 +39,7 @@ class BookmarkController extends Controller
             $validatedData['post_id'] = $post_id;
 
             Bookmark::insert($validatedData);
-            
+
         }
         return redirect()->back();
     }
@@ -49,7 +49,7 @@ class BookmarkController extends Controller
      */
     public function store(Request $request, $post_id, $id_user)
     {
-        
+
     }
 
     /**
@@ -63,11 +63,24 @@ class BookmarkController extends Controller
             $query->where('user_id', $user->id);
         })->with(['user','bookmark'])->get();
 
-        $bookmark = Bookmark::where('user_id',$request->user()->id)->get();
-        $posts->isBookmark = true;
+        $userBookmarks = collect();
 
+        // Memeriksa apakah pengguna telah login
+        if ($request->user()) {
+            // Mendapatkan semua bookmark milik pengguna yang sedang login
+            $userBookmarks = Bookmark::where('user_id', $request->user()->id)->get()->keyBy('post_id');
+        }
+        $posts->each(function ($post) use ($userBookmarks) {
+            if ($userBookmarks->has($post->id)) {
+                $post->isBookmark = true;
+                $post->bookmark_id = $userBookmarks->get($post->id)->id;
+            } else {
+                $post->isBookmark = false;
+                $post->bookmark_id = null;
+            }
+        });
         return Inertia::render('Bookmark',[
-            'posts'=>$posts,'bookmark'=>$bookmark
+            'posts'=>$posts,'bookmark'=>$userBookmarks
         ]);
     }
 
@@ -92,12 +105,19 @@ class BookmarkController extends Controller
      */
     public function destroy(bookmark $bookmark, Request $request, $id)
     {
+        $user_id = auth()->user()->id;
         try {
-        $bookmark = Bookmark::findOrFail($id);
-        $bookmark->delete();
-        return response()->json(['message' => 'Bookmark berhasil dihapus'], 200);
-    } catch (\Exception $e) {
-        return response()->json(['message' => 'Gagal menghapus bookmark'], 500);
-    }
+            $bookmark = Bookmark::where('post_id', $id)->where('user_id', $user_id)->first();
+
+            if (!$bookmark) {
+                return response()->json(['message' => 'Bookmark tidak ditemukan'], 404);
+            }
+
+            $bookmark->delete();
+
+            return response()->json(['message' => 'Bookmark berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Terjadi kesalahan saat menghapus bookmark', 'error' => $e->getMessage()], 500);
+        }
     }
 }

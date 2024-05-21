@@ -18,7 +18,6 @@ export default function Home({ auth, posts, stores, bookmark }) {
     });
     const submit = (e) => {
         e.preventDefault();
-
         post(route("home"));
         reset(["body", "image"]);
     };
