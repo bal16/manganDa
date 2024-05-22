@@ -6,6 +6,7 @@ use App\Models\Store;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
@@ -22,14 +23,30 @@ class StoreController extends Controller
      */
     public function create()
     {
-        return Inertia::render('RegisterStore');
-    }
 
+        //
+    }
+    
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreStoreRequest $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required',
+            'address' => 'required',
+            'user_id' => 'required|unique'.Store::class
+        ]);
+
+        $store = Store::create([
+            'name' => $request->name,
+            'user_id' => $request->user_id,
+            'description' => $request->description,
+            'address' => $request->address
+        ]);
+
+        return redirect('/profile');
         
     }
 

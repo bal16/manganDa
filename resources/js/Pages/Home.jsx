@@ -111,7 +111,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                         ))}
                     </section>
                 </MainContent>
-                <Sidebar />
+                <Sidebar auth={auth} />
             </DefaultLayout>
             <NavbarResponsive auth={auth} />
         </>

@@ -1,7 +1,8 @@
 import { memo } from "react";
 import SearchBar from "./SearchBar";
 
-export default memo(function Sidebar({}) {
+export default memo(function Sidebar({ auth }) {
+    console.log(auth)
     const food = [
         {
             name: "Nama Menu",
@@ -59,6 +60,7 @@ export default memo(function Sidebar({}) {
                     <h3 className="text-xl font-bold ">Hubungi <br />Kontak Kami</h3>
                     <p className="py-2 mb-2 font-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore rem optio nobis, quidem vero alias?</p>
                     <a href={`https://wa.me/${number}?text=${message}`} target="_blank" className="px-4 py-2 rounded-full bg-green-yellow-600">Hubungi Kami</a>
+                    <a href={`/store-register/${auth?.user?.id}`} target="_blank" className="px-4 py-2 rounded-full bg-green-yellow-600">daftar toko</a>
                 </div>
                 <div className="w-full px-4 pt-3 pb-10 border rounded-2xl border-marshland-950 text-start">
                     <h3 className="text-xl font-bold">

@@ -13,7 +13,8 @@ export default function RegisterStore({auth}) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         description: '',
-        address: ''
+        address: '',
+        user_id: auth.user.id
     });
 
     useEffect(() => {
@@ -25,7 +26,7 @@ export default function RegisterStore({auth}) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("register"));
+        post(route("registerStore"));
     };
 
     return (

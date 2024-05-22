@@ -22,7 +22,6 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/store-register', [StoreController::class, 'create'])->name('StoreRegister');
 
 // store
 Route::get('/stores',[StoreController::class, 'show'])->name('stores');
@@ -31,6 +30,10 @@ Route::get('/stores',[StoreController::class, 'show'])->name('stores');
 Route::get('/explore',[PostController::class, 'showSearch'])->name('explore');
 
 Route::middleware('auth')->group(function () {
+    // Store
+    Route::post('/store-register/{id}', [StoreController::class, 'store'])->name('StoreRegister');
+    Route::get('/store-register/{id}', [StoreController::class, 'store'])->name('StoreRegister');
+
     //Home
     Route::get('/', [PostController::class, 'show'])->name('home');
     Route::get('/dashboard', [PostController::class, 'show'])->name('home');

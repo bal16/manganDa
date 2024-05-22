@@ -29,7 +29,7 @@ export default function Profile({ auth, post }) {
                         ))}
                     </section>
                 </MainContent>
-                <Sidebar>Sidebar</Sidebar>
+                <Sidebar auth={auth}>Sidebar</Sidebar>
             </DefaultLayout>
             <NavbarResponsive auth={auth} />
         </>
