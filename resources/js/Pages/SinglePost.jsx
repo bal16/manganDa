@@ -16,7 +16,7 @@ export default function SinglePost({ auth, post, stores, bookmark }) {
         { id: '1', content: "naufal" },
         { id: '2', content: "naufal" }
     ];
-    // console.log(post)
+
     return (
         <>
             <DefaultLayout>
@@ -26,10 +26,11 @@ export default function SinglePost({ auth, post, stores, bookmark }) {
                     <Header></Header>
                     <section className="">
                         <Post content={post} auth={auth}/>
-                        {comments.map((comment, i) =>{
-                            // <Comment key={i} />
-                            console.log(comment.id)
-                            // return(<p key={id}>{comment.id}</p>)
+                        {comments.map((comment, i) => {
+                            return (
+                                // <Comment key={comment.id} content={comment.content} />
+                                <p>{comment.content}</p>
+                            );
                         })}
                     </section>
                     <section>

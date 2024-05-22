@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('description');
             $table->string('address');
-            $table->boolean('is_open');
+            $table->boolean('is_open')->nullable();
             $table->timestamps();
         });
     }

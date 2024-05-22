@@ -22,7 +22,7 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('RegisterStore');
     }
 
     /**
@@ -30,7 +30,7 @@ class StoreController extends Controller
      */
     public function store(StoreStoreRequest $request)
     {
-        //
+        
     }
 
     /**
