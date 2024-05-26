@@ -11,7 +11,9 @@ class Store extends Model
     protected $fillable = [
         "address",
         "description",
-        "is_open"
+        "is_open",
+        "user_id",
+        'name'
     ];
     public function report(){
         return $this->hasMany(Report::class);

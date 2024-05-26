@@ -31,8 +31,8 @@ Route::get('/explore',[PostController::class, 'showSearch'])->name('explore');
 
 Route::middleware('auth')->group(function () {
     // Store
-    Route::post('/store-register/{id}', [StoreController::class, 'store'])->name('StoreRegister');
-    Route::get('/store-register/{id}', [StoreController::class, 'store'])->name('StoreRegister');
+    Route::get('/store-register', [StoreController::class, 'create'])->name('store.create');
+    Route::post('/store-register', [StoreController::class, 'store'])->name('store.store');
 
     //Home
     Route::get('/', [PostController::class, 'show'])->name('home');
@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/', [PostController::class, 'store']);
     Route::get('/post/{id}', [PostController::class, 'index']);
     Route::post('/post/{id}', [CommentController::class, 'store']);
+    
     // profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');

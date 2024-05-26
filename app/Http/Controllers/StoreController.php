@@ -24,7 +24,7 @@ class StoreController extends Controller
     public function create()
     {
 
-        //
+        return Inertia::render('RegisterStore');
     }
     
     /**
@@ -36,18 +36,22 @@ class StoreController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required',
             'address' => 'required',
-            'user_id' => 'required|unique'.Store::class
+            'user_id' => 'required|unique:stores,user_id'
         ]);
+        // dd($request);
 
         $store = Store::create([
             'name' => $request->name,
-            'user_id' => $request->user_id,
+            'user_id' => auth()->user()->id,
             'description' => $request->description,
             'address' => $request->address
         ]);
 
-        return redirect('/profile');
-        
+        $user = auth()->user();
+        $user->is_store = true;
+        $user->save();
+
+        return redirect()->route('stores')->with('success', 'Store registered successfully.');
     }
 
     /**
@@ -55,7 +59,8 @@ class StoreController extends Controller
      */
     public function show(Store $store)
     {
-        return Inertia::render('Stores',['store'=>Store::all()]);
+        $stores = Store::all();
+        return Inertia::render('stores',['stores'=>$stores]);
     }
 
     /**

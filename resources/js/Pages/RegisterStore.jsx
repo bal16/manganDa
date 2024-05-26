@@ -14,19 +14,18 @@ export default function RegisterStore({auth}) {
         name: "",
         description: '',
         address: '',
-        user_id: auth.user.id
+        user_id: auth.user.id,
     });
 
     useEffect(() => {
         return () => {
-            reset("password", "password_confirmation");
+            reset("name", "description", "address");
         };
     }, []);
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route("registerStore"));
+        post(route("store.store"));
     };
 
     return (

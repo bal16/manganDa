@@ -89,7 +89,7 @@ class PostController extends Controller
         $posts = Post::with(['user', 'store', 'bookmark'])->orderBy('created_at', 'desc')->get();
 
         // Mendapatkan semua store
-        $stores = Store::select('id', 'name')->get();
+        $stores = Store::all();
 
         // Inisialisasi variabel bookmark
         $userBookmarks = collect();
@@ -110,6 +110,16 @@ class PostController extends Controller
                 $post->bookmark_id = null;
             }
         });
+        $posts->each(function ($post) {
+            if($post->user->is_store){
+                $store = Store::where('user_id', $post->user->id)->first();
+                if ($store) {
+                    $post->user->name = $store->name;
+                }
+            }
+        });
+
+
         // dd($posts);
         // Mengembalikan response dengan data yang telah dimodifikasi
         return Inertia::render('Home', [

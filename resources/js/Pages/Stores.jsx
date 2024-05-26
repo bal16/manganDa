@@ -7,8 +7,8 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Stores({ auth, store }) {
-    console.log(store);
+export default function Stores({ auth, stores }) {
+    console.log(stores);
     const [postModal, setPostModal] = useState(false);
     return (
         <>
@@ -73,9 +73,9 @@ export default function Stores({ auth, store }) {
                         INI HALAMAN STORES
                     </section>
                 </MainContent>
-                <Sidebar />
+                <Sidebar auth={auth} stores={stores}  />
             </DefaultLayout>
-            <NavbarResponsive auth={auth} />
+            <NavbarResponsive />
         </>
     );
 }

@@ -8,8 +8,8 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Explore({ auth, post }) {
-    console.log(post);
+export default function Explore({ auth, post, stores }) {
+    console.log(stores);
     const [postModal, setPostModal] = useState(false);
     return (
         <>
@@ -76,7 +76,7 @@ export default function Explore({ auth, post }) {
                 </MainContent>
                 <Sidebar />
             </DefaultLayout>
-            <NavbarResponsive auth={auth} />
+            <NavbarResponsive auth={auth} stores={stores} />
         </>
     );
 }

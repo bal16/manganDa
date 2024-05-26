@@ -11,6 +11,7 @@ import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Home({ auth, posts, stores, bookmark }) {
+
     const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
@@ -20,6 +21,9 @@ export default function Home({ auth, posts, stores, bookmark }) {
         post(route("home"));
         reset(["body", "image"]);
     };
+
+    console.log(posts)
+
     return (
         <>
             <div
@@ -111,7 +115,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                         ))}
                     </section>
                 </MainContent>
-                <Sidebar auth={auth} />
+                <Sidebar auth={auth} stores={stores} />
             </DefaultLayout>
             <NavbarResponsive auth={auth} />
         </>
