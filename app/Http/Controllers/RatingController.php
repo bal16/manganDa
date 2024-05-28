@@ -23,27 +23,7 @@ class RatingController extends Controller
      */
     public function create(Request $request)
     {
-        $user_id = $request -> input('user_id');
-        $store_id = $request -> input('store_id');
-        $rating = $request -> input('rating');
-        $rating_id = "r" . $user_id . $store_id;
-        $request -> input($rating);
-
-        $existingRating = Rating::where('id',$rating_id)->first();
-
-        if($existingRating){
-            Session::flash('error','Anda telah melakukan rating untuk toko ini!');
-        }else{
-            $rating = new Rating();
-            $rating->id = $rating_id;
-            $rating->user_id = $user_id;
-            $rating->store_id = $store_id;
-            $rating->rating = $request->input('rating');
-            $rating->save();
-            
-            Session::flash('success', 'Rating berhasil ditambahkan');
-        }
-        return redirect()->back();
+        
     }
 
     /**

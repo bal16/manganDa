@@ -9,6 +9,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Session;
+use App\Models\Store;
 
 
 class BookmarkController extends Controller
@@ -60,12 +61,12 @@ class BookmarkController extends Controller
         $user = $request->user();
 
         $posts = Post::whereHas('bookmark', function ($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })->get();
-        // })->with(['user','bookmark'])->get();
+            $query->where('user_id', $user->id);        
+        })->with(['user','bookmark'])->get();
 
         $userBookmarks = collect();
 
+        $stores = Store::all();
         // Memeriksa apakah pengguna telah login
         if ($request->user()) {
             // Mendapatkan semua bookmark milik pengguna yang sedang login
@@ -81,7 +82,7 @@ class BookmarkController extends Controller
             }
         });
         return Inertia::render('Bookmark',[
-            'posts'=>$posts,'bookmark'=>$userBookmarks
+            'posts'=>$posts,'bookmark'=>$userBookmarks,'stores'=>$stores
         ]);
     }
 

@@ -45,13 +45,13 @@ function Post({ auth, content }) {
                 </div>
                 <div className="flex w-2/3 ps-1">
                     <p className="text-sm font-light">
-                        <span className="font-semibold">
+                        <a href={`/profile/${content.user.id}`} className="font-semibold">
                             {content.user.name}
-                        </span>{" "}
+                        </a >{" "}
                         @{content.user.username} -{" "}
                         {moment(content.updated_at).fromNow()}
                     </p>
-                    {content.is_store ? (
+                    {content.user.is_store ? (
                         <div className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-green-yellow-500">
                             Toko
                         </div>

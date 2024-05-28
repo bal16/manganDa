@@ -8,7 +8,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Bookmark({ auth, posts, bookmark }) {
+export default function Bookmark({ auth, posts, bookmark, stores }) {
     // console.log(posts);
     const [postModal, setPostModal] = useState(false);
     return (
@@ -43,7 +43,7 @@ export default function Bookmark({ auth, posts, bookmark }) {
                         ))}
                     </section>
                 </MainContent>
-                <Sidebar />
+                <Sidebar stores={stores} />
             </DefaultLayout>
             <NavbarResponsive auth={auth} />
         </>

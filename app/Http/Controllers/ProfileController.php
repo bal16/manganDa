@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Store;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,14 +21,32 @@ class ProfileController extends Controller
      */
     public function show(Request $request)
     {
-        $user = auth()->user()->id;
-        $post = Post::where('user_id',$user)->with(['user','bookmark'])->orderBy('created_at','desc')->get();
+        $user = auth()->user();
+        $post = Post::where('user_id',$user->id)->with(['user','bookmark'])->orderBy('created_at','desc')->get();
+        $store = Store::all();
         // dd(auth()->user());
         return Inertia::render('Profile',[
             'post'=>$post,
-            // 'user'=>auth()->user()
+            'stores'=>$store,   
+            'user'=>$user
         ]);
     }
+
+    public function userProfile(Request $request){
+        
+        $user_id = $request->id;
+        $post = Post::where('user_id',$user_id)->with(['user','bookmark'])->orderBy('created_at','desc')->get();
+        $store = Store::all();
+        $user = (User::where('id',$user_id)->get())[0];
+        return Inertia::render(
+            'Profile', [
+                'post'=>$post,
+                'stores'=>$store,
+                'user'=>$user
+            ]
+            );
+    }
+
     public function edit(Request $request): Response
     {
         return Inertia::render('Profile/Edit', [
