@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -45,22 +46,28 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function like(){
+    public function like():HasMany
+    {
         return $this->hasMany(Like::class);
     }
-    public function comments(){
+    public function comment():HasMany
+    {
         return $this->hasMany(Comment::class);
     }
-    public function rating(){
+    public function rating():HasMany
+    {
         return $this->hasMany(Rating::class);
     }
-    public function post(){
+    public function post():HasMany
+    {
         return $this->hasMany(Post::class);
     }
-    public function report(){
+    public function report():HasMany
+    {
         return $this->hasMany(Report::class);
     }
-    public function bookmark(){
+    public function bookmark():HasMany
+    {
         return $this->hasMany(Bookmark::class);
     }
 }

@@ -27,7 +27,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $post = Post::with(['user', 'store', 'bookmark'])->find($request->id);
+        $post = Post::find($request->id);
 
         // dd($post);
         return Inertia::render('SinglePost',[
@@ -86,7 +86,8 @@ class PostController extends Controller
     public function show(Request $request)
     {
         // Mendapatkan semua post dengan relasi user, store, dan bookmark
-        $posts = Post::with(['user', 'store', 'bookmark'])->orderBy('created_at', 'desc')->get();
+        // $posts = Post::with(['user', 'store', 'bookmark'])->orderBy('created_at', 'desc')->get();
+        $posts = Post::all();
 
         // Mendapatkan semua store
         $stores = Store::all();

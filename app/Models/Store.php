@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Store extends Model
 {
@@ -15,13 +16,16 @@ class Store extends Model
         "user_id",
         'name'
     ];
-    public function report(){
+    public function report() :HasMany
+    {
         return $this->hasMany(Report::class);
     }
-    public function rating(){
+    public function rating():HasMany
+    {
         return $this->hasMany(Rating::class);
     }
-    public function post(){
+    public function post():HasMany
+    {
         return $this->hasMany(Post::class);
     }
 }

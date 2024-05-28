@@ -11,7 +11,7 @@ import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Home({ auth, posts, stores, bookmark }) {
-
+    console.log(posts)
     const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",

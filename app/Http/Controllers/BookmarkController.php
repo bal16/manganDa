@@ -61,7 +61,8 @@ class BookmarkController extends Controller
 
         $posts = Post::whereHas('bookmark', function ($query) use ($user) {
             $query->where('user_id', $user->id);
-        })->with(['user','bookmark'])->get();
+        })->get();
+        // })->with(['user','bookmark'])->get();
 
         $userBookmarks = collect();
 
