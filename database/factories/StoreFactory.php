@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,12 @@ class StoreFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id'=>fake()->unique()->numberBetween(1,7),
+            'name'=>fake()->name(),
+            'description'=>fake()->sentence(),
+            'address'=>fake()->address(),
+            'is_open'=>true,
+
         ];
     }
 }

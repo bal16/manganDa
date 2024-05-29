@@ -17,7 +17,9 @@ class BookmarkFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id'=>fake()->unique()->numberBetween(1,200),
+            'user_id'=>rand(1,7),
+            'post_id'=>rand(1,100),
         ];
     }
 }
