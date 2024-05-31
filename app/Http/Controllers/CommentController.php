@@ -47,9 +47,9 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showByPost(Comment $comment)
+    public function showByPost(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**

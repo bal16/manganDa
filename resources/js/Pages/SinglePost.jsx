@@ -17,6 +17,8 @@ export default function SinglePost({ auth, post, stores, bookmark }) {
         { id: '2', content: "naufal" }
     ];
 
+    console.log(stores)
+
     return (
         <>
             <DefaultLayout>
@@ -36,7 +38,7 @@ export default function SinglePost({ auth, post, stores, bookmark }) {
                     <section>
                     </section>
                 </MainContent>
-                <Sidebar />
+                <Sidebar auth={auth} stores={stores} />
             </DefaultLayout>
             <NavbarResponsive auth={auth} />
         </>

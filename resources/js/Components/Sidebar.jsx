@@ -6,7 +6,7 @@ export default memo(function Sidebar({ auth, stores }) {
     const message =
         "Halo,Admin%0aSaya%20ingin%20tanya%20makanan%20di%20sini%3F";
 
-    console.log(stores);
+    // console.log(stores);
 
     return (
         <aside className="hidden w-3/5 p-2 -mb-1 text-center border-l-[0.1px] border-marshland-950 md:flex text-marshland-950 bg-ecru-white-100 sticky top-0 h-screen">

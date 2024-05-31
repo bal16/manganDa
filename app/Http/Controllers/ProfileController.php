@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Rating;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -38,11 +39,33 @@ class ProfileController extends Controller
         $post = Post::where('user_id',$user_id)->with(['user','bookmark'])->orderBy('created_at','desc')->get();
         $store = Store::all();
         $user = (User::where('id',$user_id)->get())[0];
+
+        $rating = NULL;
+        $userStore = Store::where('user_id', $user_id)->first();
+        
+        if ($userStore) {
+            $rating = Rating::where('store_id', $userStore->id)->avg('rate');
+            $rating = $rating ? number_format($rating, 1) : '0.0';
+            $user->name = $userStore->name;
+                
+            $post->transform(function ($post) use ($userStore) {
+                $post->user->name = $userStore->name;
+                return $post;
+            });
+        }
+
+        $userRating = 0;
+        $userRating = Rating::where('store_id', $userStore->id)
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
         return Inertia::render(
             'Profile', [
                 'post'=>$post,
                 'stores'=>$store,
-                'user'=>$user
+                'user'=>$user,
+                'rating' => $rating,
+                'userRating' => $userRating
             ]
             );
     }

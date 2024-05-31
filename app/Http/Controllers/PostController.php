@@ -27,11 +27,13 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $post = Post::find($request->id);
+        $post = Post::with('user')->find($request->id);
+        $stores = Store::all();
 
         // dd($post);
         return Inertia::render('SinglePost',[
-            'post' => $post
+            'post' => $post,
+            'stores' => $stores
         ]);
     }
 

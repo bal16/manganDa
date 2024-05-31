@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
 
     //  rating
     Route::post('/rating',[RatingController::class, 'store'])->name('rating.store');
+    Route::put('/rating/{id}', [RatingController::class, 'update'])->name('rating.update');
+
 });
 
 

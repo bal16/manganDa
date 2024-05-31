@@ -7,6 +7,7 @@ use App\Http\Requests\StoreratingRequest;
 use App\Http\Requests\UpdateratingRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
 use Psy\Readline\Hoa\Console;
 
 class RatingController extends Controller
@@ -38,28 +39,30 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-        // $request->validate([
-        //     'user_id' => 'required|exists:users,id',
-        //     'store_id' => 'required|exists:stores,id',
-        //     'rate' => 'required|integer|min:1|max:5',
-        // ]);
+        // dd($request);
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'store_id' => 'required|exists:stores,id',
+            'rate' => 'required|integer|min:1|max:5',
+        ]);
 
-        // $rating = Rating::create([
-        //     'user_id' => $request->user_id,
-        //     'store_id' => $request->store_id,
-        //     'rate' => $request->rate
-        // ]);
+        $rating = Rating::create([
+            'user_id' => $request->user_id,
+            'store_id' => $request->store_id,
+            'rate' => $request->rate
+        ]);
 
-        // return response()->json(['message' => 'Rating created successfully', 'rating' => $rating], 201);
+        return response()->json(['message' => 'Rating created successfully', 'rating' => $rating], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Rating $rating)
+    public function show(Request $request)
     {
-        //
+        // $rating = Rating::where('store_id', $request->store_id)->average('rate');
+
+        // return Inertia::render('Profile', ['rating'=>$rating]);
     }
 
     /**
@@ -73,9 +76,17 @@ class RatingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateratingRequest $request, rating $rating)
+    public function update(Request $request)
     {
-        //
+        // Fetch the rating by ID
+        $rating = Rating::findOrFail($request->id);
+
+        // Update the rating
+        $rating->update([
+            'rate' => $request->rate,
+        ]);
+
+        return response()->json(['message' => 'Rating updated successfully', 'rating' => $rating], 200);
     }
 
     /**

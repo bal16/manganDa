@@ -45,7 +45,7 @@ function Post({ auth, content }) {
                 </div>
                 <div className="flex w-2/3 ps-1">
                     <p className="text-sm font-light">
-                        <a href={`/profile/${content.user.id}`} className="font-semibold">
+                        <a href={`/profile/${content.user.id}`} className="font-semibold"> 
                             {content.user.name}
                         </a >{" "}
                         @{content.user.username} -{" "}
