@@ -9,7 +9,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Profile({ auth, post, stores, user }) {
-    console.log(user);
+    // console.log(stores);
 
     return (
         <>
@@ -21,7 +21,7 @@ export default function Profile({ auth, post, stores, user }) {
                     <section className="p-2 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100">
                         Ini Profile {user.name}
                     </section>
-                    <RatingButton />
+                    <RatingButton auth={auth} store={stores[0].id} />
                     <section className="">
                         {post.map((a, index) => (
                             <Post

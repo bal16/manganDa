@@ -7,6 +7,7 @@ use App\Http\Requests\StoreratingRequest;
 use App\Http\Requests\UpdateratingRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Psy\Readline\Hoa\Console;
 
 class RatingController extends Controller
 {
@@ -23,15 +24,34 @@ class RatingController extends Controller
      */
     public function create(Request $request)
     {
-        
+        // dd($request);
+
+        // $rating = Rating::create([
+        //     'user_id' => $request -> user_id,
+        //     'store_id' => $request -> store_id,
+        //     'rate' => $request->rate
+        // ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreratingRequest $request)
+    public function store(Request $request)
     {
-        //
+        dd($request);
+        // $request->validate([
+        //     'user_id' => 'required|exists:users,id',
+        //     'store_id' => 'required|exists:stores,id',
+        //     'rate' => 'required|integer|min:1|max:5',
+        // ]);
+
+        // $rating = Rating::create([
+        //     'user_id' => $request->user_id,
+        //     'store_id' => $request->store_id,
+        //     'rate' => $request->rate
+        // ]);
+
+        // return response()->json(['message' => 'Rating created successfully', 'rating' => $rating], 201);
     }
 
     /**

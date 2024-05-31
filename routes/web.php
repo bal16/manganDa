@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RatingController;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark');
     Route::delete('/bookmark/{id}',[BookmarkController::class, 'destroy'])->name('bookmark.destroy');
     Route::post('/bookmarks/{id}',[BookmarkController::class, 'create'])->name('bookmark.create');
+
+    //  rating
+    Route::post('/rating',[RatingController::class, 'store'])->name('rating.store');
 });
 
 
