@@ -32,6 +32,7 @@ export default function Bookmark({ auth, posts, bookmark, stores }) {
                 <Head title="Bookmark" />
                 <Navbar auth={auth} />
                 <MainContent>
+                    {!bookmark ? "" : "Belum Ada Bookmark"}
                     <section className="">
                         {posts.map((a, index) => (
                             <Post

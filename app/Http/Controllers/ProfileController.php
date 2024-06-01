@@ -58,6 +58,8 @@ class ProfileController extends Controller
 
         $rating = NULL;
         $userStore = Store::where('user_id', $user_id)->first();
+
+        $userRating = 0;
         
         if ($userStore) {
             $rating = Rating::where('store_id', $userStore->id)->avg('rate');
@@ -68,12 +70,11 @@ class ProfileController extends Controller
                 $post->user->name = $userStore->name;
                 return $post;
             });
+            $userRating = Rating::where('store_id', $userStore->id)
+            ->where('user_id', auth()->user()->id)
+            ->first();
         }
 
-        $userRating = 0;
-        $userRating = Rating::where('store_id', $userStore->id)
-        ->where('user_id', auth()->user()->id)
-        ->first();
 
         return Inertia::render(
             'Profile', [
