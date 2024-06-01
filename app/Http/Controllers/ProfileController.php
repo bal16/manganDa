@@ -44,7 +44,8 @@ class ProfileController extends Controller
         return Inertia::render('Profile',[
             'post'=>$post,
             'stores'=>$store,   
-            'user'=>$user
+            'user'=>$user,
+            'rating' => $rating
         ]);
     }
 

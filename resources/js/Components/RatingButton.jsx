@@ -32,7 +32,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
     try {
       const response = await axios.post('/rating', {
         user_id: auth.user.id,
-        store_id: store,
+        store_id: store.id,
         rate: stars,
       });
       console.log(response.data.message);
@@ -54,11 +54,14 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
     }
   };
 
+  const isOwnStore = auth.user.id === store.user_id;
+
   return (
     <div>
       <button
         className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-red-500"
         onClick={toggleDropdown}
+        disabled={isOwnStore}
       >
         {storeRating} / 5
       </button>
@@ -71,6 +74,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
               }`}
               key={star}
               onClick={() => rate(star)}
+              
             >
               {star <= rating ? '★' : '☆'}
             </button>
