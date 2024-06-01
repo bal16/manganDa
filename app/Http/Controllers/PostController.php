@@ -31,7 +31,9 @@ class PostController extends Controller
         $post = Post::with('user')->find($request->id);
         $stores = Store::all();
 
-        $comments = Comment::where('post_id',$request->id)->get();
+        $comments = Comment::where('post_id',$request->id)
+            ->with('user')
+            ->get();
 
         // dd($post);
         return Inertia::render('SinglePost',[
@@ -148,7 +150,7 @@ class PostController extends Controller
         // cari postingan
         $posts = Post::where('body','like',"%$query%")->get();
 
-        return Inertia::render('Explore',['post'=>$posts,'store'=>$stores]);
+        return Inertia::render('Explore',['post'=>$posts,'stores'=>$stores]);
     }
 
     public function edit(Post $post)

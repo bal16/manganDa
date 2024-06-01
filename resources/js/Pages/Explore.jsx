@@ -74,7 +74,7 @@ export default function Explore({ auth, post, stores }) {
                         INI HALAMAN EXPLORE
                     </section>
                 </MainContent>
-                <Sidebar />
+                <Sidebar auth={auth} stores={stores} />
             </DefaultLayout>
             <NavbarResponsive auth={auth} stores={stores} />
         </>

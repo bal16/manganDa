@@ -60,7 +60,7 @@ class StoreController extends Controller
     public function show(Store $store)
     {
         $stores = Store::all();
-        return Inertia::render('stores',['stores'=>$stores]);
+        return Inertia::render('Stores',['stores'=>$stores]);
     }
 
     /**

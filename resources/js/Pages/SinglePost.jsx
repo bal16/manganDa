@@ -9,7 +9,7 @@ import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function SinglePost({ auth, posts, stores, comments }) {
-    // console.log(comments);
+    console.log(comments);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
@@ -58,8 +58,14 @@ export default function SinglePost({ auth, posts, stores, comments }) {
 
                         {comments.map((comment, i) => {
                             return (
-                                // <Comment key={comment.id} content={comment.content} />
-                                <p>{comment.body}</p>
+                                <div key={comment.id} className="border-b border-gray-200 py-4">
+                                    <div className="font-semibold text-left">
+                                        <a href={`/profile/${comment.user.id}`}>
+                                            {comment.user.name}
+                                        </a>
+                                    </div>
+                                    <div className="mt-2 text-left">{comment.body}</div>
+                                </div>
                             );
                         })}
                     </section>
