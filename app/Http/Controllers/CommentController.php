@@ -7,6 +7,7 @@ use App\Http\Requests\StorecommentRequest;
 use App\Http\Requests\UpdatecommentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Inertia\Inertia;
 
 class CommentController extends Controller
 {
@@ -29,19 +30,19 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'post_id' => 'required|exists:posts,id',
             'body' => 'required|string',
         ]);
 
-        $comment = Comment::create([
-            'user_id' => $request->user_id,
-            'post_id' => $request->post_id,
+        Comment::create([
+            'post_id' => $id, 
+            'user_id' => auth()->id(),
             'body' => $request->body,
         ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -49,7 +50,19 @@ class CommentController extends Controller
      */
     public function showByPost(Request $request)
     {
-        dd($request);
+        // $comments = Comment::where('post_id', $id)->get();
+
+        // // Mengembalikan view dengan data komentar
+        // return Inertia::render('Comments/ShowByPost', [
+        //     'comments' => $comments,
+        //     'postId' => $id,
+        // ]);
+
+        // $comment = Comment::where('post_id', $request->post_id)->get();
+
+        // return Inertia::render('SinglePost',[
+        //     'comments' => $comment
+        // ]);
     }
 
     /**

@@ -8,19 +8,16 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function SinglePost({ auth, post, stores, bookmark }) {
-    const comments = [
-        { id: '1', content: "naufal" },
-        { id: '2', content: "naufal" }
-    ];
+export default function SinglePost({ auth, posts, stores, comments }) {
+    // console.log(comments);
 
-    const [comment, setComment] = useState();
-
-    // console.log(stores)
+    const { data, setData, post, processing, errors, reset } = useForm({
+        body: "",
+    });
 
     const submitComment = (e) => {
         e.preventDefault();
-        post(route("home"));
+        post(route("comment.store", { id: posts.id }));
     };
 
     return (
@@ -31,16 +28,16 @@ export default function SinglePost({ auth, post, stores, bookmark }) {
                 <MainContent>
                     <Header></Header>
                     <section className="">
-                        <Post content={post} auth={auth}/>
+                        <Post content={posts} auth={auth}/>
                         {/* taruh form dibawah */}
                         <form
-                            // onSubmit={submitComment}
+                            onSubmit={submitComment}
                             className="pt-5 px-4 md:px-10 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100 flex flex-col-reverse"
                         >
                             <div>
                                 <button
                                     type="submit"
-                                    // disabled={processing}
+                                    disabled={processing}
                                     className="py-2 mt-1 rounded-full px-7 bg-green-yellow-600 float-right"
                                 >
                                     Kirim
@@ -50,8 +47,8 @@ export default function SinglePost({ auth, post, stores, bookmark }) {
                                 <textarea
                                     className="w-full h-12 px-5 py-3 font-light bg-transparent border-none resize-none overscroll-none focus:ring-0"
                                     name="body"
-                                    value={comment}
-                                    onChange={(e) => setComment(e.target.value)}
+                                    value={data.body}
+                                    onChange={(e) => setData("body",e.target.value)}
                                     placeholder="Tulis komentar..."
                                 />
                             </div>
@@ -62,7 +59,7 @@ export default function SinglePost({ auth, post, stores, bookmark }) {
                         {comments.map((comment, i) => {
                             return (
                                 // <Comment key={comment.id} content={comment.content} />
-                                <p>{comment.content}</p>
+                                <p>{comment.body}</p>
                             );
                         })}
                     </section>

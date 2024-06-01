@@ -23,8 +23,23 @@ class ProfileController extends Controller
     public function show(Request $request)
     {
         $user = auth()->user();
+        
         $post = Post::where('user_id',$user->id)->with(['user','bookmark'])->orderBy('created_at','desc')->get();
         $store = Store::all();
+        $rating = NULL;
+        $userStore = Store::where('user_id', $user->id)->first();
+        if ($userStore) {
+            $rating = Rating::where('store_id', $userStore->id)->avg('rate');
+            $rating = $rating ? number_format($rating, 1) : '0.0';
+            $user->name = $userStore->name;
+                
+            $post->transform(function ($post) use ($userStore) {
+                $post->user->name = $userStore->name;
+                return $post;
+            });
+        }
+
+
         // dd(auth()->user());
         return Inertia::render('Profile',[
             'post'=>$post,

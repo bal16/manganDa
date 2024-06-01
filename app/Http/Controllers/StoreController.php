@@ -51,7 +51,7 @@ class StoreController extends Controller
         $user->is_store = true;
         $user->save();
 
-        return redirect()->route('stores')->with('success', 'Store registered successfully.');
+        return redirect()->route('/')->with('success', 'Store registered successfully.');
     }
 
     /**

@@ -62,7 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/rating/{id}', [RatingController::class, 'update'])->name('rating.update');
     
     // comment
-    Route::post('/post/{id}', [CommentController::class, 'store']);
+    Route::post('/post/{id}', [CommentController::class, 'store'])->name('comment.store');
+
 
 
 });

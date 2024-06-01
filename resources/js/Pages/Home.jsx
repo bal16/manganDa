@@ -32,7 +32,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
         reset(["body", "image"]);
     };
 
-    console.log(posts)
+    // console.log(posts)
 
     return (
         <>

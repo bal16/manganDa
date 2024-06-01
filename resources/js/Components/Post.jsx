@@ -5,6 +5,8 @@ import axios from "axios";
 import { Link } from "@inertiajs/react";
 
 function Post({ auth, content }) {
+    // console.log(content)
+
     const [bookmarked, setBookmarked] = useState(content.isBookmark);
 
     // console.log(content)

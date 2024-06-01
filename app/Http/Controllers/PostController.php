@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Inertia\Inertia;
@@ -30,10 +31,13 @@ class PostController extends Controller
         $post = Post::with('user')->find($request->id);
         $stores = Store::all();
 
+        $comments = Comment::where('post_id',$request->id)->get();
+
         // dd($post);
         return Inertia::render('SinglePost',[
-            'post' => $post,
-            'stores' => $stores
+            'posts' => $post,
+            'stores' => $stores,
+            'comments'=>$comments
         ]);
     }
 
@@ -121,6 +125,8 @@ class PostController extends Controller
                 }
             }
         });
+
+
 
 
         // dd($posts);
