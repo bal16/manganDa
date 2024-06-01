@@ -40,7 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [PostController::class, 'show'])->name('home');
     Route::post('/', [PostController::class, 'store']);
     Route::get('/post/{id}', [PostController::class, 'index']);
-    Route::post('/post/{id}', [CommentController::class, 'store']);
     
     // profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
@@ -48,19 +47,23 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/{id}',[ProfileController::class, 'userProfile'])->name('profile.single-user');
-
+    
     // post
     Route::post('/post/{user_id}/{store_id}',[PostController::class, 'create'])->name('post.create');
     Route::delete('/post/{id_post}',[PostController::class, 'destroy'])->name('post.destroy');
-
+    
     // bookmark
     Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark');
     Route::delete('/bookmark/{id}',[BookmarkController::class, 'destroy'])->name('bookmark.destroy');
     Route::post('/bookmarks/{id}',[BookmarkController::class, 'create'])->name('bookmark.create');
-
+    
     //  rating
     Route::post('/rating',[RatingController::class, 'store'])->name('rating.store');
     Route::put('/rating/{id}', [RatingController::class, 'update'])->name('rating.update');
+    
+    // comment
+    Route::post('/post/{id}', [CommentController::class, 'store']);
+
 
 });
 

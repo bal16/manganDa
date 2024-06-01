@@ -7,13 +7,12 @@ import { Link } from "@inertiajs/react";
 function Post({ auth, content }) {
     const [bookmarked, setBookmarked] = useState(content.isBookmark);
 
-    console.log(content)
+    // console.log(content)
 
     const isOwner = false
     if(auth.user){
         const isOwner = auth.user.id  === content.user_id;
     }
-
 
     const handleBookmark = async () => {
         if (!auth || !auth.user) {

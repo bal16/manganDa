@@ -29,19 +29,19 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorecommentRequest $request)
+    public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'post_id' => 'required|exists:posts,id',
+            'body' => 'required|string',
+        ]);
 
-    public function addComment( Request $request )
-    {
-        $tanggalWaktu = Carbon::now('YmdHis');
-        $user_id = $request -> input('user_id'); 
-        $post_id = $request -> input('post_id'); 
-        $id = "c" . $user_id . $post_id . $tanggalWaktu;
-        $request -> input($id);
-        $body = $request -> input('body'); 
+        $comment = Comment::create([
+            'user_id' => $request->user_id,
+            'post_id' => $request->post_id,
+            'body' => $request->body,
+        ]);
     }
 
     /**
