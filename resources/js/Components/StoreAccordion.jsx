@@ -1,15 +1,12 @@
 import { memo } from "react";
-export default memo(function StoreAccordion({store}) {
-    console.log(store)
+export default memo(function StoreAccordion({ store }) {
+    console.log(store);
     return (
-        <div className="collapse collapse-plus bg-base-200">
-            <input type="radio" name="my-accordion-3" defaultChecked />
-            <div className="text-xl font-medium collapse-title">
-                {store.name}
-            </div>
-            <div className="collapse-content">
+        <a className="shadow-xl card w-96 bg-base-100" href={`/profile/${store.user_id}`}>
+            <div className="card-body">
+                <h2 className="card-title">{store.name}</h2>
                 <p>{store.description}</p>
             </div>
-        </div>
+        </a>
     );
 });
