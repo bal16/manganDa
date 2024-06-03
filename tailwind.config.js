@@ -75,5 +75,9 @@ colors:{
 
     },
 
-    plugins: [forms],
+    plugins: [
+        require('daisyui'), forms, 
+    ],
+
+
 };
