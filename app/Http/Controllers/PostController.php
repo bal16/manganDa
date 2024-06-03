@@ -43,23 +43,6 @@ class PostController extends Controller
         ]);
     }
 
-    public function explore(Request $request){
-        if($request){
-            $key = $request;
-
-            $stores = Store::where('name','like',`$key`)->get();
-            $posts = Post::where('body','like',`$key`)->get();
-        }else{
-            $stores = Null;
-            $posts = Null;
-        }
-
-        return Inertia::render('Explore',[
-            'stores' => $stores,
-            'posts' => $posts
-        ]);
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -157,7 +140,7 @@ class PostController extends Controller
         ]);
     }
 
-    public function showSearch(Request $request)
+    public function explore(Request $request)
     {
         // $query = $request -> input('query');
 
@@ -168,7 +151,7 @@ class PostController extends Controller
         // $posts = Post::where('body','like',"%$query%")->get();
 
         if($request){
-            $query = $request;
+            $query = $request->input('query');
 
             $stores = Store::where('name','like',"%$query%")->get();
             $posts = Post::where('body','like',"%$query%")->get();
@@ -178,6 +161,18 @@ class PostController extends Controller
         }
 
         return Inertia::render('Explore',['posts'=>$posts,'stores'=>$stores]);
+    }
+
+    public function search(Request $request){
+        $query = $request->input('query');
+
+        $stores = Store::where('name','like',"%$query%")->get();
+        $posts = Post::where('body','like',"%$query%")->get();
+
+        return response()->json([
+            'posts' => $posts,
+            'stores' => $stores
+        ]);
     }
 
     public function edit(Post $post)

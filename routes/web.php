@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
 Route::get('/stores',[StoreController::class, 'show'])->name('stores');
 
 // explore
-Route::get('/explore',[PostController::class, 'showSearch'])->name('explore');
+Route::get('/explore',[PostController::class, 'explore'])->name('explore');
 
 Route::middleware('auth')->group(function () {
     // Store
@@ -40,30 +40,31 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [PostController::class, 'show'])->name('home');
     Route::post('/', [PostController::class, 'store']);
     Route::get('/post/{id}', [PostController::class, 'index']);
-    
+
     // profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/{id}',[ProfileController::class, 'userProfile'])->name('profile.single-user');
-    
+
     // post
     Route::post('/post/{user_id}/{store_id}',[PostController::class, 'create'])->name('post.create');
     Route::delete('/post/{id_post}',[PostController::class, 'destroy'])->name('post.destroy');
-    
+
     // bookmark
     Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark');
     Route::delete('/bookmark/{id}',[BookmarkController::class, 'destroy'])->name('bookmark.destroy');
     Route::post('/bookmarks/{id}',[BookmarkController::class, 'create'])->name('bookmark.create');
-    
+
     //  rating
     Route::post('/rating',[RatingController::class, 'store'])->name('rating.store');
     Route::put('/rating/{id}', [RatingController::class, 'update'])->name('rating.update');
-    
+
     // comment
     Route::post('/post/{id}', [CommentController::class, 'store'])->name('comment.store');
-
+    //search
+    Route::post('/search',[PostController::class, 'search']);
 
 
 });
