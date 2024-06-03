@@ -167,7 +167,7 @@ class PostController extends Controller
         $query = $request->input('query');
 
         $stores = Store::where('name','like',"%$query%")->get();
-        $posts = Post::where('body','like',"%$query%")->get();
+        $posts = Post::where('body','like',"%$query%")->with(['user'])->get();
 
         return response()->json([
             'posts' => $posts,
