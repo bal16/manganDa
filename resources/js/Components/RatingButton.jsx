@@ -19,7 +19,6 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
   };
 
   const rate = async (stars) => {
-    // Check if user has already rated the store
     if (userRating) {
       updateRating(stars);
     } else {
