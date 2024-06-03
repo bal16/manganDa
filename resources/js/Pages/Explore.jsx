@@ -8,7 +8,8 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Explore({ auth, post, stores }) {
+export default function Explore({ auth, posts, stores }) {
+    console.log(posts);
     console.log(stores);
     const [postModal, setPostModal] = useState(false);
     return (

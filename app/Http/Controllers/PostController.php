@@ -43,6 +43,23 @@ class PostController extends Controller
         ]);
     }
 
+    public function explore(Request $request){
+        if($request){
+            $key = $request;
+
+            $stores = Store::where('name','like',`$key`)->get();
+            $posts = Post::where('body','like',`$key`)->get();
+        }else{
+            $stores = Null;
+            $posts = Null;
+        }
+
+        return Inertia::render('Explore',[
+            'stores' => $stores,
+            'posts' => $posts
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -142,15 +159,25 @@ class PostController extends Controller
 
     public function showSearch(Request $request)
     {
-        $query = $request -> input('query');
+        // $query = $request -> input('query');
 
-        // cari toko
-        $stores = Store::where('name','like',"%$query%")->get();
+        // // cari toko
+        // $stores = Store::where('name','like',"%$query%")->get();
 
-        // cari postingan
-        $posts = Post::where('body','like',"%$query%")->get();
+        // // cari postingan
+        // $posts = Post::where('body','like',"%$query%")->get();
 
-        return Inertia::render('Explore',['post'=>$posts,'stores'=>$stores]);
+        if($request){
+            $query = $request;
+
+            $stores = Store::where('name','like',"%$query%")->get();
+            $posts = Post::where('body','like',"%$query%")->get();
+        }else{
+            $stores = Null;
+            $posts = Null;
+        }
+
+        return Inertia::render('Explore',['posts'=>$posts,'stores'=>$stores]);
     }
 
     public function edit(Post $post)
