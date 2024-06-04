@@ -65,6 +65,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/post/{id}', [CommentController::class, 'store'])->name('comment.store');
     //search
     Route::post('/search',[PostController::class, 'search']);
+    Route::get('/dashboard',function(){
+        return Inertia::render('Dashboard');
+    });
 
 
 });
