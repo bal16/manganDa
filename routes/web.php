@@ -68,6 +68,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard',function(){
         return Inertia::render('Dashboard');
     });
+    Route::get('/report',function(){
+        return Inertia::render('ReportList');
+    });
 
 
 });

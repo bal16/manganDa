@@ -52,7 +52,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                 </div>
             </div>
             <DefaultLayout>
-                <Head title="Test" />
+                <Head title="Home" />
                 <Navbar auth={auth} />
                 <MainContent>
                     <Header></Header>
