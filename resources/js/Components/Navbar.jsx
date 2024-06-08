@@ -87,7 +87,7 @@ export default memo(function Navbar({ auth }) {
                         </NavbarLink>
                     </li>
                 </ul>
-                <div className="fixed bottom-24">
+                {/* <div className="fixed bottom-24">
                     <a
                         href=""
                         className={
@@ -97,7 +97,7 @@ export default memo(function Navbar({ auth }) {
                     >
                         Posting
                     </a>
-                </div>
+                </div> */}
 
                 <div className="fixed bottom-10 ">
                     <NavbarLink
