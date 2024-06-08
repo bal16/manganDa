@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use App\Http\Requests\StorereportRequest;
 use App\Http\Requests\UpdatereportRequest;
+use Illuminate\Http\Client\Request;
 
 class ReportController extends Controller
 {
@@ -27,9 +28,19 @@ class ReportController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorereportRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'body' => 'required|string|max:255',
+        ]);
+
+        // $report = Report::create([
+        //     'post_id' => $request->post_id,
+        //     'store_id' => $request->store_id,
+        //     'body' => $request->body
+        // ]);
+
+        return redirect()->back()->with('message', 'Laporan Anda telah dikirim.');
     }
 
     /**

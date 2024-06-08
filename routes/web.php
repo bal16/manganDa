@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ReportController;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -72,7 +73,8 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('ReportList');
     });
 
-
+    // report
+    Route::post('/report/{post}', [ReportController::class, 'store'])->name('report.store');
 });
 
 

@@ -3,6 +3,8 @@ import { memo, useState } from "react";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import { Link } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
+
 
 function Post({ auth, content }) {
     // console.log(content)
@@ -32,6 +34,24 @@ function Post({ auth, content }) {
         } catch (error) {
             console.error("Error:", error);
             alert("Terjadi kesalahan saat mengubah status bookmark");
+        }
+    };
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        body: "",
+    });
+
+    const handleReportSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            await axios.post(`/report/${content.id}`, data);
+            alert("Laporan Anda telah dikirim.");
+            document.getElementById('my_modal_3').close();
+            reset();
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Terjadi kesalahan saat mengirim laporan.");
         }
     };
 
@@ -76,7 +96,7 @@ function Post({ auth, content }) {
             <div className="flex justify-end mt-2 space-x-4">
                 <button
                     className="text-gray-600 hover:text-gray-800"
-                    // onClick={'/'}
+                    onClick={()=>document.getElementById('my_modal_3').showModal()}
                 >
                     <Icon
                         icon="ic:round-report-problem"
@@ -104,6 +124,29 @@ function Post({ auth, content }) {
                     />
                 </Link>
             </div>
+            {/* You can open the modal using document.getElementById('ID').showModal() method */}
+            <dialog id="my_modal_3" className="modal">
+                <div className="modal-box max-w-64">
+                    <form method="dialog">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <form onSubmit={handleReportSubmit}>
+                        <h3 className="font-bold text-lg">Report Post</h3>
+                        <textarea 
+                            name="body"
+                            className="textarea textarea-bordered" 
+                            placeholder="Detail your report here"
+                            value={data.body}
+                            onChange={(e) => 
+                                setData("body", e.target.value)
+                            }
+                            required
+                            >
+                        </textarea><br />
+                        <button type="submit" className="btn btn-error">Send</button>
+                    </form>
+                </div>
+            </dialog>
         </div>
     );
 }
