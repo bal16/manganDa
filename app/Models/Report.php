@@ -11,10 +11,8 @@ class Report extends Model
     use HasFactory;
     protected $fillable = [
         "user_id",
-        "store_id",
-        "body",
-        "is_post",
-        "is_store"
+        "post_id",
+        "body"
     ];
     public function user():BelongsTo
     {

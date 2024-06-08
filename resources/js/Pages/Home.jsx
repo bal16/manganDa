@@ -29,7 +29,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
     const submit = (e) => {
         e.preventDefault();
         post(route("home"));
-        reset(["body", "image"]);
+        reset("body", "image");
     };
 
     // console.log(posts)
@@ -102,11 +102,11 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                 </label>
                                 {/* store */}
                                 {/* */}
+                                {/* <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
                                 <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
                                 <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
                                 <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
+                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span> */}
                             </div>
                             <button
                                 // type="submit"

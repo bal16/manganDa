@@ -17,7 +17,7 @@ export default function SinglePost({ auth, posts, stores, comments }) {
 
     const submitComment = (e) => {
         e.preventDefault();
-        post(route("comment.store", { id: posts.id }));
+        post(route("comment.store", { id: content.id }));
     };
 
     return (

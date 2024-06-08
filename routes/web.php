@@ -51,7 +51,8 @@ Route::middleware('auth')->group(function () {
 
     // post
     Route::post('/post/{user_id}/{store_id}',[PostController::class, 'create'])->name('post.create');
-    Route::delete('/post/{id_post}',[PostController::class, 'destroy'])->name('post.destroy');
+    Route::delete('/post/{id}',[PostController::class, 'destroy'])->name('post.destroy');
+    // Route::delete('/post/{id}',[ReportController::class, 'index'])->name('report.index');
 
     // bookmark
     Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark');
@@ -69,12 +70,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard',function(){
         return Inertia::render('Dashboard');
     });
-    Route::get('/report',function(){
-        return Inertia::render('ReportList');
-    });
-
+    
+    
     // report
-    Route::post('/report/{post}', [ReportController::class, 'store'])->name('report.store');
+    Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+    Route::get('/report',[ReportController::class, 'index'])->name('report.index');
 });
 
 

@@ -39,20 +39,14 @@ function Post({ auth, content }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
+        post: content.id
     });
 
     const handleReportSubmit = async (e) => {
         e.preventDefault();
-
-        try {
-            await axios.post(`/report/${content.id}`, data);
-            alert("Laporan Anda telah dikirim.");
-            document.getElementById('my_modal_3').close();
-            reset();
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Terjadi kesalahan saat mengirim laporan.");
-        }
+        post(route('report.store'));
+        reset('body','post');
+        document.getElementById('my_modal_3').close(); // Close the modal
     };
 
     return (
@@ -143,6 +137,7 @@ function Post({ auth, content }) {
                             required
                             >
                         </textarea><br />
+                        {/* <input type="hidden" value={setData("post_id", content.id)} /> */}
                         <button type="submit" className="btn btn-error">Send</button>
                     </form>
                 </div>

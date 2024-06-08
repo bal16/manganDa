@@ -25,8 +25,7 @@ export default memo(function Sidebar({ auth, stores }) {
                         Kontak Kami
                     </h3>
                     <p className="py-2 mb-2 font-light">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Tempore rem optio nobis, quidem vero alias?
+                    Jika Anda memiliki pertanyaan atau membutuhkan bantuan, jangan ragu untuk menghubungi kami. Tim kami siap membantu Anda dengan informasi dan dukungan yang Anda butuhkan.
                     </p>
                     <a
                         href={`https://wa.me/${number}?text=${message}`}
@@ -46,7 +45,7 @@ export default memo(function Sidebar({ auth, stores }) {
                 <div className="w-full px-4 pt-3 pb-10 border rounded-2xl border-marshland-950 text-start">
                     <h3 className="text-xl font-bold">
                         Rekomendasi <br />
-                        Makanan Untukmu
+                        Toko Untukmu
                     </h3>
                     {/* Section Makanan Populer */}
                     <section className="">
