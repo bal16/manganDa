@@ -56,7 +56,7 @@ function Post({ auth, content }) {
     };
 
     return (
-        <div className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-full">
+        <Link href={"/post/"+content.id} className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-full">
             <div className="flex">
                 <div className="w-12 h-12 overflow-hidden rounded-full bg-dark me-2">
                     <img
@@ -66,7 +66,7 @@ function Post({ auth, content }) {
                 </div>
                 <div className="flex w-2/3 ps-1">
                     <p className="text-sm font-light">
-                        <a href={`/profile/${content.user.id}`} className="font-semibold"> 
+                        <a href={`/profile/${content.user.id}`} className="font-semibold">
                             {content.user.name}
                         </a >{" "}
                         @{content.user.username} -{" "}
@@ -80,7 +80,7 @@ function Post({ auth, content }) {
                 </div>
             </div>
 
-            <a href="#" className="-mt-5 font-light ms-[3.75rem] text-start">
+            <div className="-mt-5 font-light ms-[3.75rem] text-start">
                 <p>{content.body}</p>
                 {content.image && (
                     <div className="overflow-hidden bg-slate-700 rounded-xl">
@@ -91,7 +91,7 @@ function Post({ auth, content }) {
                         />
                     </div>
                 )}
-            </a>
+            </div>
 
             <div className="flex justify-end mt-2 space-x-4">
                 <button
@@ -128,16 +128,16 @@ function Post({ auth, content }) {
             <dialog id="my_modal_3" className="modal">
                 <div className="modal-box max-w-64">
                     <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
                     </form>
                     <form onSubmit={handleReportSubmit}>
-                        <h3 className="font-bold text-lg">Report Post</h3>
-                        <textarea 
+                        <h3 className="text-lg font-bold">Report Post</h3>
+                        <textarea
                             name="body"
-                            className="textarea textarea-bordered" 
+                            className="textarea textarea-bordered"
                             placeholder="Detail your report here"
                             value={data.body}
-                            onChange={(e) => 
+                            onChange={(e) =>
                                 setData("body", e.target.value)
                             }
                             required
@@ -147,7 +147,7 @@ function Post({ auth, content }) {
                     </form>
                 </div>
             </dialog>
-        </div>
+        </Link>
     );
 }
 
