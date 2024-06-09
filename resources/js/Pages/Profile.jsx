@@ -24,9 +24,9 @@ export default function Profile({ auth, post, stores, user, rating, userRating }
                     <section className="">
                         {post.map((a, index) => (
                             <Post
-                            key={index}
-                            content={a}
-                            auth={auth}
+                                key={index}
+                                content={a}
+                                auth={auth}
                             />
                         ))}
                     </section>
