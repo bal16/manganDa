@@ -77,5 +77,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/report',[ReportController::class, 'index'])->name('report.index');
 });
 
+Route::middleware('is_admin')->group(function(){
+    Route::get('/dashboard',function(){
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+});
+
 
 require __DIR__.'/auth.php';

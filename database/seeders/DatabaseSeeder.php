@@ -29,6 +29,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'didi@gmail.com',
             'password' => bcrypt('didi123'),
         ]);
+        User::create([
+            'name' => 'admin',
+            'username' => 'admin',
+            'email' => 'admin',
+            'password' => bcrypt('admin'),
+            'is_admin' => true
+        ]);
         //!! KLO MAO NGESEED PAKHE TINKER
         // User::factory(5)->create();
         // Post::factory(100)->create();

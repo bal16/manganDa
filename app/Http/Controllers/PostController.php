@@ -197,12 +197,8 @@ class PostController extends Controller
         // Find the post by its ID
         $post = Post::findOrFail($id);
 
-        // Check if the authenticated user is the owner of the post
-        // if (Auth::user()->id !== $post->user_id) {
-        //     return redirect()->back()->with('error', 'You are not authorized to delete this post.');
-        // }
-
-        // Delete the post
-        $post->delete();
+        if(auth()->user()->is_admin || auth()->user()->id == $post->user_id){
+            $post->delete();    
+        }
     }
 }
