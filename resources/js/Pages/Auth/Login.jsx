@@ -61,7 +61,18 @@ export default function Login({ status, canResetPassword }) {
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Password
                                 </label>
-                                <label className="flex items-center justify-center border rounded-lg cursor-pointer w-11 ps-0 pe-1 rounded-s-none border-s-0">
+                                
+                            </div>
+                            <div className="flex">
+                                <input
+                                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                                    type={!isShow ? "password" : "text"}
+                                    value={data.password}
+                                    onChange={(e) =>
+                                        setData("password", e.target.value)
+                                        }
+                                />
+                                <label className="flex items-center justify-center border rounded-lg cursor-pointer w-11 ps-0 pe-1 ">
                                     <Checkbox
                                         name="showPassword"
                                         checked={isShow}
@@ -70,21 +81,14 @@ export default function Login({ status, canResetPassword }) {
                                         }
                                         className="hidden"
                                     />
-                                    <span className="text-sm text-gray-600 ms-2">
+                                    <div className="text-sm text-gray-600 ms-2">
                                         <FontAwesomeIcon
                                             icon={isShow ? faEye : faEyeSlash}
                                         />
-                                    </span>
+                                    </div>
                                 </label>
+                                
                             </div>
-                            <input
-                                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                                type={!isShow ? "password" : "text"}
-                                value={data.password}
-                                onChange={(e) =>
-                                    setData("password", e.target.value)
-                                }
-                            />
                             <InputError message={errors.password} className="mt-2" />
                         </div>
                         <div className="block mt-4">
