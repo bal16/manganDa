@@ -39,10 +39,10 @@ export default function Register() {
                     }}
                 ></div>
                 <div className="w-full p-8 lg:w-1/2 flex flex-col justify-center">
-                    <h2 className="text-2xl font-semibold text-gray-700 text-center">
+                    <h2 className="text-4xl font-semibold text-gray-700 text-center">
                         MadangYuk!
                     </h2>
-                    <p className="text-xl text-gray-600 text-center">Create your account</p>
+                    <p className="text-l text-gray-600 text-center">Create your account</p>
                     <form onSubmit={submit}>
                         <div className="mt-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">

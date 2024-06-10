@@ -42,26 +42,26 @@ function Post({ auth, content }) {
         document.getElementById("my_modal_3").close(); // Close the modal
     };
 
-    const handleDelete = async () =>{
-        if(isOwner){
-            const confirmDelete = window.confirm("apakah anda yakin menghapus postingan ini?")
-            if(confirmDelete){
+    const handleDelete = async () => {
+        if (isOwner) {
+            const confirmDelete = window.confirm("apakah anda yakin menghapus postingan ini?");
+            if (confirmDelete) {
                 try {
                     await axios.delete(`/post/${content.id}`);
-                    alert('post berhasil dihapus')
-                    window.location.reload()
+                    alert('post berhasil dihapus');
+                    window.location.reload();
                 } catch (error) {
-                    console.error(error)
-                    alert('gagal menghapus post!')
+                    console.error(error);
+                    alert('gagal menghapus post!');
                 }
-            }       
-        }else{
+            }
+        } else {
             alert("anda tidak diperkenankan menghapus postingan ini!");
         }
     }
 
     return (
-        <div className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-full">
+        <div className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-full flex-wrap">
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
                     <div className="w-12 h-12 overflow-hidden rounded-full bg-dark me-2">
@@ -75,37 +75,37 @@ function Post({ auth, content }) {
                             @{content.user.username} -{" "}
                             {moment(content.updated_at).fromNow()}
                         </p>
-                        <div style={{ display: content.user.is_store? "block":  "none" }} className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-green-yellow-500">
+                        <div style={{ display: content.user.is_store ? "block" : "none" }} className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-green-yellow-500 w-16">
                             Toko
                         </div>
                     </div>
                 </div>
-                <div id="more" className="mb-5 dropdown ">
+                <div id="more" className="mb-5 dropdown">
                     <button tabIndex={0} className="m-1 bg-transparent">
-                        <Icon 
-                            icon="ep:more-filled" 
+                        <Icon
+                            icon="ep:more-filled"
                             style={{ color: "#4B5563" }}
-                            width="2rem" height="2rem" 
+                            width="2rem" height="2rem"
                         />
                     </button>
                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-30">
-                        <li style={{ display: isOwner ?  "block" : "none" }}>
+                        <li style={{ display: isOwner ? "block" : "none" }}>
                             <button onClick={handleDelete}>
-                                <Icon icon="material-symbols:delete" style={{ color: "#ff0000" }} width="2rem" height="2rem"/>
-                                <p className="text-m">delete</p> 
+                                <Icon icon="material-symbols:delete" style={{ color: "#ff0000" }} width="2rem" height="2rem" />
+                                <p className="text-m">delete</p>
                             </button>
                         </li>
                         <li style={{ display: isOwner ? "none" : "block" }}>
                             <button onClick={() => document.getElementById("my_modal_3").showModal()}>
                                 <Icon icon="ic:round-report-problem" style={{ color: "#4B5563" }} width="2rem" height="2rem" />
-                                <p className="text-m">report</p> 
+                                <p className="text-m">report</p>
                             </button>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div className="-mt-5 font-light ms-[3.75rem] text-start">
+            <div className="-mt-5 font-light ms-[3.75rem] text-start" style={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
                 <p>{content.body}</p>
                 {content.image && (
                     <div className="overflow-hidden bg-slate-700 rounded-xl">
