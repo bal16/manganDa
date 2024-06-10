@@ -9,7 +9,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Profile({ auth, post, stores, user, rating, userRating }) {
-    console.log(rating);
+    console.log(stores);
     return (
         <>
             <DefaultLayout>
@@ -17,10 +17,25 @@ export default function Profile({ auth, post, stores, user, rating, userRating }
                 <Navbar auth={auth} />
                 <MainContent>
                     <Header> a </Header>
-                    <section className="p-2 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100">
-                        Ini Profile {user.name}
+                    <section className="relative p-2 h-36 border-b-[0.1px] border-marshland-950 bg-ecru-white-100">
+                        <div className="w-20 h-20 overflow-hidden bg-black rounded-full me-2">
+                                <img
+                                    className="w-full"
+                                    src="https://source.unsplash.com/50x50?photo-profile"
+                                    alt=""
+                                />
+                        </div>
+                        <div className="absolute left-5 mt-3 text-left mb-3">
+                            <p>{user.name}</p>
+                            {user.is_store ? 
+                                <p>{stores[0].description}</p>
+                            : ''}
+                        </div>
+                        <div className="absolute right-5 top-5">
+                            {user.is_store ? <RatingButton storeRating={rating} userRating={userRating} auth={auth} store={stores[0]} /> : ''}
+                        </div>
+                        
                     </section>
-                    {user.is_store ? <RatingButton storeRating={rating} userRating={userRating} auth={auth} store={stores[0]} /> : ''}
                     <section className="">
                         {post.map((a, index) => (
                             <Post
