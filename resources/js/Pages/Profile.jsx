@@ -9,7 +9,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Profile({ auth, post, stores, user, rating, userRating }) {
-    console.log(stores);
+    // console.log(stores);
     return (
         <>
             <DefaultLayout>
@@ -28,7 +28,7 @@ export default function Profile({ auth, post, stores, user, rating, userRating }
                         <div className="absolute left-5 mt-3 text-left mb-3">
                             <p>{user.name}</p>
                             {user.is_store ? 
-                                <p>{stores[0].description}</p>
+                                <p className="font-light">{stores[0].description}</p>
                             : ''}
                         </div>
                         <div className="absolute right-5 top-5">

@@ -88,17 +88,17 @@ function Post({ auth, content }) {
                             width="2rem" height="2rem" 
                         />
                     </button>
-                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-30">
                         <li style={{ display: isOwner ?  "block" : "none" }}>
                             <button onClick={handleDelete}>
                                 <Icon icon="material-symbols:delete" style={{ color: "#ff0000" }} width="2rem" height="2rem"/>
-                                <p className="text-xl">delete</p> 
+                                <p className="text-m">delete</p> 
                             </button>
                         </li>
                         <li style={{ display: isOwner ? "none" : "block" }}>
                             <button onClick={() => document.getElementById("my_modal_3").showModal()}>
                                 <Icon icon="ic:round-report-problem" style={{ color: "#4B5563" }} width="2rem" height="2rem" />
-                                <p className="text-xl">report</p> 
+                                <p className="text-m">report</p> 
                             </button>
                         </li>
                     </ul>

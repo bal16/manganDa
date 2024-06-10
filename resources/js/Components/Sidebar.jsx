@@ -34,13 +34,17 @@ export default memo(function Sidebar({ auth, stores }) {
                     >
                         Hubungi Kami
                     </a>
-                    <a
+                    {
+                        auth.user.is_store || auth.user.is_admin ? 
+                            ''
+                        : <a
                         href={route("store.create")}
                         target="_blank"
                         className="px-4 py-2 rounded-full bg-green-yellow-600"
-                    >
-                        Daftar Toko
-                    </a>
+                        >
+                            Daftar Toko
+                        </a>
+                    }   
                 </div>
                 <div className="w-full px-4 pt-3 pb-10 border rounded-2xl border-marshland-950 text-start">
                     <h3 className="text-xl font-bold">

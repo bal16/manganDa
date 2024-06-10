@@ -53,7 +53,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
     }
   };
 
-  const isOwnStore = auth.user.id === store.user_id;
+  const isOwnStore = auth.user.id === store.user_id || auth.user.is_admin;
 
   return (
     <div>
