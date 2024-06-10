@@ -9,7 +9,7 @@ import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function SinglePost({ auth, posts, stores, comments }) {
-    console.log(comments);
+    // console.log(comments);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
@@ -17,7 +17,8 @@ export default function SinglePost({ auth, posts, stores, comments }) {
 
     const submitComment = (e) => {
         e.preventDefault();
-        post(route("comment.store", { id: content.id }));
+        post(route("comment.store", { id: posts.id }));
+        reset('body');
     };
 
     return (
