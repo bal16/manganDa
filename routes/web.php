@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function () {
     // report
     Route::post('/report', [ReportController::class, 'store'])->name('report.store');
     Route::get('/report',[ReportController::class, 'index'])->name('report.index');
+    Route::delete('/report/{id}',[ReportController::class, 'destroy'])->name('report.destroy');
 });
 
 Route::middleware('is_admin')->group(function(){

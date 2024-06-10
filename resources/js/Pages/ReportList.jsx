@@ -8,7 +8,7 @@ function Dashboard({ reports: initialReports }) {
   const [reports, setReports] = useState(initialReports);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const handleDelete = async (post_id) => {
+  const handleDeleteComment = async (post_id) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
         await axios.delete(`/post/${post_id}`);
@@ -21,6 +21,19 @@ function Dashboard({ reports: initialReports }) {
     }
   };
 
+  const handleAllowComment = async (post_id) =>{
+    if(window.confirm('Are you sure you want to allow this post?')){
+      try {
+        await axios.delete(`/report/${post_id}`);
+        setReports(reports.filter(report => report.post_id !== post_id));
+        alert('report has been deleted successfullty');
+      } catch (error) {
+        console.error('error: ',error)
+        alert(`couldn't delete report`)
+      }
+    }    
+  }
+
   const template = (index, content) => (
     <tr key={content.post_id}>
       <th>{index + 1}</th>
@@ -28,9 +41,12 @@ function Dashboard({ reports: initialReports }) {
       <td>{content.post_id}</td>
       <td>{content.body}</td>
       <td>
-        <Link href={`/post/${content.post_id}`} className='btn btn-success'>view</Link>
+        <Link href={`/post/${content.post_id}`} className='btn btn-warning'>view</Link>
+      </td>
+      <td>
+        <button onClick={() => handleAllowComment(content.post_id)} className='btn btn-success'>allow</button>
         {' | '}
-        <button onClick={() => handleDelete(content.post_id)} className='btn btn-error'>delete</button>
+        <button onClick={() => handleDeleteComment(content.post_id)} className='btn btn-error'>delete</button>
       </td>
     </tr>
   );
@@ -59,6 +75,7 @@ function Dashboard({ reports: initialReports }) {
                       <th>user</th>
                       <th>post id</th>
                       <th>body</th>
+                      <th>view post</th>
                       <th>action</th>
                     </tr>
                   </thead>

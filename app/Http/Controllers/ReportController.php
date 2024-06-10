@@ -76,8 +76,10 @@ class ReportController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Report $report)
+    public function destroy(Request $request, $id)
     {
-        //
+        if(auth()->user()->is_admin){
+            Report::where('post_id', $id)->delete();
+        }
     }
 }
