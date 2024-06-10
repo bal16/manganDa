@@ -29,13 +29,13 @@ export default function Register() {
     };
 
     return (
-        <div className="py-16 min-h-screen">
+        <div className="py-16 min-h-screen bg-green-500 place-content-center">
             <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl h-full">
                 <div
                     className="hidden lg:block lg:w-1/2 bg-cover bg-center"
                     style={{
                         backgroundImage:
-                            "url('https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80')",
+                            "url('https://plus.unsplash.com/premium_photo-1663852297267-827c73e7529e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
                     }}
                 ></div>
                 <div className="w-full p-8 lg:w-1/2 flex flex-col justify-center">
