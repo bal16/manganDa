@@ -63,12 +63,17 @@ export default function Home({ auth, posts, stores, bookmark }) {
                     >
                         {/* Made a Post{auth&&","} {auth?.user?.name}? */}
                         <div className="flex">
-                            <div className="w-12 h-12 overflow-hidden bg-black rounded-full me-2">
+                            {/* <div className="w-12 h-12 overflow-hidden bg-black rounded-full me-2">
                                 <img
                                     className="w-full"
                                     src="https://source.unsplash.com/50x50?photo-profile"
                                     alt=""
                                 />
+                            </div> */}
+                            <div className="avatar placeholder">
+                                <div className="bg-neutral text-neutral-content rounded-full w-12">
+                                    <span className="text-3xl">{Array.from(auth.user.username)[0].toUpperCase()}</span>
+                                </div>
                             </div>
 
                             <textarea

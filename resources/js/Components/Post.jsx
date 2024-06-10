@@ -61,26 +61,35 @@ function Post({ auth, content }) {
     }
 
     return (
-        <div className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-full flex-wrap">
+        <div className="block border-b-[0.1px] px-4 md:px-10 py-3 border-marshland-950 min-h-full max-w-screen flex-wrap overflow-x-hidden">
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                    <div className="w-12 h-12 overflow-hidden rounded-full bg-dark me-2">
+                    {/* <div className="w-12 h-12 overflow-hidden rounded-full bg-dark me-2">
                         <img src="https://source.unsplash.com/50x50?photo-profile" alt="Profile" />
+                    </div> */}
+                    <div className="avatar placeholder">
+                        <div className="bg-neutral text-neutral-content rounded-full w-12">
+                            <span className="text-3xl">{Array.from(content.user.username)[0].toUpperCase()}</span>
+                        </div>
                     </div>
                     <div className="ps-1">
                         <p className="text-sm font-light">
-                            <a href={`/profile/${content.user.id}`} className="font-semibold">
+                            <a href={`/profile/${content.user.id}`} className={content.user.is_store ? 
+                                "px-4 py-1 text-sm rounded-full bg-green-yellow-500 w-16"
+                                :
+                                ""
+                            }>
                                 {content.user.name}
                             </a>{" "}
                             @{content.user.username} -{" "}
                             {moment(content.updated_at).fromNow()}
                         </p>
-                        <div style={{ display: content.user.is_store ? "block" : "none" }} className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-green-yellow-500 w-16">
+                        {/* <div style={{ display: content.user.is_store ? "block" : "none" }} className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-green-yellow-500 w-16">
                             Toko
-                        </div>
+                        </div> */}
                     </div>
                 </div>
-                <div id="more" className="mb-5 dropdown">
+                <div id="more" className="mb-5 dropdown dropdown-bottom dropdown-end">
                     <button tabIndex={0} className="m-1 bg-transparent">
                         <Icon
                             icon="ep:more-filled"
@@ -105,7 +114,7 @@ function Post({ auth, content }) {
                 </div>
             </div>
 
-            <div className="-mt-5 font-light ms-[3.75rem] text-start" style={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
+            <div className="-mt-1 font-light ms-[3.75rem] text-start" style={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
                 <p>{content.body}</p>
                 {content.image && (
                     <div className="overflow-hidden bg-slate-700 rounded-xl">
