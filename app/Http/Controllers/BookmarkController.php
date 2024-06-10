@@ -82,7 +82,7 @@ class BookmarkController extends Controller
             }
         });
         return Inertia::render('Bookmark',[
-            'posts'=>$posts,'bookmark'=>$userBookmarks,'stores'=>$stores
+            'posts'=>$posts,'bookmark'=>$userBookmarks,'stores'=>$stores, 'user'=>$user
         ]);
     }
 

@@ -32,7 +32,7 @@ export default function Bookmark({ auth, posts, bookmark, stores }) {
                 <Head title="Bookmark" />
                 <Navbar auth={auth} />
                 <MainContent>
-                    {!bookmark ? "" : "Belum Ada Bookmark"}
+                    {!bookmark ? "" : <p className="place-content-center">Belum Ada Bookmark</p>}
                     <section className="">
                         {posts.map((a, index) => (
                             <Post
@@ -44,7 +44,7 @@ export default function Bookmark({ auth, posts, bookmark, stores }) {
                         ))}
                     </section>
                 </MainContent>
-                <Sidebar stores={stores} />
+                <Sidebar stores={stores} auth={auth} />
             </DefaultLayout>
             <NavbarResponsive auth={auth} />
         </>
