@@ -4,7 +4,7 @@ import Header from '../partials/Header';
 import { Head, Link } from '@inertiajs/react';
 import axios from 'axios';
 
-function ReportList({ reports: initialReports, auth }) {
+function ReportList({ reports: initialReports, auth, jumlah }) {
   const [reports, setReports] = useState(initialReports);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -54,9 +54,9 @@ function ReportList({ reports: initialReports, auth }) {
   );
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden dark:bg-slate-900">
       {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Sidebar jumlah={jumlah} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
@@ -71,7 +71,7 @@ function ReportList({ reports: initialReports, auth }) {
               <div className="overflow-x-auto">
                 <table className="table text-center">
                   {/* head */}
-                  <thead>
+                  <thead className='dark:text-white'>
                     <tr>
                       <th></th>
                       <th>user</th>
@@ -81,7 +81,7 @@ function ReportList({ reports: initialReports, auth }) {
                       <th>action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className='dark:text-white'>
                     {reports.map((report, index) => (
                       template(index, report)
                     ))}

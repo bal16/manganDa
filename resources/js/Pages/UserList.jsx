@@ -4,7 +4,7 @@ import Header from '../partials/Header';
 import { Head, Link } from '@inertiajs/react';
 import axios from 'axios';
 
-function UserList({ auth, users: initialUsers }) {
+function UserList({ auth, users: initialUsers, jumlah }) {
   const [users, setUsers] = useState(initialUsers);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -23,9 +23,9 @@ function UserList({ auth, users: initialUsers }) {
   );
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden dark:bg-slate-900">
       {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Sidebar jumlah={jumlah} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
@@ -40,7 +40,7 @@ function UserList({ auth, users: initialUsers }) {
               <div className="overflow-x-auto">
                 <table className="table text-center">
                   {/* head */}
-                  <thead>
+                  <thead className='dark:text-white'>
                     <tr>
                       <th></th>
                       <th>name</th>
@@ -49,7 +49,7 @@ function UserList({ auth, users: initialUsers }) {
                       <th>view profile</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className='dark:text-white'>
                     {users.map((user, index) => (
                       template(index, user)
                     ))}

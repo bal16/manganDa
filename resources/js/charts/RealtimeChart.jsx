@@ -23,7 +23,7 @@ function RealtimeChart({
   const chartValue = useRef(null);
   const chartDeviation = useRef(null);
   const { currentTheme } = useThemeProvider();
-  const darkMode = currentTheme === 'dark';  
+  const darkMode = currentTheme === 'dark';
   const { textColor, gridColor, tooltipTitleColor, tooltipBodyColor, tooltipBgColor, tooltipBorderColor } = chartColors;
 
   useEffect(() => {
@@ -41,11 +41,11 @@ function RealtimeChart({
             border: {
               display: false,
             },
-            suggestedMin: 30,
-            suggestedMax: 80,
+            suggestedMin: 10,
+            suggestedMax: 30,
             ticks: {
               maxTicksLimit: 5,
-              callback: (value) => formatValue(value),
+              callback: (value) => (value),
               color: darkMode ? textColor.dark : textColor.light,
             },
             grid: {
@@ -84,7 +84,7 @@ function RealtimeChart({
               weight: '600',
             },
             callbacks: {
-              label: (context) => formatValue(context.parsed.y),
+              label: (context) => (context.parsed.y),
             },
             titleColor: darkMode ? tooltipTitleColor.dark : tooltipTitleColor.light,
             bodyColor: darkMode ? tooltipBodyColor.dark : tooltipBodyColor.light,
@@ -129,7 +129,7 @@ function RealtimeChart({
       chart.options.plugins.tooltip.titleColor = tooltipTitleColor.dark;
       chart.options.plugins.tooltip.bodyColor = tooltipBodyColor.dark;
       chart.options.plugins.tooltip.backgroundColor = tooltipBgColor.dark;
-      chart.options.plugins.tooltip.borderColor = tooltipBorderColor.dark;      
+      chart.options.plugins.tooltip.borderColor = tooltipBorderColor.dark;
     } else {
       chart.options.scales.x.ticks.color = textColor.light;
       chart.options.scales.y.ticks.color = textColor.light;
@@ -137,17 +137,17 @@ function RealtimeChart({
       chart.options.plugins.tooltip.titleColor = tooltipTitleColor.light;
       chart.options.plugins.tooltip.bodyColor = tooltipBodyColor.light;
       chart.options.plugins.tooltip.backgroundColor = tooltipBgColor.light;
-      chart.options.plugins.tooltip.borderColor = tooltipBorderColor.light; 
+      chart.options.plugins.tooltip.borderColor = tooltipBorderColor.light;
     }
     chart.update('none')
-  }, [currentTheme])    
+  }, [currentTheme])
 
 
   return (
     <React.Fragment>
       <div className="px-5 py-3">
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2 tabular-nums">$<span ref={chartValue}>57.81</span></div>
+          <div className="mr-2 text-3xl font-bold text-slate-800 dark:text-slate-100 tabular-nums"><span ref={chartValue}>57.81</span></div>
           <div ref={chartDeviation} className="text-sm font-semibold text-white px-1.5 rounded-full"></div>
         </div>
       </div>

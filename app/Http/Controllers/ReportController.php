@@ -21,6 +21,15 @@ class ReportController extends Controller
             'reports' => $reports
         ]);
     }
+    public function list()
+    {
+        $reports = Report::with('user')->get();
+
+        return response()->json([
+            'success'=>true,
+            'reports' => $reports
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.

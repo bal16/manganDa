@@ -4,7 +4,7 @@ import Header from '../partials/Header';
 import { Head } from '@inertiajs/react';
 import axios from 'axios';
 
-function StoreValidate({auth, stores: initialStores }) {
+function StoreValidate({auth, stores: initialStores , jumlah}) {
   const [stores, setStores] = useState(initialStores);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -52,9 +52,9 @@ function StoreValidate({auth, stores: initialStores }) {
   );
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden dark:bg-slate-900">
       {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} jumlah={jumlah}/>
 
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
@@ -69,17 +69,17 @@ function StoreValidate({auth, stores: initialStores }) {
               <div className="overflow-x-auto">
                 <table className="table text-center">
                   {/* head */}
-                  <thead>
+                  <thead className='dark:text-white'>
                     <tr>
                       <th></th>
-                      <th>Owner</th>
+                      <th >Owner</th>
                       <th>Store Name</th>
                       <th>Description</th>
                       <th>Address</th>
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className='dark:text-white'>
                     {stores.map((store, index) => (
                       template(index, store)
                     ))}

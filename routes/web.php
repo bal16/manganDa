@@ -89,23 +89,13 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['is_admin', 'auth'])->group(function () {
-    $user = (User::get()->count()) - 1;
-    $report = Report::get()->count();
-    $validStore = Store::where('is_validate', '1')->get()->count();
-    $unvalStore = Store::where('is_validate', '0')->get()->count();
-    Route::get('/dashboard', fn () => Inertia::render('Dashboard', [
-            'jumlah' => [
-               'user' => $user,
-               'report' => $report,
-               'store' => $validStore,
-               'unvalStore' => $unvalStore,
-            //    'unverstore' => $store,
-            ]
-        ])
-    )->name('dashboard');
+    Route::get('/dashboard', function (){
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 
     // report
     Route::get('/db/report', [ReportController::class, 'index'])->name('report.index');
+    Route::get('/db/reportList', [ReportController::class, 'list'])->name('report.list');
     Route::delete('/report/{id}', [ReportController::class, 'destroy'])->name('report.destroy');
 
     // user
@@ -114,6 +104,7 @@ Route::middleware(['is_admin', 'auth'])->group(function () {
     // store
     Route::get('/db/stores', [StoreController::class, 'index']);
     Route::get('/db/stores/requests', [StoreController::class, 'showStoreNotValidate'])->name('stores.notValidate');
+    Route::get('/db/stores/requestsList', [StoreController::class, 'list'])->name('stores.list');
     Route::patch('/db/stores/requests/{id}', [StoreController::class, 'validate_store']);
     Route::delete('/db/stores/requests/{id}', [StoreController::class, 'decline_store']);
 });

@@ -67,19 +67,19 @@ class StoreController extends Controller
 
     public function validate_store(Request $request) {
         $id_store = $request->id;
-    
+
         // Mengambil instance model Store
         $store = Store::where('id', $id_store)->first();
-        
+
         // Memastikan store ditemukan
         if ($store) {
             // Update properti is_validate
             $store->is_validate = true;
             $store->save();
-            
+
             // Mengambil instance model User
             $user = User::where('id', $store->user_id)->first();
-            
+
             // Memastikan user ditemukan
             if ($user) {
                 // Update properti is_store
@@ -88,7 +88,7 @@ class StoreController extends Controller
             }
         }
     }
-    
+
 
     public function decline_store(Request $request){
         $store = Store::where('id', $request->id);
@@ -101,6 +101,15 @@ class StoreController extends Controller
 
         return Inertia::render('StoreValidate', [
             'stores' => $stores
+        ]);
+    }
+    public function list(){
+
+        $stores = Store::where('is_validate', false)->get();
+
+        return response()->json([
+            'stores' => $stores,
+            'success' => true
         ]);
     }
 

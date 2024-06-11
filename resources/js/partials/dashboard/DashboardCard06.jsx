@@ -4,15 +4,15 @@ import DoughnutChart from '../../charts/DoughnutChart';
 // Import utilities
 import { tailwindConfig } from '../../utils/Utils';
 
-function DashboardCard06() {
+function DashboardCard06({jumlah}) {
 
   const chartData = {
-    labels: ['United States', 'Italy', 'Other'],
+    labels: [ 'Common Users', 'Stores'],
     datasets: [
       {
-        label: 'Top Countries',
+        label: 'Count',
         data: [
-          35, 30, 35,
+            jumlah.user, jumlah.store
         ],
         backgroundColor: [
           tailwindConfig().theme.colors.indigo[500],
@@ -30,9 +30,9 @@ function DashboardCard06() {
   };
 
   return (
-    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+    <div className="flex flex-col bg-white border rounded-sm shadow-lg col-span-full sm:col-span-6 xl:col-span-4 dark:bg-slate-800 border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
-        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Top Countries</h2>
+        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Users Diff</h2>
       </header>
       {/* Chart built with Chart.js 3 */}
       {/* Change the height attribute to adjust the chart height */}
