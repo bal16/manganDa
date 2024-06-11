@@ -5,14 +5,13 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [rating, setRating] = useState(0);
 
-  console.log(userRating);
+  // console.log(userRating);
 
   // Set the initial rating from userRating
   useEffect(() => {
-    if (userRating) {
-      setRating(userRating.rate);
-    }
-  }, [userRating]);
+    setRating(storeRating);
+  }, [storeRating]);
+  
 
   const toggleDropdown = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
@@ -21,8 +20,10 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
   const rate = async (stars) => {
     if (userRating) {
       updateRating(stars);
+      window.location.reload();
     } else {
       submitRating(stars);
+      window.location.reload();
     }
     setShowDropdown(false); // Close dropdown after rating is submitted
   };
@@ -35,7 +36,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
         rate: stars,
       });
       console.log(response.data.message);
-      setRating(stars); // Update local state with new rating
+      setRating(response.data.rate); // Update local state with new rating
     } catch (error) {
       console.error('Error submitting rating:', error);
     }
@@ -46,8 +47,8 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
       const response = await axios.put(`/rating/${userRating.id}`, {
         rate: stars,
       });
-      console.log(response.data.message);
-      setRating(stars);
+      console.log(response);
+      setRating(response.rate);
     } catch (error) {
       console.error('Error updating rating:', error);
     }
@@ -62,7 +63,8 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
         onClick={toggleDropdown}
         disabled={isOwnStore}
       >
-        {storeRating > 0 ? {storeRating} / 5 : "belum ada rating"}
+        {storeRating > 0 ? `${storeRating} / 5.0` : "belum ada rating"}
+        {/* {storeRating > 0 ? `${rating} / 5` : "belum ada rating"} */}
         
       </button>
       {showDropdown && (
