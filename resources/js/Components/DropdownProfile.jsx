@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 import Transition from '../utils/Transition';
+import NavbarLink from "@/Components/NavbarLink";
+
 
 import UserAvatar from '../images/user-avatar-32.png';
 import { Link } from '@inertiajs/react';
@@ -83,13 +85,15 @@ function DropdownProfile({
               </Link>
             </li>
             <li>
-              <Link
+              <NavbarLink
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
-                to="/signin"
+                href={route('logout')}
+                method='post'
+                as='button'
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 Sign Out
-              </Link>
+              </NavbarLink>
             </li>
           </ul>
         </div>

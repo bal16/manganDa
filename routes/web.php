@@ -33,17 +33,17 @@ Route::get('/explore',[PostController::class, 'explore'])->name('explore');
 
 Route::middleware('auth')->group(function () {
     // Store
-    Route::get('/store-register', [StoreController::class, 'create'])->name('store.create');
+    Route::get('/store-register', [StoreController::class, 'create'])->name('store.create')->middleware('is_store');
     Route::post('/store-register', [StoreController::class, 'store'])->name('store.store');
 
     //Home
-    Route::get('/', [PostController::class, 'show'])->name('home');
-    Route::get('/dashboard', [PostController::class, 'show'])->name('home');
+    Route::get('/', [PostController::class, 'show'])->name('home')->middleware('admin_cant_open');
+    Route::get('/dashboard', [PostController::class, 'show'])->name('home')->middleware('admin_cant_open');
     Route::post('/', [PostController::class, 'store']);
     Route::get('/post/{id}', [PostController::class, 'index']);
 
     // profile
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile')->middleware('admin_cant_open');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
 
     // comment
     Route::post('/post/{id}', [CommentController::class, 'store'])->name('comment.store');
+    
     //search
     Route::post('/search',[PostController::class, 'search']);
     Route::get('/dashboard',function(){
@@ -83,6 +84,18 @@ Route::middleware('is_admin')->group(function(){
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+
+// Route::middleware('is_store')->group(function(){
+//     Route::get('/store-register',function(){
+//         return Inertia::render('Dashboard');
+//     })->name('store.create');
+// });
+
+// Route::middleware('admin_cant_open')->group(function(){
+//     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+//     Route::get('/profile/{id}',[ProfileController::class, 'userProfile'])->name('profile.single-user');
+// });
 
 
 

@@ -90,7 +90,7 @@ function Post({ auth, content }) {
                     </div>
                 </div>
                 <div id="more" className="mb-5 dropdown dropdown-bottom dropdown-end">
-                    <button tabIndex={0} className="m-1 bg-transparent">
+                    <button disabled={auth.user.is_admin} tabIndex={0} className="m-1 bg-transparent">
                         <Icon
                             icon="ep:more-filled"
                             style={{ color: "#4B5563" }}
@@ -99,13 +99,13 @@ function Post({ auth, content }) {
                     </button>
                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-30">
                         <li style={{ display: isOwner ? "block" : "none" }}>
-                            <button onClick={handleDelete}>
+                            <button disabled={auth.user.is_admin} onClick={handleDelete}>
                                 <Icon icon="material-symbols:delete" style={{ color: "#ff0000" }} width="2rem" height="2rem" />
                                 <p className="text-m">delete</p>
                             </button>
                         </li>
                         <li style={{ display: isOwner ? "none" : "block" }}>
-                            <button onClick={() => document.getElementById("my_modal_3").showModal()}>
+                            <button disabled={auth.user.is_admin} onClick={() => document.getElementById("my_modal_3").showModal()}>
                                 <Icon icon="ic:round-report-problem" style={{ color: "#4B5563" }} width="2rem" height="2rem" />
                                 <p className="text-m">report</p>
                             </button>
@@ -124,7 +124,7 @@ function Post({ auth, content }) {
             </div>
 
             <div className="flex justify-end mt-2 space-x-4">
-                <button className="text-gray-600 hover:text-gray-800" onClick={handleBookmark}>
+                <button className="text-gray-600 hover:text-gray-800" disabled={auth.user.is_admin} onClick={handleBookmark}>
                     <Icon icon="material-symbols:bookmark" style={{ color: bookmarked ? "#ff0000" : "" }} width="2rem" height="2rem" />
                 </button>
                 <Link className="text-gray-600 hover:text-gray-800" href={"/post/" + content.id}>

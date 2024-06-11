@@ -115,7 +115,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                             </div>
                             <button
                                 // type="submit"
-                                disabled={processing}
+                                disabled={processing || auth.user.iadmin}
                                 // onClick={() => setPostModal(!postModal)}
                                 className="py-2 mt-1 rounded-full px-7 bg-green-yellow-600"
                             >

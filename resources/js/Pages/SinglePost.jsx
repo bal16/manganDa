@@ -38,7 +38,7 @@ export default function SinglePost({ auth, posts, stores, comments }) {
                             <div>
                                 <button
                                     type="submit"
-                                    disabled={processing}
+                                    disabled={processing || auth.user.is_admin}
                                     className="py-2 mt-1 rounded-full px-7 bg-green-yellow-600 float-right"
                                 >
                                     Kirim

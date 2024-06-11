@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Store
+class adminCantOpen
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,9 @@ class Store
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->check() || auth()->user()->is_store){
+        if(auth()->user()->is_admin){
             // abort(code: 403);
-            return redirect(route('home'));
+            return redirect(route('dashboard'));
         }
         return $next($request);
     }

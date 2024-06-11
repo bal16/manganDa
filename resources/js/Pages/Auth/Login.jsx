@@ -40,7 +40,7 @@ export default function Login({ status, canResetPassword }) {
                 ></div>
                 <div className="w-full p-8 lg:w-1/2 flex flex-col justify-center">
                     <h2 className="text-4xl font-bold text-gray-700  text-center">
-                        madangnda
+                        manganDa
                     </h2>
                     <p className="text-l text-gray-600 text-center">Welcome back!</p>
                     <form onSubmit={submit}>

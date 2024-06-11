@@ -13,6 +13,7 @@ import { Icon } from "@iconify/react";
 
 export default function Profile({ auth, post, stores, user, rating, userRating }) {
     // console.log(stores);
+
     return (
         <>
             <DefaultLayout>
