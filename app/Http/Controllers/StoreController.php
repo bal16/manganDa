@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Inertia\Inertia;
 use App\Models\Store;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
@@ -15,7 +16,10 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        $store = Store::all();
+        return Inertia::render('StoreList', [
+           'stores' => $store
+        ]);
     }
 
     /**
@@ -26,7 +30,7 @@ class StoreController extends Controller
 
         return Inertia::render('RegisterStore');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -47,10 +51,11 @@ class StoreController extends Controller
             'address' => $request->address
         ]);
 
-        $user = auth()->user();
+        $userId = auth()->user()->id;
+        $user= User::find($userId);
         $user->is_store = true;
         $user->save();
-
+        // User::up($user);
         // return redirect()->route('/login')->with('success', 'Store registered successfully.');
     }
 

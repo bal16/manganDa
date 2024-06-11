@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\RatingController;
-use App\Http\Controllers\ReportController;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookmarkController;
@@ -25,7 +26,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-// store
+// db/store
 Route::get('/stores',[StoreController::class, 'show'])->name('stores');
 
 // explore
@@ -65,24 +66,26 @@ Route::middleware('auth')->group(function () {
 
     // comment
     Route::post('/post/{id}', [CommentController::class, 'store'])->name('comment.store');
-    
+
     //search
     Route::post('/search',[PostController::class, 'search']);
     Route::get('/dashboard',function(){
         return Inertia::render('Dashboard');
     });
-    
-    
+
+
     // report
     Route::post('/report', [ReportController::class, 'store'])->name('report.store');
-    Route::get('/report',[ReportController::class, 'index'])->name('report.index');
-    Route::delete('/report/{id}',[ReportController::class, 'destroy'])->name('report.destroy');
-});
+    });
 
-Route::middleware('is_admin')->group(function(){
-    Route::get('/dashboard',function(){
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::middleware('is_admin')->group(function(){
+        Route::get('/dashboard',function(){
+            return Inertia::render('Dashboard');
+            })->name('dashboard');
+        Route::get('/db/report',[ReportController::class, 'index'])->name('report.index');
+        Route::delete('/report/{id}',[ReportController::class, 'destroy'])->name('report.destroy');
+        Route::get('/db/users', [UserController::class, 'index']);
+        Route::get('/db/stores', [StoreController::class, 'index']);
 });
 
 

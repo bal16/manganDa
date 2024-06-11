@@ -8,45 +8,40 @@ function StoreList({ stores: initialStores }) {
   const [stores, setStores] = useState(initialStores);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const handleDeleteComment = async (post_id) => {
-    if (window.confirm('Are you sure you want to delete this post?')) {
-      try {
-        await axios.delete(`/post/${post_id}`);
-        setStores(stores.filter(report => report.post_id !== post_id));
-        alert('Post has been deleted successfully.');
-      } catch (error) {
-        console.error('Error deleting post:', error);
-        alert('There was an error deleting the post.');
-      }
-    }
-  };
+//   const handleDeleteComment = async (post_id) => {
+//     if (window.confirm('Are you sure you want to delete this post?')) {
+//       try {
+//         await axios.delete(`/post/${post_id}`);
+//         setStores(stores.filter(report => report.post_id !== post_id));
+//         alert('Post has been deleted successfully.');
+//       } catch (error) {
+//         console.error('Error deleting post:', error);
+//         alert('There was an error deleting the post.');
+//       }
+//     }
+//   };
 
-  const handleAllowComment = async (post_id) =>{
-    if(window.confirm('Are you sure you want to allow this post?')){
-      try {
-        await axios.delete(`/report/${post_id}`);
-        setStores(stores.filter(report => report.post_id !== post_id));
-        alert('report has been deleted successfullty');
-      } catch (error) {
-        console.error('error: ',error)
-        alert(`couldn't delete report`)
-      }
-    }
-  }
+//   const handleAllowComment = async (post_id) =>{
+//     if(window.confirm('Are you sure you want to allow this post?')){
+//       try {
+//         await axios.delete(`/report/${post_id}`);
+//         setStores(stores.filter(report => report.post_id !== post_id));
+//         alert('report has been deleted successfullty');
+//       } catch (error) {
+//         console.error('error: ',error)
+//         alert(`couldn't delete report`)
+//       }
+//     }
+//   }
 
   const template = (index, content) => (
     <tr key={content.post_id}>
       <th>{index + 1}</th>
+      <td>{content.name}</td>
       <td>{content.user.name}</td>
-      <td>{content.post_id}</td>
-      <td>{content.body}</td>
+      <td>{content.is_open?'buka':'tutup'}</td>
       <td>
-        <Link href={`/post/${content.post_id}`} className='btn btn-warning'>view</Link>
-      </td>
-      <td>
-        <button onClick={() => handleAllowComment(content.post_id)} className='btn btn-success'>allow</button>
-        {' | '}
-        <button onClick={() => handleDeleteComment(content.post_id)} className='btn btn-error'>delete</button>
+        <Link href={`/profile/${content.user_id}`} className='btn btn-warning'>view</Link>
       </td>
     </tr>
   );
@@ -72,16 +67,15 @@ function StoreList({ stores: initialStores }) {
                   <thead>
                     <tr>
                       <th></th>
-                      <th>user</th>
-                      <th>post id</th>
-                      <th>body</th>
-                      <th>view post</th>
-                      <th>action</th>
+                      <th>name</th>
+                      <th>owner</th>
+                      <th>open?</th>
+                      <th>view store</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {stores.map((report, index) => (
-                      template(index, report)
+                    {stores.map((store, index) => (
+                      template(index, store)
                     ))}
                   </tbody>
                 </table>

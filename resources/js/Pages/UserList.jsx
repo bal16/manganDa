@@ -8,46 +8,17 @@ function UserList({ users: initialUsers }) {
   const [users, setUsers] = useState(initialUsers);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const handleDeleteComment = async (post_id) => {
-    if (window.confirm('Are you sure you want to delete this post?')) {
-      try {
-        await axios.delete(`/post/${post_id}`);
-        setUsers(users.filter(report => report.post_id !== post_id));
-        alert('Post has been deleted successfully.');
-      } catch (error) {
-        console.error('Error deleting post:', error);
-        alert('There was an error deleting the post.');
-      }
-    }
-  };
-
-  const handleAllowComment = async (post_id) =>{
-    if(window.confirm('Are you sure you want to allow this post?')){
-      try {
-        await axios.delete(`/report/${post_id}`);
-        setUsers(users.filter(report => report.post_id !== post_id));
-        alert('report has been deleted successfullty');
-      } catch (error) {
-        console.error('error: ',error)
-        alert(`couldn't delete report`)
-      }
-    }
-  }
 
   const template = (index, content) => (
-    <tr key={content.post_id}>
+    <tr key={content.id}>
       <th>{index + 1}</th>
-      <td>{content.user.name}</td>
-      <td>{content.post_id}</td>
-      <td>{content.body}</td>
+      <td>{content.name}</td>
+      <td>{content.username}</td>
+      <td>{content.email}</td>
       <td>
-        <Link href={`/post/${content.post_id}`} className='btn btn-warning'>view</Link>
+        <Link href={`/profile/${content.id}`} className='btn btn-warning'>view</Link>
       </td>
-      <td>
-        <button onClick={() => handleAllowComment(content.post_id)} className='btn btn-success'>allow</button>
-        {' | '}
-        <button onClick={() => handleDeleteComment(content.post_id)} className='btn btn-error'>delete</button>
-      </td>
+
     </tr>
   );
 
@@ -72,16 +43,15 @@ function UserList({ users: initialUsers }) {
                   <thead>
                     <tr>
                       <th></th>
-                      <th>user</th>
-                      <th>post id</th>
-                      <th>body</th>
-                      <th>view post</th>
-                      <th>action</th>
+                      <th>name</th>
+                      <th>username</th>
+                      <th>email</th>
+                      <th>view profile</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((report, index) => (
-                      template(index, report)
+                    {users.map((user, index) => (
+                      template(index, user)
                     ))}
                   </tbody>
                 </table>
