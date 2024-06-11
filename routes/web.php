@@ -34,8 +34,8 @@ Route::get('/explore',[PostController::class, 'explore'])->name('explore');
 
 Route::middleware('auth')->group(function () {
     // Store
-    Route::get('/store-register', [StoreController::class, 'create'])->name('store.create');
-    Route::post('/store-register', [StoreController::class, 'store'])->name('store.store');
+    Route::get('/store-register', [StoreController::class, 'create'])->name('store.create')->middleware('store_cant_open');
+    Route::post('/store-register', [StoreController::class, 'store'])->name('store.store')->middleware('store_cant_open');
 
     //Home
     Route::get('/', [PostController::class, 'show'])->name('home')->middleware('admin_cant_open');

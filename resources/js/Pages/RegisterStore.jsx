@@ -22,7 +22,18 @@ export default function RegisterStore({ auth }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("store.store"));
+        post(route("store.store"),{
+            onSuccess: () =>{
+                alert('Store registered successfully.');
+                window.location.href = route('dashboard');
+            },
+            onError: ()=>{
+                if (errors.user_id) {
+                    alert('You have already registered a store.');
+                }
+            }
+        });
+
     };
 
     return (

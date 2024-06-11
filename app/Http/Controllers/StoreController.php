@@ -44,6 +44,12 @@ class StoreController extends Controller
         ]);
         // dd($request);
 
+        $existingStore = Store::where('user_id', $request->user_id)->first();
+
+        if ($existingStore) {
+            return redirect()->back()->withErrors(['user_id' => 'You have already registered a store.']);
+        }
+
         $store = Store::create([
             'name' => $request->name,
             'user_id' => auth()->user()->id,

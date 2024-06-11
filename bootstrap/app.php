@@ -20,7 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             
         ])->alias([
             'is_admin'=>Admin::class,
-            'is_store'=>Store::class,
+            'store_cant_open'=>Store::class,
             'admin_cant_open' => adminCantOpen::class,
         ]);
 

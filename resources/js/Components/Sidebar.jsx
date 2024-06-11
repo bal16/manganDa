@@ -39,7 +39,7 @@ export default memo(function Sidebar({ auth, stores }) {
                             ''
                         : <a
                         href={route("store.create")}
-                        target="_blank"
+                        // target="_blank"
                         className="px-4 py-2 rounded-full bg-green-yellow-600"
                         >
                             Daftar Toko
