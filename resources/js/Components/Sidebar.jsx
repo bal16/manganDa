@@ -10,15 +10,7 @@ export default memo(function Sidebar({ auth, stores }) {
 
     return (
         <aside className="hidden w-3/5 p-2 -mb-1 text-center border-l-[0.1px] border-marshland-950 md:flex text-marshland-950 bg-ecru-white-100 sticky top-0 h-screen">
-            <div className="w-full h-full px-3 py-4 text-start">
-                <div
-                    className={
-                        "w-full mb-5 " +
-                        (route().current("explore") && "hidden")
-                    }
-                >
-                    <SearchBar />
-                </div>
+            <div className="w-full h-full px-3 py-0 text-start">
                 <div className="w-full px-4 pt-3 pb-6 mb-4 border rounded-2xl border-marshland-950 text-start">
                     <h3 className="text-xl font-bold">
                         Hubungi <br />
@@ -39,7 +31,7 @@ export default memo(function Sidebar({ auth, stores }) {
                             ''
                         : <a
                         href={route("store.create")}
-                        // target="_blank"
+                        // target="_blank" q
                         className="px-4 py-2 rounded-full bg-green-yellow-600"
                         >
                             Daftar Toko

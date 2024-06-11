@@ -36,10 +36,10 @@ use App\Models\Store;
 
 
 // db/store
-Route::get('/stores', [StoreController::class, 'show'])->name('stores');
+Route::get('/stores', [StoreController::class, 'show'])->name('stores')->middleware('admin_cant_open');
 
 // explore
-Route::get('/explore', [PostController::class, 'explore'])->name('explore');
+Route::get('/explore', [PostController::class, 'explore'])->name('explore')->middleware('admin_cant_open');
 
 Route::middleware('auth')->group(function () {
     // Store
@@ -60,13 +60,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/{id}', [ProfileController::class, 'userProfile'])->name('profile.single-user');
 
-    // post
+    // post     
     Route::post('/post/{user_id}/{store_id}', [PostController::class, 'create'])->name('post.create');
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
     // Route::delete('/post/{id}',[ReportController::class, 'index'])->name('report.index');
 
     // bookmark
-    Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark');
+    Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark')->middleware('admin_cant_open');
     Route::delete('/bookmark/{id}', [BookmarkController::class, 'destroy'])->name('bookmark.destroy');
     Route::post('/bookmarks/{id}', [BookmarkController::class, 'create'])->name('bookmark.create');
 

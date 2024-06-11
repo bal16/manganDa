@@ -11,7 +11,7 @@ import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Home({ auth, posts, stores, bookmark }) {
-    console.log(auth)
+    // console.log(auth)
     posts.sort((a, b) => {
         if (a.created_at > b.created_at) {
           return -1;

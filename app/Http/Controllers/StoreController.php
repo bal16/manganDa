@@ -127,7 +127,7 @@ class StoreController extends Controller
      */
     public function show(Store $store)
     {
-        $stores = Store::all();
+        $stores = Store::where('is_validate', false)->get();
         return Inertia::render('Stores',['stores'=>$stores]);
     }
 
