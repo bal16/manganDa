@@ -27,8 +27,8 @@ class ProfileController extends Controller
         $post = Post::where('user_id',$user->id)->with(['user','bookmark'])->orderBy('created_at','desc')->get();
         $store = Store::all();
         $rating = NULL;
-        $userStore = Store::where('user_id', $user->id)->first();
-        if ($userStore->is_validate) {
+        $userStore = Store::where('user_id', $user->id)->where('is_validate', true)->first();
+        if ($userStore) {
             $rating = Rating::where('store_id', $userStore->id)->avg('rate');
             $rating = $rating ? number_format($rating, 1) : '0.0';
             $user->name = $userStore->name;
