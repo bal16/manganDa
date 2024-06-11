@@ -106,7 +106,7 @@ export default function Profile({ auth, post, stores, user, rating, userRating }
                         <div className="">
                             {user.is_store ? <RatingButton storeRating={rating} userRating={userRating} auth={auth} store={stores[0]} /> : ''}
                         </div>
-                        <div className={auth.user.is_store ? "absolute right-5 bottom-5" : "hidden"}>
+                        <div className={auth.user.is_store && user.is_store ? "absolute right-5 bottom-5" : "hidden"}>
                             <input 
                                 type="checkbox" 
                                 className="toggle toggle-warning" 
