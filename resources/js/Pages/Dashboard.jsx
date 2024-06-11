@@ -23,7 +23,7 @@ import Banner from "../partials/Banner";
 import { Head } from "@inertiajs/react";
 
 function Dashboard({ auth, jumlah }) {
-    console.log(jumlah)
+    // console.log(jumlah)
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -114,7 +114,7 @@ function Dashboard({ auth, jumlah }) {
                             {/* Card (Reasons for Refunds) */}
                             {/* <DashboardCard11 /> */}
                             {/* Card (Recent Activity) */}
-                            <DashboardCard12 />
+                            <DashboardCard12 jumlah={jumlah} />
                             {/* Card (Income/Expenses) */}
                             {/* <DashboardCard13 /> */}
                         </div>

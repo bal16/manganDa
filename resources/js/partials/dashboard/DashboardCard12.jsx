@@ -35,7 +35,6 @@ function DashboardCard12({ jumlah }) {
             setReports( response1.data.reports)
             const response2 = await axios.get('/db/stores/requestsList')
             setStoreRequests( response2.data.stores)
-            console.log(response2.data)
         }catch(error){
             console.error(error)
         }
@@ -56,8 +55,9 @@ function DashboardCard12({ jumlah }) {
                 {/* Card content */}
                 {/* "Today" group */}
                 <div>
-                    <header className="p-2 text-xs font-semibold uppercase rounded-sm text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50">
+                    <header className="relative p-2 text-xs font-semibold uppercase rounded-sm text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50">
                         Reported Post
+                        <div className="absolute top-2 left-28 badge badge-sm ">{jumlah.report}</div>
                     </header>
                     <ul className="my-1">
                         {/* Item */}
@@ -66,8 +66,9 @@ function DashboardCard12({ jumlah }) {
                 </div>
                 {/* "Yesterday" group */}
                 <div>
-                    <header className="p-2 text-xs font-semibold uppercase rounded-sm text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50">
+                    <header className="relative p-2 text-xs font-semibold uppercase rounded-sm text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50">
                         Requested Store
+                        <div className="absolute top-2 left-32 badge badge-sm ">{jumlah.unvalStore}</div>
                     </header>
                     <ul className="my-1">
                         {storeRequests.length?storeRequests.map((request, i)=>template(request, i)):''}
