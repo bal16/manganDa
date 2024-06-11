@@ -58,11 +58,12 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
   return (
     <div>
       <button
-        className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-red-500"
+        className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-red-500 text-white"
         onClick={toggleDropdown}
         disabled={isOwnStore}
       >
-        {storeRating} / 5
+        {storeRating > 0 ? {storeRating} / 5 : "belum ada rating"}
+        
       </button>
       {showDropdown && (
         <div className="rating-dropdown">

@@ -17,6 +17,40 @@ export default function Profile({ auth, post, stores, user, rating, userRating }
 
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
 
+    const mobileButton = () =>(
+        <div className="dropdown dropdown-bottom dropdown-end sm:hidden">
+                            <div tabIndex={0} role="button" className="m-1">
+                                    <Icon
+                                        icon="ep:more-filled"
+                                        style={{ color: "#4B5563" }}
+                                        width="2rem" height="2rem"
+                                    />
+                            </div>
+                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">                                
+                                <li className={auth.user.is_store ? "hidden sm:hidden" : "sm:hidden"}>
+                                    <NavbarLink
+                                        href={route("store.create")}
+                                        >
+                                        <div className="sm:hidden">
+                                            daftar toko
+                                        </div>
+                                    </NavbarLink>
+                                </li>
+                                <li className="sm:hidden">
+                                    <NavbarLink
+                                        href={route("logout")}
+                                        method="post"
+                                        as="button"
+                                        >
+                                        <div className="sm:hidden">
+                                            logout
+                                        </div>
+                                    </NavbarLink>
+                                </li>
+                            </ul>
+                        </div>
+    )
+
     const handleToggle = async () => {
         try {
             const response = await axios.patch(route('store.updateStatus', stores[0].id), {
@@ -52,37 +86,8 @@ export default function Profile({ auth, post, stores, user, rating, userRating }
                                 </div>
                             </NavbarLink>
                         </div> */}
-                        <div className="dropdown dropdown-bottom dropdown-end sm:hidden">
-                            <div tabIndex={0} role="button" className="m-1">
-                                    <Icon
-                                        icon="ep:more-filled"
-                                        style={{ color: "#4B5563" }}
-                                        width="2rem" height="2rem"
-                                    />
-                            </div>
-                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">                                
-                                <li className={auth.user.is_store ? "hidden sm:hidden" : "sm:hidden"}>
-                                    <NavbarLink
-                                        href={route("store.create")}
-                                        >
-                                        <div className="sm:hidden">
-                                            daftar toko
-                                        </div>
-                                    </NavbarLink>
-                                </li>
-                                <li className="sm:hidden">
-                                    <NavbarLink
-                                        href={route("logout")}
-                                        method="post"
-                                        as="button"
-                                        >
-                                        <div className="sm:hidden">
-                                            logout
-                                        </div>
-                                    </NavbarLink>
-                                </li>
-                            </ul>
-                        </div>
+                    {auth.user.id != user.id ? "" : <>{mobileButton()}</>}
+                        
                     </Header>
                     <section className="p-2 min-h-36 border-b-[0.1px] border-marshland-950 bg-ecru-white-100 relative">
                         {/* <div className="w-20 h-20 overflow-hidden bg-black rounded-full me-2">
