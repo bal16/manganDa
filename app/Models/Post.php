@@ -11,6 +11,15 @@ class Post extends Model
 {
     public $incrementing = false;
 
+    protected $with = [
+        "user",
+        "comment",
+        "like",
+        "bookmark",
+        "report",
+        "store",
+    ];
+
     use HasFactory;
     protected $fillable= [
         "body",

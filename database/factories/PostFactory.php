@@ -22,7 +22,7 @@ class PostFactory extends Factory
         return [
             'id'=>fake()->unique()->numberBetween(1,100),
             'user_id'=>fake()->numberBetween(1,5),
-            'body'=>fake()->sentence(),
+            'body'=>fake()->sentence(50),
             'like'=>0,
             // 'store_id'=>Store::factory(),
             'is_store'=>false

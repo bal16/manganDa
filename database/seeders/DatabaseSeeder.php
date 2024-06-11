@@ -38,15 +38,15 @@ class DatabaseSeeder extends Seeder
         ]);
         //!! KLO MAO NGESEED PAKHE TINKER
         // User::factory(5)->create();
-        // Post::factory(100)->create();
-        // Like::factory(100)->create();
-        // Bookmark::factory(200)->create();
-        // Store::factory(3)->create();
+        // App\Models\Post::factory(100)->create();
+        // App\Models\Like::factory(100)->create();
+        // App\Models\Bookmark::factory(200)->create();
+        // App\Models\Store::factory(3)->create();
 
         // User::factory(5)->create()->each(function ($user) {
         //     Store::factory(1)->create(['user_id' => $user->id]);
         //     Post::factory(20)->create(['user_id' => $user->id])->each(function ($post) {
-        //         Like::factory(5)->create(['post_id' => $post->id]);
+        //     Like::factory(5)->create(['post_id' => $post->id]);
         //     });
         // });
     }
