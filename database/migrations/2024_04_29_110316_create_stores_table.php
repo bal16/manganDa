@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('address');
             $table->boolean('is_open')->nullable();
+            $table->boolean('is_validate')->default(false);
             $table->timestamps();
         });
     }

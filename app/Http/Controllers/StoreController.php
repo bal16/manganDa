@@ -51,12 +51,51 @@ class StoreController extends Controller
             'address' => $request->address
         ]);
 
-        $userId = auth()->user()->id;
-        $user= User::find($userId);
-        $user->is_store = true;
-        $user->save();
+        // $userId = auth()->user()->id;
+        // $user= User::find($userId);
+        // $user->is_store = true;
+        // $user->save();
         // User::up($user);
         // return redirect()->route('/login')->with('success', 'Store registered successfully.');
+    }
+
+    public function validate_store(Request $request) {
+        $id_store = $request->id;
+    
+        // Mengambil instance model Store
+        $store = Store::where('id', $id_store)->first();
+        
+        // Memastikan store ditemukan
+        if ($store) {
+            // Update properti is_validate
+            $store->is_validate = true;
+            $store->save();
+            
+            // Mengambil instance model User
+            $user = User::where('id', $store->user_id)->first();
+            
+            // Memastikan user ditemukan
+            if ($user) {
+                // Update properti is_store
+                $user->is_store = true;
+                $user->save();
+            }
+        }
+    }
+    
+
+    public function decline_store(Request $request){
+        $store = Store::where('id', $request->id);
+        $store->delete();
+    }
+
+    public function showStoreNotValidate(Request $request){
+
+        $stores = Store::where('is_validate', false)->get();
+
+        return Inertia::render('StoreValidate', [
+            'stores' => $stores
+        ]);
     }
 
     /**

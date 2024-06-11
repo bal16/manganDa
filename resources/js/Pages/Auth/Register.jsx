@@ -39,9 +39,9 @@ export default function Register() {
                             "url('https://plus.unsplash.com/premium_photo-1663852297267-827c73e7529e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
                     }}
                 ></div>
-                <div className="flex flex-col justify-center w-full p-8 lg:w-1/2">
-                    <h2 className="text-4xl font-semibold text-center text-gray-700">
-                        manganDa
+                <div className="w-full p-8 lg:w-1/2 flex flex-col justify-center">
+                    <h2 className="text-4xl font-semibold text-gray-700 text-center">
+                        manganda
                     </h2>
                     <p className="text-center text-gray-600 text-l">Create your account</p>
                     <form onSubmit={submit}>

@@ -37,7 +37,7 @@ export default function RegisterStore({ auth }) {
                 ></div>
                 <div className="w-full p-8 lg:w-1/2 flex flex-col justify-center">
                     <h2 className="text-2xl font-semibold text-gray-700 text-center">
-                        madangnda
+                        manganda
                     </h2>
                     <p className="text-xl text-gray-600 text-center">Register your store</p>
                     <form onSubmit={submit}>

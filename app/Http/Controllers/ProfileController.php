@@ -28,7 +28,7 @@ class ProfileController extends Controller
         $store = Store::all();
         $rating = NULL;
         $userStore = Store::where('user_id', $user->id)->first();
-        if ($userStore) {
+        if ($userStore->is_validate) {
             $rating = Rating::where('store_id', $userStore->id)->avg('rate');
             $rating = $rating ? number_format($rating, 1) : '0.0';
             $user->name = $userStore->name;

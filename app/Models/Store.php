@@ -19,9 +19,10 @@ class Store extends Model
     ];
     protected $with = [
         'rating',
-        'report',
+        // 'report',
         'post',
-        'user'
+        'user',
+
     ];
     public function report() :HasMany
     {
