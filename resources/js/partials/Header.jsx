@@ -6,7 +6,7 @@ import Help from '@/Components/DropdownHelp';
 import UserMenu from '@/Components/DropdownProfile';
 import ThemeToggle from '@/Components/ThemeToggle';
 
-function Header({ sidebarOpen, setSidebarOpen }) {
+function Header({ sidebarOpen, setSidebarOpen, auth }) {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
   return (
@@ -36,7 +36,7 @@ function Header({ sidebarOpen, setSidebarOpen }) {
 
           {/* Header: Right side */}
           <div className="flex items-center space-x-3">
-            <div>
+            {/* <div>
               <button
                 className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full ml-3 ${
                   searchModalOpen && 'bg-slate-200'
@@ -60,13 +60,11 @@ function Header({ sidebarOpen, setSidebarOpen }) {
                 </svg>
               </button>
               <SearchModal id="search-modal" searchId="search" modalOpen={searchModalOpen} setModalOpen={setSearchModalOpen} />
-            </div>
-            <Notifications align="right" />
-            <Help align="right" />
+            </div> */}
             <ThemeToggle />
             {/*  Divider */}
             <hr className="w-px h-6 border-none bg-slate-200 dark:bg-slate-700" />
-            <UserMenu align="right" />
+            <UserMenu align="right" auth={auth} />
           </div>
         </div>
       </div>

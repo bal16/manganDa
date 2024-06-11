@@ -4,7 +4,7 @@ import Header from '../partials/Header';
 import { Head } from '@inertiajs/react';
 import axios from 'axios';
 
-function StoreValidate({ stores: initialStores }) {
+function StoreValidate({auth, stores: initialStores }) {
   const [stores, setStores] = useState(initialStores);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -59,7 +59,7 @@ function StoreValidate({ stores: initialStores }) {
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
         {/* Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} auth={auth} />
         <Head title="Store List" />
 
         <main>

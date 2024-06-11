@@ -2,7 +2,9 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext({
   currentTheme: 'light',
-  changeCurrentTheme: () => {},
+  changeCurrentTheme: () => {
+    // changeCurrentTheme()
+  },
 });
 
 export default function ThemeProvider({ children }) {
@@ -10,6 +12,7 @@ export default function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(persistedTheme || 'light');
 
   const changeCurrentTheme = (newTheme) => {
+    console.log('Changing current theme')
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
   };

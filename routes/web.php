@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookmarkController;
+use App\Models\Report;
+use App\Models\Store;
 
 //
 
@@ -21,16 +24,22 @@ use App\Http\Controllers\BookmarkController;
 
 
 // dashboard
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     $user = (User::all()->count())-1;
+//     $report = Report::all()->count();
+//     $store = Store::all()->count();
+//     dd($user);
+//     return Inertia::render('Dashboard', [
+//         'jumlah' => $user
+//     ]);
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 // db/store
-Route::get('/stores',[StoreController::class, 'show'])->name('stores');
+Route::get('/stores', [StoreController::class, 'show'])->name('stores');
 
 // explore
-Route::get('/explore',[PostController::class, 'explore'])->name('explore');
+Route::get('/explore', [PostController::class, 'explore'])->name('explore');
 
 Route::middleware('auth')->group(function () {
     // Store
@@ -40,7 +49,7 @@ Route::middleware('auth')->group(function () {
 
     //Home
     Route::get('/', [PostController::class, 'show'])->name('home')->middleware('admin_cant_open');
-    Route::get('/dashboard', [PostController::class, 'show'])->name('home')->middleware('admin_cant_open');
+    // Route::get('/dashboard', [PostController::class, 'show'])->name('home')->middleware('admin_cant_open');
     Route::post('/', [PostController::class, 'store']);
     Route::get('/post/{id}', [PostController::class, 'index']);
 
@@ -49,53 +58,64 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/profile/{id}',[ProfileController::class, 'userProfile'])->name('profile.single-user');
+    Route::get('/profile/{id}', [ProfileController::class, 'userProfile'])->name('profile.single-user');
 
     // post
-    Route::post('/post/{user_id}/{store_id}',[PostController::class, 'create'])->name('post.create');
-    Route::delete('/post/{id}',[PostController::class, 'destroy'])->name('post.destroy');
+    Route::post('/post/{user_id}/{store_id}', [PostController::class, 'create'])->name('post.create');
+    Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
     // Route::delete('/post/{id}',[ReportController::class, 'index'])->name('report.index');
 
     // bookmark
     Route::get('/bookmark', [BookmarkController::class, 'show'])->name('bookmark');
-    Route::delete('/bookmark/{id}',[BookmarkController::class, 'destroy'])->name('bookmark.destroy');
-    Route::post('/bookmarks/{id}',[BookmarkController::class, 'create'])->name('bookmark.create');
+    Route::delete('/bookmark/{id}', [BookmarkController::class, 'destroy'])->name('bookmark.destroy');
+    Route::post('/bookmarks/{id}', [BookmarkController::class, 'create'])->name('bookmark.create');
 
     //  rating
-    Route::post('/rating',[RatingController::class, 'store'])->name('rating.store');
+    Route::post('/rating', [RatingController::class, 'store'])->name('rating.store');
     Route::put('/rating/{id}', [RatingController::class, 'update'])->name('rating.update');
 
     // comment
     Route::post('/post/{id}', [CommentController::class, 'store'])->name('comment.store');
 
     //search
-    Route::post('/search',[PostController::class, 'search']);
-    Route::get('/dashboard',function(){
-        return Inertia::render('Dashboard');
-    });
+    Route::post('/search', [PostController::class, 'search']);
+    // Route::get('/dashboard',function(){
+    //     return Inertia::render('Dashboard');
+    // });
 
 
     // report
     Route::post('/report', [ReportController::class, 'store'])->name('report.store');
 });
 
-Route::middleware('is_admin')->group(function(){
-    Route::get('/dashboard',function(){
-        return Inertia::render('Dashboard');
-        })->name('dashboard');
-    
+Route::middleware(['is_admin', 'auth'])->group(function () {
+    $user = (User::get()->count()) - 1;
+    $report = Report::get()->count();
+    $validStore = Store::where('is_validate', '1')->get()->count();
+    $unvalStore = Store::where('is_validate', '0')->get()->count();
+    Route::get('/dashboard', fn () => Inertia::render('Dashboard', [
+            'jumlah' => [
+               'user' => $user,
+               'report' => $report,
+               'store' => $validStore,
+               'unvalStore' => $unvalStore,
+            //    'unverstore' => $store,
+            ]
+        ])
+    )->name('dashboard');
+
     // report
-    Route::get('/db/report',[ReportController::class, 'index'])->name('report.index');
-    Route::delete('/report/{id}',[ReportController::class, 'destroy'])->name('report.destroy');
-    
+    Route::get('/db/report', [ReportController::class, 'index'])->name('report.index');
+    Route::delete('/report/{id}', [ReportController::class, 'destroy'])->name('report.destroy');
+
     // user
     Route::get('/db/users', [UserController::class, 'index']);
-    
+
     // store
     Route::get('/db/stores', [StoreController::class, 'index']);
-    Route::get('/db/stores/requests',[StoreController::class, 'showStoreNotValidate'])->name('stores.notValidate');
-    Route::patch('/db/stores/requests/{id}',[StoreController::class, 'validate_store']);
-    Route::delete('/db/stores/requests/{id}',[StoreController::class, 'decline_store']);
+    Route::get('/db/stores/requests', [StoreController::class, 'showStoreNotValidate'])->name('stores.notValidate');
+    Route::patch('/db/stores/requests/{id}', [StoreController::class, 'validate_store']);
+    Route::delete('/db/stores/requests/{id}', [StoreController::class, 'decline_store']);
 });
 
 
@@ -112,4 +132,4 @@ Route::middleware('is_admin')->group(function(){
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -4,12 +4,20 @@ import React, { useState, useEffect, useRef } from "react";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import NavLink from "@/Components/NavLink";
 
-function Sidebar({ sidebarOpen, setSidebarOpen }) {
+function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
     //   const location = useLocation();
     const { pathname } = window.location;
 
     const trigger = useRef(null);
     const sidebar = useRef(null);
+
+    const badge = (jumlah) => (
+        <div className="flex flex-shrink-0 ml-2">
+            <span className="inline-flex items-center justify-center h-5 px-2 text-xs font-medium text-white bg-indigo-500 rounded">
+                {jumlah}
+            </span>
+        </div>
+    );
 
     const storedSidebarExpanded = localStorage.getItem("sidebar-expanded");
     const [sidebarExpanded, setSidebarExpanded] = useState(
@@ -273,11 +281,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                             </span>
                                         </div>
                                         {/* Badge */}
-                                        <div className="flex flex-shrink-0 ml-2">
-                                            <span className="inline-flex items-center justify-center h-5 px-2 text-xs font-medium text-white bg-indigo-500 rounded">
-                                                4
-                                            </span>
-                                        </div>
+                                        {jumlah.report>0?badge(jumlah.report):""}
                                     </div>
                                 </NavLink>
                             </li>
@@ -327,11 +331,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                             </span>
                                         </div>
                                         {/* Badge */}
-                                        <div className="flex flex-shrink-0 ml-2">
-                                            <span className="inline-flex items-center justify-center h-5 px-2 text-xs font-medium text-white bg-indigo-500 rounded">
-                                                4
-                                            </span>
-                                        </div>
+                                        {jumlah.user>0?badge(jumlah.user):""}
                                     </div>
                                 </NavLink>
                             </li>
@@ -447,6 +447,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                                             <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
                                                                 Stores List
                                                             </span>
+                                                            {/* Badge */}
+                                                            {jumlah.store>0?badge(jumlah.store):""}
                                                         </NavLink>
                                                     </li>
                                                     <li className="mb-1 last:mb-0">
@@ -466,11 +468,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                                                 Store Request
                                                             </span>
                                                             {/* Badge */}
-                                                            <div className="flex flex-shrink-0 ml-2">
-                                                                <span className="inline-flex items-center justify-center h-5 px-2 text-xs font-medium text-white bg-indigo-500 rounded">
-                                                                    4
-                                                                </span>
-                                                            </div>
+                                                            {jumlah.unvalStore>0?badge(jumlah.unvalStore):""}
                                                         </NavLink>
                                                     </li>
                                                 </ul>

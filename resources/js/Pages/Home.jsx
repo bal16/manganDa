@@ -11,7 +11,7 @@ import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Home({ auth, posts, stores, bookmark }) {
-    // console.log(posts)
+    console.log(auth)
     posts.sort((a, b) => {
         if (a.created_at > b.created_at) {
           return -1;
@@ -71,7 +71,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                 />
                             </div> */}
                             <div className="avatar placeholder">
-                                <div className="bg-neutral text-neutral-content rounded-full w-12">
+                                <div className="w-12 rounded-full bg-neutral text-neutral-content">
                                     <span className="text-3xl">{Array.from(auth.user.username)[0].toUpperCase()}</span>
                                 </div>
                             </div>

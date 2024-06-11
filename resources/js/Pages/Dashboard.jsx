@@ -22,28 +22,30 @@ import DashboardCard13 from '../partials/dashboard/DashboardCard13';
 import Banner from '../partials/Banner';
 import { Head } from '@inertiajs/react';
 
-function Dashboard() {
+function Dashboard({auth, jumlah }) {
+    // console.log(jumlah)
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen -mb-2 overflow-hidden">
 
       {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Sidebar jumlah={jumlah} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
 
         {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} auth={auth} />
         <Head title="Dashboard" />
 
         <main>
           <div className="w-full px-4 py-8 mx-auto sm:px-6 lg:px-8 max-w-9xl">
 
             {/* Welcome banner */}
-            <WelcomeBanner />
+            {/* <WelcomeBanner auth={auth} /> */}
+            <WelcomeBanner auth={auth} />
 
             {/* Dashboard actions */}
             <div className="mb-8 sm:flex sm:justify-between sm:items-center">

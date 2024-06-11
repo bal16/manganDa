@@ -4,7 +4,7 @@ import Header from '../partials/Header';
 import { Head, Link } from '@inertiajs/react';
 import axios from 'axios';
 
-function ReportList({auth, reports: initialReports }) {
+function ReportList({ reports: initialReports, auth }) {
   const [reports, setReports] = useState(initialReports);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -61,7 +61,7 @@ function ReportList({auth, reports: initialReports }) {
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
         {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} auth={auth} />
         <Head title="Report List" />
 
         <main>
