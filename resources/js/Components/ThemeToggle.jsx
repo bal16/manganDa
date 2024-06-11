@@ -1,5 +1,6 @@
-import React from 'react';
-import { useThemeProvider } from '../utils/ThemeContext';
+import { useThemeProvider } from '@/utils/ThemeContext';
+// import React from 'react';
+// import { useThemeProvider } from '../utils/ThemeContext';
 
 export default function ThemeToggle() {
   const { currentTheme, changeCurrentTheme } = useThemeProvider();
@@ -10,12 +11,12 @@ export default function ThemeToggle() {
         type="checkbox"
         name="light-switch"
         id="light-switch"
-        className="light-switch sr-only"
+        className="sr-only light-switch"
         checked={currentTheme === 'light'}
         onChange={() => changeCurrentTheme(currentTheme === 'light' ? 'dark' : 'light')}
       />
       <label
-        className="flex items-center justify-center cursor-pointer w-8 h-8 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full"
+        className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80"
         htmlFor="light-switch"
       >
         <svg className="w-4 h-4 dark:hidden" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +26,7 @@ export default function ThemeToggle() {
           />
           <path className="fill-current text-slate-500" d="M8 4C5.8 4 4 5.8 4 8s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4Z" />
         </svg>
-        <svg className="w-4 h-4 hidden dark:block" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <svg className="hidden w-4 h-4 dark:block" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
           <path
             className="fill-current text-slate-400"
             d="M6.2 2C3.2 2.8 1 5.6 1 8.9 1 12.8 4.2 16 8.1 16c3.3 0 6-2.2 6.9-5.2C9.7 12.2 4.8 7.3 6.2 2Z"

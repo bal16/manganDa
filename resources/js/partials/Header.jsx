@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import SearchModal from '../Components/ModalSearch';
-import Notifications from '../Components/DropdownNotifications';
-import Help from '../Components/DropdownHelp';
-import UserMenu from '../Components/DropdownProfile';
-import ThemeToggle from '../Components/ThemeToggle';
+import SearchModal from '@/Components/ModalSearch';
+import Notifications from '@/Components/DropdownNotifications';
+import Help from '@/Components/DropdownHelp';
+import UserMenu from '@/Components/DropdownProfile';
+import ThemeToggle from '@/Components/ThemeToggle';
 
 function Header({ sidebarOpen, setSidebarOpen }) {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
@@ -65,7 +65,7 @@ function Header({ sidebarOpen, setSidebarOpen }) {
             <Help align="right" />
             <ThemeToggle />
             {/*  Divider */}
-            <hr className="w-px h-6 bg-slate-200 dark:bg-slate-700 border-none" />
+            <hr className="w-px h-6 border-none bg-slate-200 dark:bg-slate-700" />
             <UserMenu align="right" />
           </div>
         </div>

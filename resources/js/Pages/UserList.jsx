@@ -4,15 +4,15 @@ import Header from '../partials/Header';
 import { Head, Link } from '@inertiajs/react';
 import axios from 'axios';
 
-function ReportList({ reports: initialReports }) {
-  const [reports, setReports] = useState(initialReports);
+function UserList({ users: initialUsers }) {
+  const [users, setUsers] = useState(initialUsers);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleDeleteComment = async (post_id) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
         await axios.delete(`/post/${post_id}`);
-        setReports(reports.filter(report => report.post_id !== post_id));
+        setUsers(users.filter(report => report.post_id !== post_id));
         alert('Post has been deleted successfully.');
       } catch (error) {
         console.error('Error deleting post:', error);
@@ -25,7 +25,7 @@ function ReportList({ reports: initialReports }) {
     if(window.confirm('Are you sure you want to allow this post?')){
       try {
         await axios.delete(`/report/${post_id}`);
-        setReports(reports.filter(report => report.post_id !== post_id));
+        setUsers(users.filter(report => report.post_id !== post_id));
         alert('report has been deleted successfullty');
       } catch (error) {
         console.error('error: ',error)
@@ -80,7 +80,7 @@ function ReportList({ reports: initialReports }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {reports.map((report, index) => (
+                    {users.map((report, index) => (
                       template(index, report)
                     ))}
                   </tbody>
@@ -94,4 +94,4 @@ function ReportList({ reports: initialReports }) {
   );
 }
 
-export default ReportList;
+export default UserList;
