@@ -9,8 +9,8 @@ export default memo(function Navbar({ auth }) {
     return (
         <nav className="top-0 hidden w-2/5 h-screen -mb-1  p-2 border-r-[0.4px] border-marshland-950 md:sticky sm:flex  text-marshland-950 bg-ecru-white-100">
             <div className="w-full h-full px-3 py-4 ">
-                <div className="mb-5">
-                    <img className="w-24 border-1" src={Logo} />
+                <div className="-mt-10">
+                    <img className="w-25 border-1" src={Logo} />
                 </div>
                 <ul className="space-y-2 font-medium ">
                     <li>
