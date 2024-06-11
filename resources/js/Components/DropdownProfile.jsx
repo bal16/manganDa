@@ -41,15 +41,15 @@ function DropdownProfile({
     <div className="relative inline-flex">
       <button
         ref={trigger}
-        className="inline-flex justify-center items-center group"
+        className="inline-flex items-center justify-center group"
         aria-haspopup="true"
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
       >
         <img className="w-8 h-8 rounded-full" src={UserAvatar} width="32" height="32" alt="User" />
         <div className="flex items-center truncate">
-          <span className="truncate ml-2 text-sm font-medium dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-200">Acme Inc.</span>
-          <svg className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
+          <span className="ml-2 text-sm font-medium truncate dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-200">Acme Inc.</span>
+          <svg className="w-3 h-3 ml-1 fill-current shrink-0 text-slate-400" viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
         </div>
@@ -72,28 +72,28 @@ function DropdownProfile({
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
             <div className="font-medium text-slate-800 dark:text-slate-100">Acme Inc.</div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 italic">Administrator</div>
+            <div className="text-xs italic text-slate-500 dark:text-slate-400">Administrator</div>
           </div>
           <ul>
             <li>
               <Link
-                className="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
-                to="/settings"
+                className="flex items-center px-3 py-1 text-sm font-medium text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                href="#"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 Settings
               </Link>
             </li>
             <li>
-              <NavbarLink
-                className="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
+              <Link
+                className="flex items-center px-3 py-1 text-sm font-medium text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400"
                 href={route('logout')}
                 method='post'
                 as='button'
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 Sign Out
-              </NavbarLink>
+              </Link>
             </li>
           </ul>
         </div>
