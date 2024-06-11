@@ -9,10 +9,26 @@ import Sidebar from "@/Components/Sidebar";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head, Link } from "@inertiajs/react";
 import { Icon } from "@iconify/react";
+import { useState } from "react";
 
 
 export default function Profile({ auth, post, stores, user, rating, userRating }) {
     // console.log(stores);
+
+    const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
+
+    const handleToggle = async () => {
+        try {
+            const response = await axios.patch(route('store.updateStatus', stores[0].id), {
+                is_open: !isOpen,
+            });
+            if (response.data.success) {
+                setIsOpen(response.data.status);
+            }
+        } catch (error) {
+            console.error("Failed to update store status:", error);
+        }
+    };
 
     return (
         <>
@@ -44,8 +60,8 @@ export default function Profile({ auth, post, stores, user, rating, userRating }
                                         width="2rem" height="2rem"
                                     />
                             </div>
-                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li className={auth.user.is_store ? "hidden" : ""}>
+                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">                                
+                                <li className={auth.user.is_store ? "hidden sm:hidden" : "sm:hidden"}>
                                     <NavbarLink
                                         href={route("store.create")}
                                         >
@@ -54,7 +70,7 @@ export default function Profile({ auth, post, stores, user, rating, userRating }
                                         </div>
                                     </NavbarLink>
                                 </li>
-                                <li>
+                                <li className="sm:hidden">
                                     <NavbarLink
                                         href={route("logout")}
                                         method="post"
@@ -68,7 +84,7 @@ export default function Profile({ auth, post, stores, user, rating, userRating }
                             </ul>
                         </div>
                     </Header>
-                    <section className="p-2 min-h-36 border-b-[0.1px] border-marshland-950 bg-ecru-white-100 ">
+                    <section className="p-2 min-h-36 border-b-[0.1px] border-marshland-950 bg-ecru-white-100 relative">
                         {/* <div className="w-20 h-20 overflow-hidden bg-black rounded-full me-2">
                                 <img
                                     className="w-full"
@@ -82,13 +98,21 @@ export default function Profile({ auth, post, stores, user, rating, userRating }
                             </div>
                         </div>
                         <div className="">
-                            <p>{user.name}</p>
+                            <p>{user.name}  <span className={user.is_store ? "" : "hidden"}>| <span className={isOpen ? "text-warning" : "text-error"}>{isOpen ? "OPEN" : "CLOSED"}</span></span></p>
                             {user.is_store ? 
                                 <p className="font-light">{stores[0].description}</p>
                             : ''}
                         </div>
                         <div className="">
                             {user.is_store ? <RatingButton storeRating={rating} userRating={userRating} auth={auth} store={stores[0]} /> : ''}
+                        </div>
+                        <div className={auth.user.is_store ? "absolute right-5 bottom-5" : "hidden"}>
+                            <input 
+                                type="checkbox" 
+                                className="toggle toggle-warning" 
+                                checked={isOpen} 
+                                onChange={handleToggle}
+                            />
                         </div>
                         
                     </section>

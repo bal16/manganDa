@@ -12,7 +12,7 @@ function StoreValidate({ stores: initialStores }) {
     if (window.confirm('Are you sure you want to allow this store?')) {
       try {
         await axios.patch(`/db/stores/requests/${store_id}`);
-        setStores(stores.map(store => store.id === store_id ? { ...store, is_validate: true } : store));
+        setStores(stores.filter(store => store.id !== store_id));
         alert('Store has been allowed successfully.');
       } catch (error) {
         console.error('Error allowing store:', error);

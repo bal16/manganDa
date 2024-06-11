@@ -104,6 +104,15 @@ class StoreController extends Controller
         ]);
     }
 
+    public function updateStatus(Request $request, $id)
+    {
+        $store = Store::findOrFail($id);
+        $store->is_open = $request->is_open;
+        $store->save();
+
+        return response()->json(['success' => true, 'status' => $store->is_open]);
+    }
+
     /**
      * Display the specified resource.
      */

@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     // Store
     Route::get('/store-register', [StoreController::class, 'create'])->name('store.create')->middleware('store_cant_open');
     Route::post('/store-register', [StoreController::class, 'store'])->name('store.store')->middleware('store_cant_open');
+    Route::patch('/store/{id}/status', [StoreController::class, 'updateStatus'])->name('store.updateStatus');
 
     //Home
     Route::get('/', [PostController::class, 'show'])->name('home')->middleware('admin_cant_open');
@@ -76,26 +77,26 @@ Route::middleware('auth')->group(function () {
 
     // report
     Route::post('/report', [ReportController::class, 'store'])->name('report.store');
-    });
+});
 
-    Route::middleware('is_admin')->group(function(){
-        Route::get('/dashboard',function(){
-            return Inertia::render('Dashboard');
-            })->name('dashboard');
-        
-        // report
-        Route::get('/db/report',[ReportController::class, 'index'])->name('report.index');
-        Route::delete('/report/{id}',[ReportController::class, 'destroy'])->name('report.destroy');
-        
-        // user
-        Route::get('/db/users', [UserController::class, 'index']);
-        
-        // store
-        Route::get('/db/stores', [StoreController::class, 'index']);
-        Route::get('/db/stores/requests',[StoreController::class, 'showStoreNotValidate'])->name('stores.notValidate');
-        Route::patch('/db/stores/requests/{id}',[StoreController::class, 'validate_store']);
-        Route::delete('/db/stores/requests/{id}',[StoreController::class, 'decline_store']);
-    });
+Route::middleware('is_admin')->group(function(){
+    Route::get('/dashboard',function(){
+        return Inertia::render('Dashboard');
+        })->name('dashboard');
+    
+    // report
+    Route::get('/db/report',[ReportController::class, 'index'])->name('report.index');
+    Route::delete('/report/{id}',[ReportController::class, 'destroy'])->name('report.destroy');
+    
+    // user
+    Route::get('/db/users', [UserController::class, 'index']);
+    
+    // store
+    Route::get('/db/stores', [StoreController::class, 'index']);
+    Route::get('/db/stores/requests',[StoreController::class, 'showStoreNotValidate'])->name('stores.notValidate');
+    Route::patch('/db/stores/requests/{id}',[StoreController::class, 'validate_store']);
+    Route::delete('/db/stores/requests/{id}',[StoreController::class, 'decline_store']);
+});
 
 
 // Route::middleware('is_store')->group(function(){

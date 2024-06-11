@@ -4,9 +4,11 @@ import Header from '../partials/Header';
 import { Head, Link } from '@inertiajs/react';
 import axios from 'axios';
 
-function ReportList({ reports: initialReports }) {
+function ReportList({auth, reports: initialReports }) {
   const [reports, setReports] = useState(initialReports);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  console.log(auth)
 
   const handleDeleteComment = async (post_id) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
