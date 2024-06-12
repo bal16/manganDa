@@ -111,14 +111,19 @@ export default function Profile({
                                 </span>
                             </p>
                             {user.is_store ? (
-                                <p className="font-light">
-                                    {stores[0].description}
-                                </p>
+                                <span>
+                                    <p className="font-bold text-sm">
+                                        {stores[0].address}
+                                    </p>
+                                    <p className="font-light">
+                                        {stores[0].description}
+                                    </p>
+                                </span>
                             ) : (
                                 ""
                             )}
                         </div>
-                        <div className="">
+                        <div className="mt-5">
                             {user.is_store ? (
                                 <button
                                     className="px-4 py-1 mb-6 -mt-1 text-sm text-white bg-red-500 rounded-full ms-2"
@@ -145,7 +150,7 @@ export default function Profile({
                         </div>
                         <button
                             className={
-                                auth.user.id !== user.id && user.is_store
+                                auth.user.id !== user.id && user.is_store && auth.user.is_admin
                                     ? "btn btn-success absolute right-5 bottom-5 px-4 py-1 mb-6 -mt-1 rounded-full ms-2"
                                     : "hidden"
                             }

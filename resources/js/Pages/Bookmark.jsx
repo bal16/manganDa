@@ -8,9 +8,9 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Bookmark({ auth, posts, bookmark, stores }) {
-    // console.log(posts);
-    const [postModal, setPostModal] = useState(false);
+export default function Bookmark({ auth, posts, bookmark:initialBookmark, stores }) {
+    // console.log(bookmark.length);
+    const [bookmark, setBookmark] = useState(initialBookmark);
     return (
         <>
             <DefaultLayout>
@@ -18,7 +18,7 @@ export default function Bookmark({ auth, posts, bookmark, stores }) {
                 <Navbar auth={auth} />
                 <MainContent>
                     <Header></Header>
-                    {!bookmark.length ? "" : <p className="place-content-center">Belum Ada Bookmark</p>}
+                    {bookmark.length != 0 ? <></> : <p className="justify-center mt-5">Belum Ada Bookmark</p>}
                     <section className="">
                         {posts.map((a, index) => (
                             <Post
