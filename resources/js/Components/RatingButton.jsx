@@ -47,14 +47,12 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
       const response = await axios.put(`/rating/${userRating.id}`, {
         rate: stars,
       });
-      console.log(response);
+      // console.log(response);
       setRating(response.data.rate); // Update local state with new rating
     } catch (error) {
       console.error('Error updating rating:', error);
     }
   };
-
-  const isOwnStore = auth.user.id === store.user_id || auth.user.is_admin;
 
   return (
     <div>
@@ -71,6 +69,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
                   onClick={() => rate(star)}
                   onMouseEnter={() => setHoverRating(star)}
                   // onMouseLeave={() => setHoverRating(0)}
+                  // onClickCapture={() => setHoverRating(star)}
                 >
                   {star <= (hoverRating || rating) ? '★' : '☆'}
                 </button>
@@ -78,10 +77,10 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
             </div>
             <form method='dialog'>
               <button
-                className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full w-full"
+                className="mt-4 px-4 py-2 bg-green-600 text-white rounded-full w-full"
                 onClick={()=>window.location.reload()}
               >
-                Close
+                kirim
               </button>
             </form>  
           </div>

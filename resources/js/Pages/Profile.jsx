@@ -153,12 +153,18 @@ export default function Profile({
                         >
                             rate store
                         </button>
-                        <RatingButton
-                            auth={auth}
-                            store={userStore}
-                            storeRating={rating}
-                            userRating={userRating}
-                        />
+                        {/* <div className={
+                                auth.user.id === user.id && user.is_store
+                                    ? "absolute right-5 bottom-5"
+                                    : "hidden"
+                        }>
+                        </div> */}
+                            <RatingButton
+                                auth={auth}
+                                store={userStore}
+                                storeRating={rating}
+                                userRating={userRating}
+                            />
                     </section>
                     <section className="">
                         {post.map((a, index) => (
