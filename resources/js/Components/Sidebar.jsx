@@ -9,7 +9,7 @@ export default memo(function Sidebar({ auth, stores }) {
     // console.log(stores);
 
     return (
-        <aside className="hidden w-3/5 p-2 -mb-1 text-center border-l-[0.1px] border-marshland-950 md:flex text-marshland-950 bg-ecru-white-100 sticky top-0 h-screen">
+        <aside className="hidden w-3/5 p-2  text-center border-l-[0.1px] border-marshland-950 md:flex text-marshland-950 bg-ecru-white-100 sticky top-0 h-screen">
             <div className="w-full h-full px-3 py-0 text-start">
                 <div className="w-full px-4 pt-3 pb-6 mb-4 border rounded-2xl border-marshland-950 text-start">
                     <h3 className="text-xl font-bold">
@@ -27,7 +27,7 @@ export default memo(function Sidebar({ auth, stores }) {
                         Hubungi Kami
                     </a>
                     {
-                        auth.user.is_store  || auth.user.is_admin ? 
+                        auth.user.is_store  || auth.user.is_admin ?
                             ''
                         : <a
                         href={route("store.create")}
@@ -36,7 +36,7 @@ export default memo(function Sidebar({ auth, stores }) {
                         >
                             Daftar Toko
                         </a>
-                    }   
+                    }
                 </div>
                 <div className="w-full px-4 pt-3 pb-10 border rounded-2xl border-marshland-950 text-start">
                     <h3 className="text-xl font-bold">

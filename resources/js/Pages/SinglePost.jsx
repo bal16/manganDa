@@ -18,7 +18,7 @@ export default function SinglePost({ auth, posts, stores, comments }) {
     const submitComment = (e) => {
         e.preventDefault();
         post(route("comment.store", { id: posts.id }));
-        reset('body');
+        reset("body");
     };
 
     return (
@@ -29,17 +29,17 @@ export default function SinglePost({ auth, posts, stores, comments }) {
                 <MainContent>
                     <Header></Header>
                     <section className="">
-                        <Post content={posts} auth={auth}/>
+                        <Post content={posts} auth={auth} />
                         {/* taruh form dibawah */}
                         <form
                             onSubmit={submitComment}
-                            className="pt-5 px-4 md:px-10 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100 flex flex-col-reverse"
+                            className="pt-5 px-4 md:px-10 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100 flex flex-col-reverse pb-3"
                         >
                             <div>
                                 <button
                                     type="submit"
                                     disabled={processing || auth.user.is_admin}
-                                    className="py-2 mt-1 rounded-full px-7 bg-green-yellow-600 float-right"
+                                    className="float-right py-2 mt-1 rounded-full px-7 bg-green-yellow-600"
                                 >
                                     Kirim
                                 </button>
@@ -49,28 +49,34 @@ export default function SinglePost({ auth, posts, stores, comments }) {
                                     className="w-full h-12 px-5 py-3 font-light bg-transparent border-none resize-none overscroll-none focus:ring-0"
                                     name="body"
                                     value={data.body}
-                                    onChange={(e) => setData("body",e.target.value)}
+                                    required
+                                    onChange={(e) =>
+                                        setData("body", e.target.value)
+                                    }
                                     placeholder="Tulis komentar..."
                                 />
                             </div>
                         </form>
-
-
-
+                        <div className="min-h-96 ">
                         {comments.map((comment, i) => {
                             return (
-                                <div key={comment.id} className="border-b border-gray-200 py-4">
-                                    <div className="font-semibold text-left">
-                                        <a href={`/profile/${comment.user.id}`}>
-                                            {comment.user.name}
+                                <div
+                                    key={comment.id}
+                                    className="py-4 mx-10 border-b border-slate-950"
+                                >
+                                    <div className="text-left">
+                                        <a href={`/profile/${comment.user.id}`} className="text-sm font-light">
+                                            <span className="font-normal tr">{comment.user.name}</span> @{comment.user.username}
                                         </a>
                                     </div>
-                                    <div className="mt-2 text-left">{comment.body}</div>
+                                    <div className="mt-2 text-sm font-light text-left">
+                                        {comment.body}
+                                    </div>
                                 </div>
                             );
                         })}
-                    </section>
-                    <section>
+
+                        </div>
                     </section>
                 </MainContent>
                 <Sidebar auth={auth} stores={stores} />

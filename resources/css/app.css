@@ -1,7 +1,16 @@
+
+/* Additional styles */
+@import 'additional-styles/utility-patterns.css';
+@import 'additional-styles/flatpickr.css';
+
 /* @import url('https://fonts.cdnfonts.com/css/sf-ui-display'); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+
 
 /* @layer base {
     html {

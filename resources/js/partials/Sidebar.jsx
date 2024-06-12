@@ -20,11 +20,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
     );
 
     const storedSidebarExpanded = localStorage.getItem("sidebar-expanded");
+    // console.log('1',storedSidebarExpanded)
     const [sidebarExpanded, setSidebarExpanded] = useState(
-        storedSidebarExpanded === null
-            ? false
-            : storedSidebarExpanded === "true"
-    );
+        storedSidebarExpanded == false
+        ? false
+        : (storedSidebarExpanded == "true")
+        );
+    // console.log('1',storedSidebarExpanded)
+    // console.log('2',sidebarExpanded)
 
     // close on click outside
     useEffect(() => {

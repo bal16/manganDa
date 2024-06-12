@@ -68,13 +68,13 @@ function Post({ auth, content }) {
                         <img src="https://source.unsplash.com/50x50?photo-profile" alt="Profile" />
                     </div> */}
                     <div className="avatar placeholder">
-                        <div className="bg-neutral text-neutral-content rounded-full w-12">
+                        <div className="w-12 rounded-full bg-neutral text-neutral-content">
                             <span className="text-3xl">{Array.from(content.user.username)[0].toUpperCase()}</span>
                         </div>
                     </div>
-                    <div className="ps-1">
+                    <div className="-mt-4 ps-2">
                         <p className="text-sm font-light">
-                            <a href={`/profile/${content.user.id}`} className={content.user.is_store ? 
+                            <a href={`/profile/${content.user.id}`} className={content.user.is_store ?
                                 "px-4 py-1 text-sm rounded-full bg-green-yellow-500 w-16"
                                 :
                                 ""
@@ -84,7 +84,7 @@ function Post({ auth, content }) {
                             @{content.user.username} -{" "}
                             {moment(content.updated_at).fromNow()}
                         </p>
-                        {/* <div style={{ display: content.user.is_store ? "block" : "none" }} className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-green-yellow-500 w-16">
+                        {/* <div style={{ display: content.user.is_store ? "block" : "none" }} className="w-16 px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-green-yellow-500">
                             Toko
                         </div> */}
                     </div>

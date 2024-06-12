@@ -17,6 +17,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $with = [
+        // "user",
+        "comment",
+        "rating",
+        "bookmark",
+        "report",
+        // "post",
+    ];
     protected $fillable = [
         'name',
         'username',

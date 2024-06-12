@@ -1,8 +1,12 @@
 import { Link } from "@inertiajs/react";
 import { memo } from "react";
-function StoreCard({store}) {
+
+function StoreCard({ store }) {
     return (
-        <Link href={`/profile/${store.user_id}`} className="mb-3 shadow-xl w-52 card bg-base-100">
+        <Link
+            href={`/profile/${store.user_id}`}
+            className="mb-3 shadow-xl w-52 card bg-base-100"
+        >
             <figure className="px-10 pt-10">
                 <img
                     src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
@@ -12,7 +16,7 @@ function StoreCard({store}) {
             </figure>
             <div className="items-center text-center card-body">
                 <h2 className="card-title">{store.name}</h2>
-                <p>{store.description}</p>
+                <p className="break-words">{store.description}</p>
                 {/* <div className="card-actions">
                     <button className="btn btn-primary">See</button>
                 </div> */}

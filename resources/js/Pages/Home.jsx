@@ -14,13 +14,13 @@ export default function Home({ auth, posts, stores, bookmark }) {
     // console.log(auth)
     posts.sort((a, b) => {
         if (a.created_at > b.created_at) {
-          return -1;
+            return -1;
         } else if (a.created_at < b.created_at) {
-          return 1;
+            return 1;
         } else {
-          return 0;
+            return 0;
         }
-      });
+    });
 
     const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -72,7 +72,11 @@ export default function Home({ auth, posts, stores, bookmark }) {
                             </div> */}
                             <div className="avatar placeholder">
                                 <div className="w-12 rounded-full bg-neutral text-neutral-content">
-                                    <span className="text-3xl">{Array.from(auth.user.username)[0].toUpperCase()}</span>
+                                    <span className="text-3xl">
+                                        {Array.from(
+                                            auth.user.username
+                                        )[0].toUpperCase()}
+                                    </span>
                                 </div>
                             </div>
 
@@ -80,6 +84,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                 className="w-4/5 h-12 px-5 py-3 font-light bg-transparent border-none resize-none overscroll-none focus:ring-0"
                                 name="body"
                                 value={data.body}
+                                required
                                 onChange={(e) =>
                                     setData("body", e.target.value)
                                 }

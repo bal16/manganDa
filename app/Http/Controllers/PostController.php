@@ -93,9 +93,8 @@ class PostController extends Controller
      */
     public function show(Request $request)
     {
-        // Mendapatkan semua post dengan relasi user, store, dan bookmark
-        // $posts = Post::with(['user', 'store', 'bookmark'])->orderBy('created_at', 'desc')->get();
-        $posts = Post::all();
+        // Mendapatkan semua post dengan relasi user dan store
+        $posts = Post::orderBy('created_at', 'desc')->get();
 
         // Mendapatkan semua store
         $stores = Store::all();
@@ -119,17 +118,16 @@ class PostController extends Controller
                 $post->bookmark_id = null;
             }
         });
+
+        // Update user name if user is a store
         $posts->each(function ($post) {
-            if($post->user->is_store){
-                $store = Store::where('user_id', $post->user->id)->first();
+            if ($post->user->is_store) {
+                $store = $post->user->store;
                 if ($store) {
                     $post->user->name = $store->name;
                 }
             }
         });
-
-
-
 
         // dd($posts);
         // Mengembalikan response dengan data yang telah dimodifikasi
@@ -139,6 +137,7 @@ class PostController extends Controller
             'bookmark' => $userBookmarks
         ]);
     }
+
 
     public function explore(Request $request)
     {
@@ -165,14 +164,22 @@ class PostController extends Controller
 
     public function search(Request $request){
         $query = $request->input('query');
+        if($query!=''){
+            $stores = Store::where('name','like',"%$query%")->get();
+            $posts = Post::where('body','like',"%$query%")->with(['user'])->get();
 
-        $stores = Store::where('name','like',"%$query%")->get();
-        $posts = Post::where('body','like',"%$query%")->with(['user'])->get();
-
-        return response()->json([
-            'posts' => $posts,
-            'stores' => $stores
-        ]);
+            return response()->json([
+                'success'=>true,
+                'posts' => $posts,
+                'stores' => $stores
+            ]);
+        }else{
+            return response()->json([
+                'success'=>false,
+                'posts' => [],
+               'stores' => []
+            ]);
+        }
     }
 
     public function edit(Post $post)
@@ -198,7 +205,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         if(auth()->user()->is_admin || auth()->user()->id == $post->user_id){
-            $post->delete();    
+            $post->delete();
         }
     }
 }

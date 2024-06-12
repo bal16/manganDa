@@ -21,7 +21,6 @@ export default function Explore({ auth, posts, stores }) {
     const handleChange = (e) => {
         setSearchInput(e.target.value);
     };
-
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedInput(searchInput);
@@ -39,14 +38,14 @@ export default function Explore({ auth, posts, stores }) {
             });
             setStoresList(response.data.stores);
             setPostsList(response.data.posts);
-            console.log(response.data);
+            // console.log(response.data);
         } catch (error) {
             console.log(error);
         }
     };
 
     return (
-        <>
+        <div className="min-h-screen">
             <DefaultLayout>
                 <Head title="explore" />
                 <Navbar auth={auth} />
@@ -57,8 +56,8 @@ export default function Explore({ auth, posts, stores }) {
                             value={searchInput}
                             handleChange={handleChange}
                         />
-                        <button className="btn btn-primary" onClick={handleSearch}>
-                            SEARCH
+                        <button className="mt-5 btn btn-success" onClick={handleSearch}>
+                            Search
                         </button>
                     </section>
                     <section>
@@ -75,6 +74,6 @@ export default function Explore({ auth, posts, stores }) {
                 <Sidebar auth={auth} stores={stores} />
             </DefaultLayout>
             <NavbarResponsive auth={auth} stores={stores} />
-        </>
+        </div>
     );
 }

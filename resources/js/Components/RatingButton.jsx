@@ -11,7 +11,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
   useEffect(() => {
     setRating(storeRating);
   }, [storeRating]);
-  
+
 
   const toggleDropdown = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
@@ -65,7 +65,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
       >
         {storeRating > 0 ? `${storeRating} / 5.0` : "belum ada rating"}
         {/* {storeRating > 0 ? `${rating} / 5` : "belum ada rating"} */}
-        
+
       </button>
       {showDropdown && (
         <div className="rating-dropdown">
@@ -76,7 +76,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
               }`}
               key={star}
               onClick={() => rate(star)}
-              
+
             >
               {star <= rating ? '★' : '☆'}
             </button>
