@@ -9,7 +9,7 @@ export default memo(function Navbar({ auth }) {
     return (
         <nav className="top-0 hidden w-2/5 h-screen  p-2 border-r-[0.4px] border-marshland-950 md:sticky sm:flex  text-marshland-950 bg-ecru-white-100">
             <div className="w-full h-full px-3 py-4 ">
-                <div className="-mt-10 sm:hidden">
+                <div className="hidden md:flex">
                     <img className="w-25 border-1" src={Logo} />
                 </div>
                 <ul className="space-y-2 font-medium ">
@@ -98,7 +98,7 @@ export default memo(function Navbar({ auth }) {
                     </a>
                 </div> */}
 
-                <div className="fixed bottom-10 ">
+                <div className="">
                     <NavbarLink
                         href={route("logout")}
                         method="post"
