@@ -18,7 +18,7 @@ export default function Bookmark({ auth, posts, bookmark, stores }) {
                 <Navbar auth={auth} />
                 <MainContent>
                     <Header></Header>
-                    {!bookmark.length ? "" : <p className="place-content-center">Belum Ada Bookmark</p>}
+                    {!bookmark.length < 0 ? "" : <p className="justify-center mt-5">Belum Ada Bookmark</p>}
                     <section className="">
                         {posts.map((a, index) => (
                             <Post
