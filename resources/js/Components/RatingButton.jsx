@@ -70,7 +70,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
                   key={star}
                   onClick={() => rate(star)}
                   onMouseEnter={() => setHoverRating(star)}
-                  onMouseLeave={() => setHoverRating(0)}
+                  // onMouseLeave={() => setHoverRating(0)}
                 >
                   {star <= (hoverRating || rating) ? '★' : '☆'}
                 </button>
