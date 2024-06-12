@@ -8,7 +8,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
+*{
+    margin-bottom: 0;
+}
 
 
 

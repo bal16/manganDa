@@ -62,7 +62,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                         className="pt-5 px-4 md:px-10 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100  "
                     >
                         {/* Made a Post{auth&&","} {auth?.user?.name}? */}
-                        <div className="flex">
+                        <div className="grid grid-cols-[1fr_8fr] gap-5">
                             {/* <div className="w-12 h-12 overflow-hidden bg-black rounded-full me-2">
                                 <img
                                     className="w-full"
@@ -70,7 +70,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                     alt=""
                                 />
                             </div> */}
-                            <div className="avatar placeholder">
+                            <div className="w-12 h-12 avatar placeholder">
                                 <div className="w-12 rounded-full bg-neutral text-neutral-content">
                                     <span className="text-3xl">
                                         {Array.from(
@@ -80,8 +80,8 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                 </div>
                             </div>
 
-                            <textarea
-                                className="w-4/5 h-12 px-5 py-3 font-light bg-transparent border-none resize-none overscroll-none focus:ring-0"
+                            {/* <textarea
+                                className="w-4/5 h-12 px-5 py-3 font-light bg-transparent border-none resize-none overscroll-none focus:ring-0 focus:border-0"
                                 name="body"
                                 value={data.body}
                                 required
@@ -89,7 +89,25 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                     setData("body", e.target.value)
                                 }
                                 placeholder="Ada Rekomendasi Makanan?!"
-                            />
+                            /> */}
+
+                            <div class="w-full h-5">
+                                <div class="relative w-full min-w-[200px]">
+                                    <textarea
+                                        class="peer h-full min-h-[20px] w-full resize-none rounded-[7px] border-0 border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-0 placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-0 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
+                                        placeholder=" "
+                                        name="body"
+                                        value={data.body}
+                                        required
+                                        onChange={(e) =>
+                                            setData("body", e.target.value)
+                                        }
+                                    ></textarea>
+                                    <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border-0 before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t-0 before:border-0 before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t-0 after:border-r-0 after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-0 peer-focus:before:border-l-0 peer-focus:before:border-gray-900 peer-focus:after:border-t-0 peer-focus:after:border-r-0 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                                    Ada Rekomendasi Makanan?!
+                                    </label>
+                                </div>
+                            </div>
                             {/* </input> */}
                         </div>
                         <div className="flex mt-3">

@@ -121,7 +121,7 @@ export default function Profile({
                         <div className="">
                             {user.is_store ? (
                                 <button
-                                    className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-red-500 text-white"
+                                    className="px-4 py-1 mb-6 -mt-1 text-sm text-white bg-red-500 rounded-full ms-2"
                                 >
                                     {rating > 0 ? `${rating} / 5.0` : "belum ada rating"}
                                 </button>
@@ -138,7 +138,7 @@ export default function Profile({
                         >
                             <input
                                 type="checkbox"
-                                className="toggle toggle-error"
+                                className="toggle toggle-error "
                                 checked={isOpen}
                                 onChange={handleToggle}
                             />
@@ -179,8 +179,8 @@ export default function Profile({
             <NavbarResponsive auth={auth} />
 
             {/* {showModal && (
-                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="p-6 bg-white rounded-lg shadow-lg">
                         <RatingButton
                             auth={auth}
                             store={stores[0]}

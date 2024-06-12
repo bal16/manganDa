@@ -142,8 +142,10 @@ export default {
     },
 
     plugins: [
-        forms,
-        require("@tailwindcss/forms"),
+        require("daisyui"),
+        // forms,
+        // require("@tailwindcss/forms"),
+        require('@tailwindcss/forms')({ strategy: 'class' }),
         plugin(({ addVariant, e }) => {
             addVariant("sidebar-expanded", ({ modifySelectors, separator }) => {
                 modifySelectors(
@@ -154,6 +156,5 @@ export default {
                 );
             });
         }),
-        require("daisyui"),
     ],
 };

@@ -8,7 +8,7 @@ export default memo(function Navbar({ auth }) {
     const [open, setOpen] = useState(false);
     return (
         <nav className="top-0 hidden w-2/5 h-screen  p-2 border-r-[0.4px] border-marshland-950 md:sticky sm:flex  text-marshland-950 bg-ecru-white-100">
-            <div className="grid w-full h-full md:grid-rows-[2fr_4fr_5fr_1fr] px-3 py-4 ">1
+            <div className="grid w-full h-full md:grid-rows-[2fr_4fr_5fr_1fr] px-3 py-4 ">
                 <div className="flex -mt-10 md:hidden"></div>
                 <div className="hidden -mt-10 md:flex">
                     <img className="w-25 border-1" src={Logo} />
