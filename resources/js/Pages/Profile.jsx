@@ -111,14 +111,19 @@ export default function Profile({
                                 </span>
                             </p>
                             {user.is_store ? (
-                                <p className="font-light">
-                                    {stores[0].description}
-                                </p>
+                                <span>
+                                    <p className="font-bold text-sm">
+                                        {stores[0].address}
+                                    </p>
+                                    <p className="font-light">
+                                        {stores[0].description}
+                                    </p>
+                                </span>
                             ) : (
                                 ""
                             )}
                         </div>
-                        <div className="">
+                        <div className="mt-5">
                             {user.is_store ? (
                                 <button
                                     className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-red-500 text-white"
