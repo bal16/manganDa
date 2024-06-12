@@ -9,7 +9,7 @@ import Sidebar from "@/Components/Sidebar";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head, Link } from "@inertiajs/react";
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Profile({
     auth,
@@ -18,8 +18,11 @@ export default function Profile({
     user,
     rating,
     userRating,
+    userStore
 }) {
+    // console.log(userStore)
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
+
     const [showModal, setShowModal] = useState(false);
 
     const mobileButton = () => (
@@ -152,7 +155,7 @@ export default function Profile({
                         </button>
                         <RatingButton
                             auth={auth}
-                            store={stores[0]}
+                            store={userStore}
                             storeRating={rating}
                             userRating={userRating}
                         />

@@ -82,6 +82,7 @@ class ProfileController extends Controller
                 'stores'=>$store,
                 'user'=>$user,
                 'rating' => $rating,
+                'userStore' => $userStore,
                 'userRating' => $userRating
             ]
             );

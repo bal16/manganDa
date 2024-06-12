@@ -8,7 +8,7 @@ function ReportList({ reports: initialReports, auth, jumlah }) {
   const [reports, setReports] = useState(initialReports);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  console.log(auth)
+  // console.log(auth)
 
   const handleDeleteComment = async (post_id) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
