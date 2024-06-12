@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import Logo from "../../images/logo.png";
 // import { NavLink, useLocation } from 'react-router-dom';
 
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import NavLink from "@/Components/NavLink";
+import { Icon } from "@iconify/react";
+import ApplicationLogo from "@/Components/ApplicationLogo";
 
 function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
     //   const location = useLocation();
@@ -22,10 +25,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
     const storedSidebarExpanded = localStorage.getItem("sidebar-expanded");
     // console.log('1',storedSidebarExpanded)
     const [sidebarExpanded, setSidebarExpanded] = useState(
-        storedSidebarExpanded == false
-        ? false
-        : (storedSidebarExpanded == "true")
-        );
+        storedSidebarExpanded == false ? false : storedSidebarExpanded == "true"
+    );
     // console.log('1',storedSidebarExpanded)
     // console.log('2',sidebarExpanded)
 
@@ -105,7 +106,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
                     </button>
                     {/* Logo */}
                     <NavLink end href="/" className="block">
-                        <svg width="32" height="32" viewBox="0 0 32 32">
+                        {/* <svg width="32" height="32" viewBox="0 0 32 32">
                             <defs>
                                 <linearGradient
                                     x1="28.538%"
@@ -154,7 +155,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
                                 d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z"
                                 fill="url(#logo-b)"
                             />
-                        </svg>
+                        </svg> */}
+                        <div className="overflow-hidden rounded-full bg-slate-100 w-14 h-14">
+                            <img src={Logo} width={"50"}
+                            className="mx-auto" alt="logo" />
+                        </div>
                     </NavLink>
                 </div>
 
@@ -254,37 +259,29 @@ function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
                                 >
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center grow">
-                                            <svg
-                                                className="w-6 h-6 shrink-0"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    className={`fill-current ${
+                                            <Icon
+                                                icon="line-md:alert-twotone"
+                                                className={
+                                                    "w-6 h-6 shrink-0" +
+                                                    " " +
+                                                    `fill-current ${
                                                         pathname.includes(
                                                             "report"
                                                         )
                                                             ? "text-indigo-500"
-                                                            : "text-slate-600"
-                                                    }`}
-                                                    d="M14.5 7c4.695 0 8.5 3.184 8.5 7.111 0 1.597-.638 3.067-1.7 4.253V23l-4.108-2.148a10 10 0 01-2.692.37c-4.695 0-8.5-3.184-8.5-7.11C6 10.183 9.805 7 14.5 7z"
-                                                />
-                                                <path
-                                                    className={`fill-current ${
-                                                        pathname.includes(
-                                                            "report"
-                                                        )
-                                                            ? "text-indigo-300"
                                                             : "text-slate-400"
-                                                    }`}
-                                                    d="M11 1C5.477 1 1 4.582 1 9c0 1.797.75 3.45 2 4.785V19l4.833-2.416C8.829 16.85 9.892 17 11 17c5.523 0 10-3.582 10-8s-4.477-8-10-8z"
-                                                />
-                                            </svg>
+                                                    }`
+                                                }
+                                            />
+                                            {/* <Icon icon="line-md:alert-twotone" /> */}
                                             <span className="ml-3 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
                                                 Report List
                                             </span>
                                         </div>
                                         {/* Badge */}
-                                        {jumlah.report>0?badge(jumlah.report):""}
+                                        {jumlah.report > 0
+                                            ? badge(jumlah.report)
+                                            : ""}
                                     </div>
                                 </NavLink>
                             </li>
@@ -304,37 +301,28 @@ function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
                                 >
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center grow">
-                                            <svg
-                                                className="w-6 h-6 shrink-0"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    className={`fill-current ${
+                                            <Icon
+                                                icon="solar:user-id-bold-duotone"
+                                                className={
+                                                    "w-6 h-6 shrink-0" +
+                                                    " " +
+                                                    `fill-current ${
                                                         pathname.includes(
                                                             "users"
                                                         )
                                                             ? "text-indigo-500"
-                                                            : "text-slate-600"
-                                                    }`}
-                                                    d="M14.5 7c4.695 0 8.5 3.184 8.5 7.111 0 1.597-.638 3.067-1.7 4.253V23l-4.108-2.148a10 10 0 01-2.692.37c-4.695 0-8.5-3.184-8.5-7.11C6 10.183 9.805 7 14.5 7z"
-                                                />
-                                                <path
-                                                    className={`fill-current ${
-                                                        pathname.includes(
-                                                            "users"
-                                                        )
-                                                            ? "text-indigo-300"
                                                             : "text-slate-400"
-                                                    }`}
-                                                    d="M11 1C5.477 1 1 4.582 1 9c0 1.797.75 3.45 2 4.785V19l4.833-2.416C8.829 16.85 9.892 17 11 17c5.523 0 10-3.582 10-8s-4.477-8-10-8z"
-                                                />
-                                            </svg>
+                                                    }`
+                                                }
+                                            />
                                             <span className="ml-3 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
                                                 Users List
                                             </span>
                                         </div>
                                         {/* Badge */}
-                                        {jumlah.user>0?badge(jumlah.user):""}
+                                        {jumlah.user > 0
+                                            ? badge(jumlah.user)
+                                            : ""}
                                     </div>
                                 </NavLink>
                             </li>
@@ -365,51 +353,20 @@ function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
                                             >
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center">
-                                                        <svg
-                                                            className="w-6 h-6 shrink-0"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path
-                                                                className={`fill-current ${
+                                                        <Icon
+                                                            icon="ri:store-3-fill"
+                                                            className={
+                                                                "w-6 h-6 shrink-0" +
+                                                                " " +
+                                                                `fill-current ${
                                                                     pathname.includes(
                                                                         "stores"
                                                                     )
                                                                         ? "text-indigo-500"
-                                                                        : "text-slate-600"
-                                                                }`}
-                                                                d="M19.714 14.7l-7.007 7.007-1.414-1.414 7.007-7.007c-.195-.4-.298-.84-.3-1.286a3 3 0 113 3 2.969 2.969 0 01-1.286-.3z"
-                                                            />
-                                                            <path
-                                                                className={`fill-current ${
-                                                                    pathname.includes(
-                                                                        "stores"
-                                                                    )
-                                                                        ? "text-indigo-300"
                                                                         : "text-slate-400"
-                                                                }`}
-                                                                d="M10.714 18.3c.4-.195.84-.298 1.286-.3a3 3 0 11-3 3c.002-.446.105-.885.3-1.286l-6.007-6.007 1.414-1.414 6.007 6.007z"
-                                                            />
-                                                            <path
-                                                                className={`fill-current ${
-                                                                    pathname.includes(
-                                                                        "stores"
-                                                                    )
-                                                                        ? "text-indigo-500"
-                                                                        : "text-slate-600"
-                                                                }`}
-                                                                d="M5.7 10.714c.195.4.298.84.3 1.286a3 3 0 11-3-3c.446.002.885.105 1.286.3l7.007-7.007 1.414 1.414L5.7 10.714z"
-                                                            />
-                                                            <path
-                                                                className={`fill-current ${
-                                                                    pathname.includes(
-                                                                        "stores"
-                                                                    )
-                                                                        ? "text-indigo-300"
-                                                                        : "text-slate-400"
-                                                                }`}
-                                                                d="M19.707 9.292a3.012 3.012 0 00-1.415 1.415L13.286 5.7c-.4.195-.84.298-1.286.3a3 3 0 113-3 2.969 2.969 0 01-.3 1.286l5.007 5.006z"
-                                                            />
-                                                        </svg>
+                                                                }`
+                                                            }
+                                                        />
                                                         <span className="ml-3 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
                                                             Stores
                                                         </span>
@@ -451,7 +408,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
                                                                 Stores List
                                                             </span>
                                                             {/* Badge */}
-                                                            {jumlah.store>0?badge(jumlah.store):""}
+                                                            {jumlah.store > 0
+                                                                ? badge(
+                                                                      jumlah.store
+                                                                  )
+                                                                : ""}
                                                         </NavLink>
                                                     </li>
                                                     <li className="mb-1 last:mb-0">
@@ -471,7 +432,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
                                                                 Store Request
                                                             </span>
                                                             {/* Badge */}
-                                                            {jumlah.unvalStore>0?badge(jumlah.unvalStore):""}
+                                                            {jumlah.unvalStore >
+                                                            0
+                                                                ? badge(
+                                                                      jumlah.unvalStore
+                                                                  )
+                                                                : ""}
                                                         </NavLink>
                                                     </li>
                                                 </ul>

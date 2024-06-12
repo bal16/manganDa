@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
@@ -21,11 +21,30 @@ import DashboardCard12 from "../partials/dashboard/DashboardCard12";
 import DashboardCard13 from "../partials/dashboard/DashboardCard13";
 import Banner from "../partials/Banner";
 import { Head } from "@inertiajs/react";
+import axios from "axios";
 
 function Dashboard({ auth, jumlah }) {
     // console.log(jumlah)
-
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [quote, setQuote] = useState();
+
+    const fetchQuote = async () => {
+        try {
+            console.log("Attempting to fetch quote...");
+            const response = await axios.get("https://katanime.vercel.app/api/getrandom");
+            setQuote(response.data.result[0]); // Set the state with the fetched data
+            // console.log(response.data.result[0]); // Log the fetched data
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchQuote();
+        };
+        fetchData();
+    }, []);
 
     return (
         <div className="flex h-screen -mb-2 overflow-hidden dark:bg-slate-900">
@@ -53,12 +72,26 @@ function Dashboard({ auth, jumlah }) {
                         <WelcomeBanner auth={auth} />
 
                         {/* Dashboard actions */}
-                        <div className="mb-8 sm:flex sm:justify-between sm:items-center">
+                        {/* <div className="mb-8 sm:flex sm:justify-between sm:items-center"> */}
+                        <div className="gap-10 mb-8 sm:grid sm:grid-cols-[10fr_1fr]">
                             {/* Left: Avatars */}
                             {/* <DashboardAvatars /> */}
-                            <div></div>
+                            {/* <div></div> */}
+                            <div className="pb-2 border rounded-none shadow-xl border-slate-700 card bg-slate-800 text-slate-100">
+                                <div className="pt-5 card-body ">
+                                    <h2 className="card-title">
+                                        Quotes Today!
+                                    </h2>
+                                    <p className="pb-2">
+                                        {quote?.english}
+                                    </p>
+                                    <p className="text-end" >~ {quote?.character} ({quote?.anime})</p>
+                                    {/* <p className="text-end tooltip" data-tip={quote?.anime}>~ {quote?.character}</p> */}
+                                </div>
+                            </div>
                             {/* <Datepicker align='' /> */}
                             <Datepicker align="left" />
+
                             {/* Right: Actions */}
                             {/* <div className="grid justify-start grid-flow-col gap-2 sm:auto-cols-max sm:justify-end"> */}
                             {/* Filter button */}
@@ -71,8 +104,8 @@ function Dashboard({ auth, jumlah }) {
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                     <span className="hidden ml-2 xs:block">Add view</span>
-                </button>
-              </div> */}
+                </button> */}
+                            {/* </div> */}
                         </div>
 
                         {/* Cards */}
