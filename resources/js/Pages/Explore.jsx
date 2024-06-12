@@ -8,7 +8,7 @@ import Sidebar from "@/Components/Sidebar";
 import StoreCard from "@/Components/StoreCard";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import StoreAccordion from "@/Components/StoreAccordion";
 
@@ -17,10 +17,18 @@ export default function Explore({ auth, posts, stores }) {
     const [storesList, setStoresList] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [debouncedInput, setDebouncedInput] = useState(searchInput);
+    const searchInputRef = useRef(null);
+
+    const isEmpty = () => (
+        <article className="px-5 pt-5 text-center">
+            Kolom pencarian masih kosong coba <kbd className="kbd kbd-sm">ctrl</kbd> + <kbd className="kbd kbd-sm">k</kbd> untuk otomatis terfokus ke search bar
+        </article>
+    );
 
     const handleChange = (e) => {
         setSearchInput(e.target.value);
     };
+
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedInput(searchInput);
@@ -30,6 +38,23 @@ export default function Explore({ auth, posts, stores }) {
             clearTimeout(handler);
         };
     }, [searchInput]);
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.ctrlKey && event.key === 'k') {
+                event.preventDefault();
+                if (searchInputRef.current) {
+                    searchInputRef.current.focus();
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     const handleSearch = async () => {
         try {
@@ -44,6 +69,13 @@ export default function Explore({ auth, posts, stores }) {
         }
     };
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            // console.log('Enter')
+            handleSearch();
+        }
+    };
+
     return (
         <div className="min-h-screen">
             <DefaultLayout>
@@ -55,21 +87,24 @@ export default function Explore({ auth, posts, stores }) {
                         <SearchBar
                             value={searchInput}
                             handleChange={handleChange}
+                            ref={searchInputRef}
+                            handleKeyPress={handleKeyPress}
                         />
                         <button className="mt-5 btn btn-success" onClick={handleSearch}>
                             Search
                         </button>
                     </section>
                     <section>
-                        {(storesList==[])?'':storesList.map((store, index) => (
+                        {storesList.length > 0 && storesList.map((store, index) => (
                             <StoreAccordion store={store} key={index} />
                         ))}
                     </section>
                     <section>
-                        {(postsList==[])?'':postsList.map((post, index) => (
+                        {postsList.length > 0 && postsList.map((post, index) => (
                             <Post content={post} auth={auth} key={index} />
                         ))}
                     </section>
+                    {postsList.length === 0 && storesList.length === 0 && isEmpty()}
                 </MainContent>
                 <Sidebar auth={auth} stores={stores} />
             </DefaultLayout>
