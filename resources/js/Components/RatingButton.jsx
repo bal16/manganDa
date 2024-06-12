@@ -2,30 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const RatingButton = ({ auth, store, storeRating, userRating }) => {
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [rating, setRating] = useState(0);
-
-  // console.log(userRating);
+  const [hoverRating, setHoverRating] = useState(0);
 
   // Set the initial rating from userRating
   useEffect(() => {
     setRating(storeRating);
   }, [storeRating]);
 
-
-  const toggleDropdown = () => {
-    setShowDropdown((prevShowDropdown) => !prevShowDropdown);
-  };
-
   const rate = async (stars) => {
     if (userRating) {
-      updateRating(stars);
-      window.location.reload();
+      await updateRating(stars);
+      window.location.reload(); 
     } else {
-      submitRating(stars);
+      await submitRating(stars);
       window.location.reload();
     }
-    setShowDropdown(false); // Close dropdown after rating is submitted
+    setShowModal(false); 
   };
 
   const submitRating = async (stars) => {
@@ -48,7 +42,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
         rate: stars,
       });
       console.log(response);
-      setRating(response.rate);
+      setRating(response.data.rate); // Update local state with new rating
     } catch (error) {
       console.error('Error updating rating:', error);
     }
@@ -58,31 +52,33 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
 
   return (
     <div>
-      <button
-        className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-red-500 text-white"
-        onClick={toggleDropdown}
-        disabled={isOwnStore}
-      >
-        {storeRating > 0 ? `${storeRating} / 5.0` : "belum ada rating"}
-        {/* {storeRating > 0 ? `${rating} / 5` : "belum ada rating"} */}
-
-      </button>
-      {showDropdown && (
-        <div className="rating-dropdown">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <button
-              className={`px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 ${
-                star <= rating ? 'bg-yellow-500' : 'bg-gray-300'
-              }`}
-              key={star}
-              onClick={() => rate(star)}
-
-            >
-              {star <= rating ? '★' : '☆'}
-            </button>
-          ))}
-        </div>
-      )}
+      <dialog id='my_modal_1' className="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl mb-4">Rate this Store</h2>
+            <div className="flex justify-center mb-4">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  className={`text-4xl ${
+                    star <= (hoverRating || rating) ? 'text-yellow-500' : 'text-gray-300'
+                  }`}
+                  key={star}
+                  onClick={() => rate(star)}
+                  onMouseEnter={() => setHoverRating(star)}
+                  onMouseLeave={() => setHoverRating(0)}
+                >
+                  {star <= (hoverRating || rating) ? '★' : '☆'}
+                </button>
+              ))}
+            </div>
+            <form method='dialog'>
+              <button
+                className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full w-full"
+              >
+                Close
+              </button>
+            </form>  
+          </div>
+        </dialog>
     </div>
   );
 };

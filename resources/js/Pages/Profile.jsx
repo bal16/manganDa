@@ -19,9 +19,8 @@ export default function Profile({
     rating,
     userRating,
 }) {
-    // console.log(stores);
-
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
+    const [showModal, setShowModal] = useState(false);
 
     const mobileButton = () => (
         <div className="dropdown dropdown-bottom dropdown-end sm:hidden">
@@ -82,31 +81,9 @@ export default function Profile({
                 <Navbar auth={auth} />
                 <MainContent>
                     <Header>
-                        {/* <div className="sm:hidden">
-                            <NavbarLink
-                                href={route("logout")}
-                                method="post"
-                                as="button"
-                                >
-                                <div className="sm:hidden">
-                                    <Icon
-                                        icon="ep:more-filled"
-                                        style={{ color: "#4B5563" }}
-                                        width="2rem" height="2rem"
-                                    />
-                                </div>
-                            </NavbarLink>
-                        </div> */}
-                        {auth.user.id != user.id ? "" : <>{mobileButton()}</>}
+                        {auth.user.id !== user.id ? "" : <>{mobileButton()}</>}
                     </Header>
                     <section className="p-2 min-h-36 border-b-[0.1px] border-marshland-950 bg-ecru-white-100 relative">
-                        {/* <div className="w-20 h-20 overflow-hidden bg-black rounded-full me-2">
-                                <img
-                                    className="w-full"
-                                    src="https://source.unsplash.com/50x50?photo-profile"
-                                    alt=""
-                                />
-                        </div> */}
                         <div className="avatar placeholder">
                             <div className="w-20 rounded-full bg-neutral text-neutral-content">
                                 <span className="text-3xl">
@@ -140,19 +117,18 @@ export default function Profile({
                         </div>
                         <div className="">
                             {user.is_store ? (
-                                <RatingButton
-                                    storeRating={rating}
-                                    userRating={userRating}
-                                    auth={auth}
-                                    store={stores[0]}
-                                />
+                                <button
+                                    className="px-4 py-1 mb-6 -mt-1 text-sm rounded-full ms-2 bg-red-500 text-white"
+                                >
+                                    {rating > 0 ? `${rating} / 5.0` : "belum ada rating"}
+                                </button>
                             ) : (
                                 ""
                             )}
                         </div>
                         <div
                             className={
-                                auth.user.id == user.id && user.is_store
+                                auth.user.id === user.id && user.is_store
                                     ? "absolute right-5 bottom-5"
                                     : "hidden"
                             }
@@ -166,13 +142,20 @@ export default function Profile({
                         </div>
                         <button
                             className={
-                                auth.user.id != user.id && user.is_store
-                                    ? "btn btn-success absolute right-5 bottom-5 h-5"
+                                auth.user.id !== user.id && user.is_store
+                                    ? "btn btn-success absolute right-5 bottom-5 px-4 py-1 mb-6 -mt-1 rounded-full ms-2"
                                     : "hidden"
                             }
+                            onClick={()=>document.getElementById('my_modal_1').showModal()}
                         >
                             rate store
                         </button>
+                        <RatingButton
+                            auth={auth}
+                            store={stores[0]}
+                            storeRating={rating}
+                            userRating={userRating}
+                        />
                     </section>
                     <section className="">
                         {post.map((a, index) => (
@@ -185,6 +168,19 @@ export default function Profile({
                 </Sidebar>
             </DefaultLayout>
             <NavbarResponsive auth={auth} />
+
+            {/* {showModal && (
+                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg">
+                        <RatingButton
+                            auth={auth}
+                            store={stores[0]}
+                            storeRating={rating}
+                            userRating={userRating}
+                        />
+                    </div>
+                </div>
+            )} */}
         </>
     );
 }
