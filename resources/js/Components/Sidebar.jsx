@@ -27,7 +27,7 @@ export default memo(function Sidebar({ auth, stores }) {
                         Hubungi Kami
                     </a>
                     {
-                        auth.user.is_store || auth.user.is_admin ? 
+                        auth.user.is_store  || auth.user.is_admin ? 
                             ''
                         : <a
                         href={route("store.create")}
@@ -45,17 +45,19 @@ export default memo(function Sidebar({ auth, stores }) {
                     </h3>
                     {/* Section Makanan Populer */}
                     <section className="">
-                        {stores.map((store, i) => (
-                            <div key={i} className="py-2">
-                                <h4 className="font-semibold">
-                                    <a href={`/profile/${store.user_id}`}>
-                                        {store.name}
-                                    </a>
-                                </h4>
-                                <p className="font-light">
-                                    {store.description}
-                                </p>
-                            </div>
+                        {stores
+                            .filter(store =>store.is_validate)
+                            .map((store, i) => (
+                                <div key={i} className="py-2">
+                                    <h4 className="font-semibold">
+                                        <a href={`/profile/${store.user_id}`}>
+                                            {store.name}
+                                        </a>
+                                    </h4>
+                                    <p className="font-light">
+                                        {store.description}
+                                    </p>
+                                </div>
                         ))}
                     </section>
                 </div>
