@@ -73,7 +73,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
                     rate(star)
                   }}
                   onMouseEnter={() => setHoverRating(star)}
-                  onMouseLeave={() => setHoverRating(0)}
+                  // onMouseLeave={() => setHoverRating(0)}
                   // onClickCapture={() => setHoverRating(star)}
                 >
                   {star <= (hoverRating || rating) ? '★' : '☆'}
