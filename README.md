@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="#" target="_blank"><img src="https://avatars.githubusercontent.com/u/47703742?s=280&v=4" width="400" alt="Laravel Logo"></a>
+    <a href="#"><img src="https://github.com/bal16/repo/blob/branch/resources/images/logo.png?raw=true" width="400" alt="manganDa Logo"></a>
 </p>
 
 
