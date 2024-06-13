@@ -1,5 +1,6 @@
 import { memo } from "react";
 import SearchBar from "./SearchBar";
+import { Link } from "@inertiajs/react";
 
 export default memo(function Sidebar({ auth, stores }) {
     const number = "12345"; //?? ISI NOMER WA
@@ -19,24 +20,27 @@ export default memo(function Sidebar({ auth, stores }) {
                     <p className="py-2 mb-2 font-light">
                     Jika Anda memiliki pertanyaan atau membutuhkan bantuan, jangan ragu untuk menghubungi kami. Tim kami siap membantu Anda dengan informasi dan dukungan yang Anda butuhkan.
                     </p>
+                    <div className="grid xl:grid-cols-2 gap-2">
                     <a
                         href={`https://wa.me/${number}?text=${message}`}
                         target="_blank"
-                        className="px-4 py-2 rounded-full bg-green-yellow-600"
+                        className="px-4 py-2 rounded-full bg-green-yellow-600 block  text-center"
                     >
                         Hubungi Kami
                     </a>
                     {
                         auth.user.is_store  || auth.user.is_admin ?
                             ''
-                        : <a
+                        : <Link
                         href={route("store.create")}
                         // target="_blank" q
-                        className="px-4 py-2 rounded-full bg-green-yellow-600"
-                        >
+                        className="px-4 py-2 rounded-full bg-green-yellow-600 "
+                        as="button" >
                             Daftar Toko
-                        </a>
+                        </Link>
                     }
+
+                    </div>
                 </div>
                 <div className="w-full px-4 pt-3 pb-10 border rounded-2xl border-marshland-950 text-start">
                     <h3 className="text-xl font-bold">
@@ -50,9 +54,9 @@ export default memo(function Sidebar({ auth, stores }) {
                             .map((store, i) => (
                                 <div key={i} className="py-2">
                                     <h4 className="font-semibold">
-                                        <a href={`/profile/${store.user_id}`}>
+                                        <Link href={`/profile/${store.user_id}`}>
                                             {store.name}
-                                        </a>
+                                        </Link>
                                     </h4>
                                     <p className="font-light">
                                         {store.description}
