@@ -1,16 +1,16 @@
 
 # manganDa
 
-Mahasiswa sering kali memiliki jadwal harian yang padat, entah itu kuliah, mengerjakan tugas, maupun kegiatan-kegiatan lainnya. Banyaknya aktivitas yang dilakukan juga berimbas pada keterbatasan waktu yang dimiliki sebagai waktu luang. Kurangnya waktu luang tersebut berpengaruh pada singkatnya waktu untuk makan dan melakukan aktivitas lainnya, sehingga sering kali mahasiswa kebingungan dalam memilih menu makanan. Selain keterbatasan waktu, rasa bosan yang muncul akibat selalu memakan menu makanan yang sama setiap harinya dan kurangnya persebaran informasi mengenai makanan yang ada di daerah mereka menjadi masalah tersendiri.
+Students often have busy daily schedules, whether it's attending classes, working on assignments, or participating in other activities. The multitude of activities they engage in also impacts their limited free time. This lack of free time affects the amount of time they have for meals and other activities, often leaving students confused about choosing what to eat. Besides the limited time, the boredom that arises from always eating the same food every day and the lack of information about food options in their area pose additional challenges.
 
 ## Tech-Stack
 
-    1. Laravel-InertiaJs sebagai fullstack framework
-    2. React sebagai frontend framework
-    3. daisyUI sebagai UI library
-    4. MySQL sebagai database
-    5. Tailwind CSS sebagai framework CSS
-    6. Axios untuk HTTP requests
+1. Laravel-InertiaJs as the fullstack framework
+2. React as the frontend framework
+3. daisyUI as the UI library
+4. MySQL as the database
+5. Tailwind CSS as the CSS framework
+6. Axios for HTTP requests
 
 ## Installation
 
