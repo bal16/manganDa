@@ -19,7 +19,7 @@ export default function Profile({
     userRating,
     userStore
 }) {
-    console.log(userStore)
+    // console.log(userStore)
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
 
     const [showModal, setShowModal] = useState(false);

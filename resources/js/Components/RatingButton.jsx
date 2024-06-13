@@ -7,16 +7,17 @@ import withReactContent from 'sweetalert2-react-content';
 const RatingButton = ({ auth, store, storeRating, userRating }) => {
   // const MySwal = withReactContent(Swal)
   const [showModal, setShowModal] = useState(false);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState();
   const [hoverRating, setHoverRating] = useState(0);
   const [star, setStar] = useState(0);
 
-  // console.log(store)
+  // console.log(storeRating)
+  console.log(rating)
 
   // Set the initial rating from userRating
   useEffect(() => {
-    setRating(storeRating);
-  }, [storeRating]);
+    setRating(userRating.rate);
+  }, [userRating.rate]);
 
   const rate = async (stars) => {
     if (userRating) {
