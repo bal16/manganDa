@@ -27,12 +27,13 @@ function Dashboard({ auth, jumlah }) {
     // console.log(jumlah)
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [quote, setQuote] = useState();
-    const quoteWidget = (quotes) => (
+    const quoteWidget = (quote) => (
         <div className="pt-5 card-body ">
-            <h2 className="card-title">Quotes Today!</h2>
-            <p className="pb-2">{quote?.english}</p>
-            <p className="text-end">
-                ~ {quote?.character} ({quote?.anime})
+            <h2 className="card-title">Quotes Today! <small>#{quote.tags[0]}</small></h2>
+            <p className="pb-2">{quote.content}</p>
+            <p className="text-end" >
+                {/* ~ {quote?.character} ({quote?.anime}) */}
+                ~ {quote?.author}
             </p>
             {/* <p className="text-end tooltip" data-tip={quote?.anime}>~ {quote?.character}</p> */}
         </div>
@@ -41,9 +42,11 @@ function Dashboard({ auth, jumlah }) {
         try {
             console.log("Attempting to fetch quote...");
             const response = await axios.get(
-                "https://katanime.vercel.app/api/getrandom"
+                // "https://katanime.vercel.app/api/getrandom"
+                "https://api.quotable.io/random"
             );
-            setQuote(response.data.result[0]); // Set the state with the fetched data
+            setQuote(response.data); // Set the state with the fetched data
+            // console.log(response.data); // Set the state with the fetched data
             // console.log(response.data.result[0]); // Log the fetched data
         } catch (err) {
             console.error(err);
