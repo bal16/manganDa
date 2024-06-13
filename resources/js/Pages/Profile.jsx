@@ -150,7 +150,7 @@ export default function Profile({
                         </div>
                         <button
                             className={
-                                auth.user.id !== user.id && user.is_store && auth.user.is_admin
+                                auth.user.id == user.id || user.is_store || auth.user.is_admin
                                     ? "btn btn-success absolute right-5 bottom-5 px-4 py-1 mb-6 -mt-1 rounded-full ms-2"
                                     : "hidden"
                             }
