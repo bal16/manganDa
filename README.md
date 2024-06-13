@@ -81,6 +81,10 @@ The application should now be running at http://localhost:8000.
 
 ``` We hope this platform helps you find delicious and affordable meals, making your busy student life a little easier and more enjoyable!```
 
-## Contribute
+## Contributor
 
-...
+- [@nopal72](https://github.com/nopal72)
+- [@bal16](https://github.com/bal16)
+- [@CodeWithAlif](https://github.com/codewithalif)
+- [@asegaf](https://github.com/username3)
+- [@didi](https://github.com/username3)
