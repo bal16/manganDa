@@ -11,16 +11,17 @@ import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Home({ auth, posts, stores, bookmark }) {
-    // console.log(auth)
-    posts.sort((a, b) => {
-        if (a.created_at > b.created_at) {
-            return -1;
-        } else if (a.created_at < b.created_at) {
-            return 1;
-        } else {
-            return 0;
-        }
-    });
+    posts = posts.data
+    console.log(posts)
+    // posts.sort((a, b) => {
+    //     if (a.created_at > b.created_at) {
+    //         return -1;
+    //     } else if (a.created_at < b.created_at) {
+    //         return 1;
+    //     } else {
+    //         return 0;
+    //     }
+    // });
 
     const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -124,7 +125,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                 <label htmlFor="image" className="w-6 h-6 me-2">
                                     <Icon
                                         icon="bxs:image-add"
-                                        className="h-6 w-6"
+                                        className="w-6 h-6"
                                     />
                                 </label>
                                 {/* store */}

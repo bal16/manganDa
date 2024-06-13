@@ -94,7 +94,7 @@ class PostController extends Controller
     public function show(Request $request)
     {
         // Mendapatkan semua post dengan relasi user dan store
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
 
         // Mendapatkan semua store
         $stores = Store::all();
