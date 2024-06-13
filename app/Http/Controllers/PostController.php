@@ -152,7 +152,10 @@ class PostController extends Controller
         if($request){
             $query = $request->input('query');
 
-            $stores = Store::where('name','like',"%$query%")->get();
+            // $stores = Store::where('is_validate', true)
+            //                 // ->where('name', 'like', "%$query%")s
+            //                 ->get();
+            $stores = Store::where('is_validate', true)->get();
             $posts = Post::where('body','like',"%$query%")->get();
         }else{
             $stores = Null;
@@ -165,7 +168,7 @@ class PostController extends Controller
     public function search(Request $request){
         $query = $request->input('query');
         if($query!=''){
-            $stores = Store::where('name','like',"%$query%")->get();
+            $stores = Store::where('name','like',"%$query%")->where('is_validate', true)->get();
             $posts = Post::where('body','like',"%$query%")->with(['user'])->get();
 
             return response()->json([

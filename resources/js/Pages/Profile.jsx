@@ -20,7 +20,7 @@ export default function Profile({
     userRating,
     userStore
 }) {
-    // console.log(userStore)
+    console.log(userStore)
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
 
     const [showModal, setShowModal] = useState(false);
@@ -113,10 +113,10 @@ export default function Profile({
                             {user.is_store ? (
                                 <span>
                                     <p className="font-bold text-sm">
-                                        {stores[0].address}
+                                        {userStore.address}
                                     </p>
                                     <p className="font-light">
-                                        {stores[0].description}
+                                        {userStore.description}
                                     </p>
                                 </span>
                             ) : (
