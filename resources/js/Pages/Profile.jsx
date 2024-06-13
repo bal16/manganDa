@@ -150,9 +150,9 @@ export default function Profile({
                         </div>
                         <button
                             className={
-                                auth.user.id == user.id || user.is_store || auth.user.is_admin
-                                    ? "btn btn-success absolute right-5 bottom-5 px-4 py-1 mb-6 -mt-1 rounded-full ms-2"
-                                    : "hidden"
+                                    auth.user.id === user.id || auth.user.is_store || auth.user.is_admin
+                                    ? "hidden"
+                                    : "btn btn-success absolute right-5 bottom-5 px-4 py-1 mb-6 -mt-1 rounded-full ms-2"
                             }
                             onClick={()=>document.getElementById('my_modal_1').showModal()}
                         >
