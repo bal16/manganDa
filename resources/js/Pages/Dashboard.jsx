@@ -43,7 +43,7 @@ function Dashboard({ auth, jumlah }) {
             console.log("Attempting to fetch quote...");
             const response = await axios.get(
                 // "https://katanime.vercel.app/api/getrandom"
-                "https://api.quotable.io/random"
+                "https://api.quotable.io/quotes/random"
             );
             setQuote(response.data); // Set the state with the fetched data
             // console.log(response.data); // Set the state with the fetched data
