@@ -12,7 +12,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
   const [star, setStar] = useState(0);
 
   // console.log(storeRating)
-  console.log(rating)
+  console.log(userRating)
 
   // Set the initial rating from userRating
   useEffect(() => {

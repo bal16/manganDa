@@ -19,7 +19,7 @@ export default function Profile({
     userRating,
     userStore
 }) {
-    // console.log(userStore)
+    console.log(userStore)
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
 
     const [showModal, setShowModal] = useState(false);
@@ -127,7 +127,7 @@ export default function Profile({
                                 <button
                                     className="px-4 py-1 mb-6 -mt-1 text-sm text-white bg-red-500 rounded-full ms-2"
                                 >
-                                    {userStore.ratings > 0 ? `${userStore.ratings} / 5.0` : "belum ada rating"}
+                                    {userStore.ratings > 0 ? `${userStore.ratings.toFixed(1)} / 5.0` : "belum ada rating"}
                                 </button>
                             ) : (
                                 ""
@@ -163,7 +163,7 @@ export default function Profile({
                                     : "hidden"
                         }>
                         </div> */}
-                        {user.is_store && userStore ? (
+                        {user.is_store && userStore && !auth.user.is_store ? (
                             <RatingButton
                                 auth={auth}
                                 store={userStore}

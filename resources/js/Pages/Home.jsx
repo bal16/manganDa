@@ -15,17 +15,8 @@ export default function Home({ auth, posts, stores, bookmark }) {
         'current':posts.current_page,
         'last':posts.last_page,
     }
-    console.log(page);
+    // console.log(page);
     posts = posts.data;
-    // posts.sort((a, b) => {
-    //     if (a.created_at > b.created_at) {
-    //         return -1;
-    //     } else if (a.created_at < b.created_at) {
-    //         return 1;
-    //     } else {
-    //         return 0;
-    //     }
-    // });
 
     const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -156,11 +147,11 @@ export default function Home({ auth, posts, stores, bookmark }) {
                             <Post key={index} content={a} auth={auth} />
                         ))}
                     </section>
-                    <div className="my-10 join">
-                        <Link className={(page.current==1?"btn-disabled":"")+` join-item btn`} href={"?page="+(page.current-1)}>«</Link>
-                        <Link className="join-item btn" href={"#"}>Page {page.current}</Link>
-                        <Link className={(page.current==page.last?"btn-disabled":"")+` join-item btn`} href={"?page="+(page.current+1)}>»</Link>
-                    </div>
+                        <div className="my-10 join">
+                            <Link className={(page.current == 1 ? "btn-disabled" : "") + ` join-item btn`} href={"?page=" + (page.current - 1)}>«</Link>
+                            <Link className="join-item btn" href="#">Page {page.current}</Link>
+                            <Link className={(page.current == page.last ? "btn-disabled" : "") + ` join-item btn`} href={"?page=" + (page.current + 1)}>»</Link>
+                        </div>
                 </MainContent>
                 <Sidebar auth={auth} stores={stores} />
             </DefaultLayout>
