@@ -21,12 +21,12 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
   const rate = async (stars) => {
     if (userRating) {
       await updateRating(stars);
-      // window.location.reload(); 
+      // window.location.reload();
     } else {
       await submitRating(stars);
       // window.location.reload();
     }
-    setShowModal(false); 
+    setShowModal(false);
   };
 
   const submitRating = async (stars) => {
@@ -90,7 +90,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
                       alert('rating berhasil dikirim')
                     }else{
                       alert('rating tidak terkirim')
-                    }                    
+                    }
                   }
                 }
               >
@@ -101,7 +101,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
               >
                 tutup
               </button>
-            </form>  
+            </form>
           </div>
         </dialog>
     </div>
