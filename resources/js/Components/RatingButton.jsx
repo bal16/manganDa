@@ -12,12 +12,12 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
   const [star, setStar] = useState(0);
 
   // console.log(storeRating)
-  console.log(userRating)
+//   console.log(userRating)
 
   // Set the initial rating from userRating
   useEffect(() => {
-    setRating(userRating.rate);
-  }, [userRating.rate]);
+    setRating(userRating?.rate);
+  }, [userRating?.rate]);
 
   const rate = async (stars) => {
     if (userRating) {
@@ -46,7 +46,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
 
   const updateRating = async (stars) => {
     try {
-      const response = await axios.put(`/rating/${userRating.id}`, {
+      const response = await axios.put(`/rating/${userRating?.id}`, {
         rate: stars,
         store_id: store.id
       });
@@ -59,9 +59,9 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
 
   return (
     <div>
-      <dialog id='my_modal_1' className="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl mb-4">Rate this Store</h2>
+      <dialog id='my_modal_1' className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal">
+          <div className="p-6 bg-white rounded-lg shadow-lg">
+            <h2 className="mb-4 text-xl">Rate this Store</h2>
             <div className="flex justify-center mb-4">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
@@ -83,7 +83,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
             </div>
             <form method='dialog' className='flex justify-around'>
               <button
-                className="mt-4 px-4 py-2 bg-green-600 text-white rounded-full "
+                className="px-4 py-2 mt-4 text-white bg-green-600 rounded-full "
                 onClick={()=>
                   {
                     if(star != 0){
@@ -98,7 +98,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
                 kirim
               </button>
               <button
-                className="mt-4 px-4 py-2 bg-red-600 text-white rounded-full "
+                className="px-4 py-2 mt-4 text-white bg-red-600 rounded-full "
               >
                 tutup
               </button>
