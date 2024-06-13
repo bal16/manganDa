@@ -114,7 +114,7 @@ function Post({ auth, content }) {
                 </div>
             </div>
 
-            <div className="-mt-1 font-light ms-[3.75rem] text-start" style={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
+            <div className="-mt-1 font-normal ms-[3.75rem] text-start" style={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
                 <p>{content.body}</p>
                 {content.image && (
                     <div className="overflow-hidden bg-slate-700 rounded-xl">

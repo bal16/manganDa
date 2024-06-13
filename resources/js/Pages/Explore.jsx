@@ -21,7 +21,7 @@ export default function Explore({ auth, posts, stores }) {
 
     const isEmpty = () => (
         <article className="px-5 pt-5 text-center">
-            Kolom pencarian masih kosong coba <kbd className="kbd kbd-sm">ctrl</kbd> + <kbd className="kbd kbd-sm">k</kbd> untuk otomatis terfokus ke search bar
+            Kolom pencarian masih kosong,<br /> coba <kbd className="kbd kbd-sm">ctrl</kbd> + <kbd className="kbd kbd-sm">k</kbd> <br /> untuk otomatis terfokus ke search bar
         </article>
     );
 
@@ -83,14 +83,14 @@ export default function Explore({ auth, posts, stores }) {
                 <Navbar auth={auth} />
                 <MainContent>
                     <Header />
-                    <section className="pt-5 px-4 md:px-10 h-36 border-b-[0.1px] border-marshland-950 bg-ecru-white-100">
+                    <section className="pt-5 px-4 md:px-10 h-36 border-b-[0.1px] border-marshland-950 bg-ecru-white-100 grid grid-cols-[10fr_1fr] gap-5">
                         <SearchBar
                             value={searchInput}
                             handleChange={handleChange}
                             ref={searchInputRef}
                             handleKeyPress={handleKeyPress}
                         />
-                        <button className="mt-5 btn btn-success" onClick={handleSearch}>
+                        <button className="btn btn-success" onClick={handleSearch}>
                             Search
                         </button>
                     </section>
