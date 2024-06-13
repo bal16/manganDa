@@ -16,7 +16,6 @@ export default function Profile({
     post,
     stores,
     user,
-    rating,
     userRating,
     userStore
 }) {
@@ -128,7 +127,7 @@ export default function Profile({
                                 <button
                                     className="px-4 py-1 mb-6 -mt-1 text-sm text-white bg-red-500 rounded-full ms-2"
                                 >
-                                    {rating > 0 ? `${rating} / 5.0` : "belum ada rating"}
+                                    {userStore.ratings > 0 ? `${userStore.ratings} / 5.0` : "belum ada rating"}
                                 </button>
                             ) : (
                                 ""
@@ -150,7 +149,7 @@ export default function Profile({
                         </div>
                         <button
                             className={
-                                    auth.user.id === user.id || auth.user.is_store || auth.user.is_admin
+                                auth.user.id === user.id || auth.user.is_store || auth.user.is_admin
                                     ? "hidden"
                                     : "btn btn-success absolute right-5 bottom-5 px-4 py-1 mb-6 -mt-1 rounded-full ms-2"
                             }
@@ -164,12 +163,14 @@ export default function Profile({
                                     : "hidden"
                         }>
                         </div> */}
+                        {user.is_store && userStore ? (
                             <RatingButton
                                 auth={auth}
                                 store={userStore}
-                                storeRating={rating}
+                                storeRating={userStore.rating}
                                 userRating={userRating}
                             />
+                        ) : null}
                     </section>
                     <section className="">
                         {post.map((a, index) => (
@@ -182,19 +183,6 @@ export default function Profile({
                 </Sidebar>
             </DefaultLayout>
             <NavbarResponsive auth={auth} />
-
-            {/* {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="p-6 bg-white rounded-lg shadow-lg">
-                        <RatingButton
-                            auth={auth}
-                            store={stores[0]}
-                            storeRating={rating}
-                            userRating={userRating}
-                        />
-                    </div>
-                </div>
-            )} */}
         </>
     );
 }

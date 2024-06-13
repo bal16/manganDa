@@ -9,6 +9,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
   const [showModal, setShowModal] = useState(false);
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  const [star, setStar] = useState(0);
 
   // console.log(store)
 
@@ -46,6 +47,7 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
     try {
       const response = await axios.put(`/rating/${userRating.id}`, {
         rate: stars,
+        store_id: store.id
       });
       // console.log(response);
       setRating(response.data.rate); // Update local state with new rating
@@ -66,21 +68,38 @@ const RatingButton = ({ auth, store, storeRating, userRating }) => {
                     star <= (hoverRating || rating) ? 'text-yellow-500' : 'text-gray-300'
                   }`}
                   key={star}
-                  onClick={() => rate(star)}
+                  onClick={() => {
+                    setStar(star)
+                    rate(star)
+                  }}
                   onMouseEnter={() => setHoverRating(star)}
-                  // onMouseLeave={() => setHoverRating(0)}
+                  onMouseLeave={() => setHoverRating(0)}
                   // onClickCapture={() => setHoverRating(star)}
                 >
                   {star <= (hoverRating || rating) ? '★' : '☆'}
                 </button>
               ))}
             </div>
-            <form method='dialog'>
+            <form method='dialog' className='flex justify-around'>
               <button
-                className="mt-4 px-4 py-2 bg-green-600 text-white rounded-full w-full"
-                onClick={()=>window.location.reload()}
+                className="mt-4 px-4 py-2 bg-green-600 text-white rounded-full "
+                onClick={()=>
+                  {
+                    if(star != 0){
+                      window.location.reload()
+                      alert('rating berhasil dikirim')
+                    }else{
+                      alert('rating tidak terkirim')
+                    }                    
+                  }
+                }
               >
                 kirim
+              </button>
+              <button
+                className="mt-4 px-4 py-2 bg-red-600 text-white rounded-full "
+              >
+                tutup
               </button>
             </form>  
           </div>

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('description');
             $table->string('address');
-            $table->boolean('is_open')->nullable();
+            $table->float('ratings')->default(0);
+            $table->boolean('is_open')->default(false);
             $table->boolean('is_validate')->default(false);
             $table->timestamps();
         });

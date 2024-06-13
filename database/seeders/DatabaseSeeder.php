@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'nopallll',
             'email' => 'nopal@gmail.com',
             'password' => bcrypt('nopal123'),
+            'is_store' => true,
         ]);
 
         User::create([
@@ -36,6 +37,16 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin'),
             'is_admin' => true
         ]);
+
+        Store::create([
+            'user_id' => 1,
+            'name' => 'toko nopal',
+            'description' => 'menjual berbagai barang selundupan dan sitaan bea cukai',
+            'address' => 'pungkruk jepara',
+            'is_validate' => true,
+            'ratings' => 5,
+        ]);
+
         //!! KLO MAO NGESEED PAKHE TINKER
         // User::factory(5)->create();
         // App\Models\Post::factory(100)->create();

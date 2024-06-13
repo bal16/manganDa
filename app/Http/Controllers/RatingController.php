@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Psy\Readline\Hoa\Console;
+use App\Models\Store;
 
 class RatingController extends Controller
 {
@@ -52,6 +53,12 @@ class RatingController extends Controller
             'rate' => $request->rate
         ]);
 
+        $averageRating = Rating::where('store_id', $request->store_id)->avg('rate');
+
+        $store = Store::findOrFail($request->store_id);
+        $store->ratings = $averageRating;
+        $store->save();  
+
         return response()->json(['message' => 'Rating created successfully', 'rating' => $rating], 201);
     }
 
@@ -85,6 +92,12 @@ class RatingController extends Controller
         $rating->update([
             'rate' => $request->rate,
         ]);
+
+        $averageRating = Rating::where('store_id', $request->store_id)->avg('rate');
+
+        $store = Store::findOrFail($request->store_id);
+        $store->ratings = $averageRating;
+        $store->save();        
 
         return response()->json(['message' => 'Rating updated successfully', 'rating' => $rating], 200);
     }
