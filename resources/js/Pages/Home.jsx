@@ -7,12 +7,16 @@ import Post from "@/Components/Post";
 import Sidebar from "@/Components/Sidebar";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Icon } from "@iconify/react";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Home({ auth, posts, stores, bookmark }) {
-    posts = posts.data
-    console.log(posts)
+    const page = {
+        'current':posts.current_page,
+        'last':posts.last_page,
+    }
+    console.log(page);
+    posts = posts.data;
     // posts.sort((a, b) => {
     //     if (a.created_at > b.created_at) {
     //         return -1;
@@ -105,7 +109,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                         }
                                     ></textarea>
                                     <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border-0 before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t-0 before:border-0 before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t-0 after:border-r-0 after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-0 peer-focus:before:border-l-0 peer-focus:before:border-gray-900 peer-focus:after:border-t-0 peer-focus:after:border-r-0 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                                    Ada Rekomendasi Makanan?!
+                                        Ada Rekomendasi Makanan?!
                                     </label>
                                 </div>
                             </div>
@@ -152,6 +156,11 @@ export default function Home({ auth, posts, stores, bookmark }) {
                             <Post key={index} content={a} auth={auth} />
                         ))}
                     </section>
+                    <div className="my-10 join">
+                        <Link className={(page.current==1?"btn-disabled":"")+` join-item btn`} href={"?page="+(page.current-1)}>«</Link>
+                        <Link className="join-item btn" href={"#"}>Page {page.current}</Link>
+                        <Link className={(page.current==page.last?"btn-disabled":"")+` join-item btn`} href={"?page="+(page.current+1)}>»</Link>
+                    </div>
                 </MainContent>
                 <Sidebar auth={auth} stores={stores} />
             </DefaultLayout>
