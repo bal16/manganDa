@@ -14,7 +14,7 @@ export default memo(function Sidebar({ auth }) {
         const fetchTopRatedStores = async () => {
             try {
                 const response = await axios.get('/api/top-rated-store');
-                console.log(response.data)
+                // console.log(response.data)
                 setStores(response.data);
             } catch (error) {
                 console.error(error);
