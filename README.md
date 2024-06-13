@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="#"><img src="https://github.com/bal16/repo/blob/branch/resources/images/logo.png?raw=true" width="400" alt="manganDa Logo"></a>
+    <a href="#"><img src="https://github.com/bal16/manganDa/blob/main/resources/images/logo.png?raw=true" width="400" alt="manganDa Logo"></a>
 </p>
 
 
