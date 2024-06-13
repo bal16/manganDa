@@ -29,7 +29,7 @@ function Dashboard({ auth, jumlah }) {
     const [quote, setQuote] = useState();
     const quoteWidget = (quote) => (
         <div className="pt-5 card-body ">
-            <h2 className="card-title">Quotes Today! <small>#{quote.tags[0]}</small></h2>
+            <h2 className="card-title">Quotes Today! <small>#{quote.tags}</small></h2>
             <p className="pb-2">{quote.content}</p>
             <p className="text-end" >
                 {/* ~ {quote?.character} ({quote?.anime}) */}
@@ -45,7 +45,7 @@ function Dashboard({ auth, jumlah }) {
                 // "https://katanime.vercel.app/api/getrandom"
                 "https://api.quotable.io/quotes/random"
             );
-            setQuote(response.data); // Set the state with the fetched data
+            setQuote(response.data[0]); // Set the state with the fetched data
             // console.log(response.data); // Set the state with the fetched data
             // console.log(response.data.result[0]); // Log the fetched data
         } catch (err) {
@@ -87,17 +87,17 @@ function Dashboard({ auth, jumlah }) {
 
                         {/* Dashboard actions */}
                         {/* <div className="mb-8 sm:flex sm:justify-between sm:items-center"> */}
-                        <div className="gap-10 mb-8 sm:grid sm:grid-cols-[10fr_1fr]">
+                        <div className="gap-10 mb-8 sm:grid sm:grid-cols-[10fr_1fr] grid-cols-1 ">
                             {/* Left: Avatars */}
                             {/* <DashboardAvatars /> */}
                             {/* <div></div> */}
-                            <div className="pb-2 border rounded-none shadow-xl border-slate-700 card bg-slate-800 text-slate-100">
+                            <div className="pb-2 mb-8 sm:mb-0 border rounded-none shadow-xl border-slate-700 card bg-slate-800 text-slate-100">
                                 {quote ? quoteWidget(quote):(
                                     <center className="mt-2"> Loading ... </center>
                                 )}
                             </div>
                             {/* <Datepicker align='' /> */}
-                            <Datepicker align="left" />
+                            <Datepicker align="right" />
 
                             {/* Right: Actions */}
                             {/* <div className="grid justify-start grid-flow-col gap-2 sm:auto-cols-max sm:justify-end"> */}
