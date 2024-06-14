@@ -204,7 +204,6 @@ class PostController extends Controller
     public function destroy(Request $request, $id)
     {
         // dd($id);
-        // Find the post by its ID
         $post = Post::findOrFail($id);
 
         if(auth()->user()->is_admin || auth()->user()->id == $post->user_id){

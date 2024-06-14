@@ -85,7 +85,7 @@ Route::middleware('auth')->group(function () {
 
 
     // report
-    Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+    Route::post('/report/{id}', [ReportController::class, 'store'])->name('report.store');
 });
 
 Route::middleware(['is_admin', 'auth'])->group(function () {

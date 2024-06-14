@@ -9,7 +9,7 @@ function Post({ auth, content }) {
     const [bookmarked, setBookmarked] = useState(content.isBookmark);
 
     const isOwner = auth.user && auth.user.id === content.user_id;
-    // console.log(isOwner)
+    // console.log(content.id)
 
     const handleBookmark = async () => {
         if (!auth || !auth.user) {
@@ -30,17 +30,23 @@ function Post({ auth, content }) {
         }
     };
 
-    const { data, setData, post, processing, errors, reset } = useForm({
-        body: "",
-        post: null,
-    });
+    // const { data, setData, post, processing, errors, reset } = useForm({
+    //     body: "",
+    //     postss: null,
+    // });
 
-    const handleReportSubmit = async (e) => {
-        setData('post', content.id);
-        e.preventDefault();
-        // console.log(data)
-        post(route("report.store"));
-        reset("body", "post");
+    const [body, setBody] = useState()
+    const [post_id, setPost_id] = useState()
+    
+    const handleReportSubmit = async (id, body) => {
+        try {
+            // e.preventDefault();
+            // console.log(post_id)
+            await axios.post(`/report/${id}`, {body})
+        } catch (error) {
+            console.error(error)
+        }
+
         document.getElementById("my_modal_3").close(); // Close the modal
     };
 
@@ -139,14 +145,14 @@ function Post({ auth, content }) {
                     <form method="dialog">
                         <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
                     </form>
-                    <form onSubmit={handleReportSubmit}>
+                    <form onSubmit={()=>handleReportSubmit(content.id, body)}>
                         <h3 className="text-lg font-bold">Report Post</h3>
                         <textarea
                             name="body"
                             className="textarea textarea-bordered"
                             placeholder="Detail your report here"
-                            value={data.body}
-                            onChange={(e) => setData("body", e.target.value)}
+                            value={body}
+                            onChange={(e) => setBody(e.target.value)}
                             required
                         ></textarea>
                         <br />

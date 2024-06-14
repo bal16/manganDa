@@ -42,7 +42,7 @@ class ReportController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         // dd($request);
         // $request->validate([
@@ -51,7 +51,7 @@ class ReportController extends Controller
 
         $report = Report::create([
             'user_id' => auth()->user()->id,
-            'post_id' => $request->post,
+            'post_id' => $id,
             'body' => $request->body
         ]);
 
