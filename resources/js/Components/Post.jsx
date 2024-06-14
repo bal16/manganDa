@@ -32,11 +32,13 @@ function Post({ auth, content }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
-        post: content.id,
+        post: null,
     });
 
     const handleReportSubmit = async (e) => {
+        setData('post', content.id);
         e.preventDefault();
+        // console.log(data)
         post(route("report.store"));
         reset("body", "post");
         document.getElementById("my_modal_3").close(); // Close the modal

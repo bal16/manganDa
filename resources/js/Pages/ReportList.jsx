@@ -3,12 +3,13 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { Head, Link } from '@inertiajs/react';
 import axios from 'axios';
+// import { content } from 'resources/css/tailwind.config';
 
 function ReportList({ reports: initialReports, auth, jumlah }) {
   const [reports, setReports] = useState(initialReports);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // console.log(auth)
+  console.log(reports)
 
   const handleDeleteComment = async (post_id) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
