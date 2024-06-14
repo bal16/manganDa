@@ -17,6 +17,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::create([
+            'name' => 'admin',
+            'username' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('admin'),
+            'is_admin' => true
+        ]);
+        
+        User::create([
             'name' => 'nopal',
             'username' => 'nopallll',
             'email' => 'nopal@gmail.com',
@@ -30,13 +38,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'didi@gmail.com',
             'password' => bcrypt('didi123'),
         ]);
-        User::create([
-            'name' => 'admin',
-            'username' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('admin'),
-            'is_admin' => true
-        ]);
+
 
         Store::create([
             'user_id' => 1,
