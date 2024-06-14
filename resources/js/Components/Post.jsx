@@ -37,17 +37,18 @@ function Post({ auth, content }) {
 
     const [body, setBody] = useState()
     const [post_id, setPost_id] = useState()
-    
+
     const handleReportSubmit = async (id, body, e) => {
         try {
             e.preventDefault();
             // console.log(post_id)
             await axios.post(`/report/${id}`, {body})
+            alert('laporan berhasil dikirim');
         } catch (error) {
             console.error(error)
         }
 
-        document.getElementById("my_modal_3").close(); // Close the modal
+        document.getElementById("modal_"+content.id).close(); // Close the modal
     };
 
     const handleDelete = async () => {
@@ -113,7 +114,7 @@ function Post({ auth, content }) {
                             </button>
                         </li>
                         <li style={{ display: isOwner ? "none" : "block" }}>
-                            <button disabled={auth.user.is_admin} onClick={() => document.getElementById("my_modal_3").showModal()}>
+                            <button disabled={auth.user.is_admin} onClick={() => document.getElementById("modal_"+content.id).showModal()}>
                                 <Icon icon="ic:round-report-problem" style={{ color: "#4B5563" }} width="2rem" height="2rem" />
                                 <p className="text-m">report</p>
                             </button>
@@ -140,12 +141,12 @@ function Post({ auth, content }) {
                 </Link>
             </div>
 
-            <dialog id="my_modal_3" className="modal">
+            <dialog id={"modal_"+content.id} className="modal">
                 <div className="modal-box max-w-64">
                     <form method="dialog">
                         <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
                     </form>
-                    <form onSubmit={(e)=>handleReportSubmit(content.id, body, e)}>
+                    <form onSubmit={(e)=>handleReportSubmit(content.id, body, e)} id={content.id}>
                         <h3 className="text-lg font-bold">Report Post</h3>
                         <textarea
                             name="body"
