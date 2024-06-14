@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Role;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -18,12 +20,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $with = [
-        // "user",
-        "comment",
-        "rating",
-        "bookmark",
-        "report",
+        // "comment",
+        'store',
+        // "rating",
+        // "bookmark",
+        // "report",
         // "post",
+        "role",
     ];
     protected $fillable = [
         'name',
@@ -54,28 +57,36 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function like():HasMany
+    public function role():BelongsTo
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsTo(Role::class);
     }
-    public function comment():HasMany
+    public function store():BelongsTo
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(Store::class);
     }
-    public function rating():HasMany
-    {
-        return $this->hasMany(Rating::class);
-    }
-    public function post():HasMany
-    {
-        return $this->hasMany(Post::class);
-    }
-    public function report():HasMany
-    {
-        return $this->hasMany(Report::class);
-    }
-    public function bookmark():HasMany
-    {
-        return $this->hasMany(Bookmark::class);
-    }
+    // public function like():HasMany
+    // {
+    //     return $this->hasMany(Like::class);
+    // }
+    // public function comment():HasMany
+    // {
+    //     return $this->hasMany(Comment::class);
+    // }
+    // public function rating():HasMany
+    // {
+    //     return $this->hasMany(Rating::class);
+    // }
+    // public function post():HasMany
+    // {
+    //     return $this->hasMany(Post::class);
+    // }
+    // public function report():HasMany
+    // {
+    //     return $this->hasMany(Report::class);
+    // }
+    // public function bookmark():HasMany
+    // {
+    //     return $this->hasMany(Bookmark::class);
+    // }
 }

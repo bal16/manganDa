@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('image')->nullable();
+            // $table->string('image')->nullable();
             $table->string('description');
             $table->string('address');
+            $table->string('map_link');
             $table->float('ratings')->default(0);
             $table->boolean('is_open')->default(false);
             $table->boolean('is_validate')->default(false);

@@ -23,9 +23,9 @@ class PostFactory extends Factory
             'id'=>fake()->unique()->numberBetween(1,100),
             'user_id'=>fake()->numberBetween(2,5),
             'body'=>fake()->sentence(50),
-            'like'=>0,
+            // 'like'=>0,
             // 'store_id'=>Store::factory(),
-            'is_store'=>false
+            // 'store_id'=>false
         ];
     }
 //     public function withLikes(int $count = 5): static

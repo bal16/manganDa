@@ -14,16 +14,20 @@ class Report extends Model
         "post_id",
         "body"
     ];
+    protected $with = [
+        "user",
+        // "post",
+    ];
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    public function store():BelongsTo
-    {
-        return $this->belongsTo(Store::class);
-    }
-    public function post():BelongsTo
-    {
-        return $this->belongsTo(Post::class);
-    }
+    // public function store():BelongsTo
+    // {
+    //     return $this->belongsTo(Store::class);
+    // }
+    // public function post():BelongsTo
+    // {
+    //     return $this->belongsTo(Post::class);
+    // }
 }

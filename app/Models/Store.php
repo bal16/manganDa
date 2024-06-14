@@ -18,24 +18,23 @@ class Store extends Model
         'name'
     ];
     protected $with = [
-        'rating',
-        // 'report',
-        'post',
+        // 'rating',
+        // 'post',
         'user',
-
+        // 'report',
     ];
-    public function report() :HasMany
-    {
-        return $this->hasMany(Report::class);
-    }
-    public function rating():HasMany
-    {
-        return $this->hasMany(Rating::class);
-    }
-    public function post():HasMany
-    {
-        return $this->hasMany(Post::class);
-    }
+    // public function report() :HasMany
+    // {
+    //     return $this->hasMany(Report::class);
+    // }
+    // public function rating():HasMany
+    // {
+    //     return $this->hasMany(Rating::class);
+    // }
+    // public function post():HasMany
+    // {
+    //     return $this->hasMany(Post::class);
+    // }
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);

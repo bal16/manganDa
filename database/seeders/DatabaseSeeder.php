@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Bookmark;
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Store;
 use Illuminate\Database\Seeder;
@@ -16,12 +17,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Role::create([
+            'name' => 'user',
+        ]);
+        Role::create([
+            'name' => 'admin',
+        ]);
+        Role::create([
+            'name' => 'store',
+        ]);
         User::create([
             'name' => 'admin',
             'username' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin'),
-            'is_admin' => true
+            'role_id' => 2
         ]);
 
         User::create([
@@ -29,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'nopallll',
             'email' => 'nopal@gmail.com',
             'password' => bcrypt('nopal123'),
-            'is_store' => true,
+            'role_id' => 3,
         ]);
 
         User::create([
@@ -45,6 +55,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Nopal Food',
             'description' => 'Warteg Dekat UNNES',
             'address' => 'Cempakasari',
+            'map_link' => 'map.google.com',
             'is_validate' => true,
             'ratings' => 5,
         ]);

@@ -14,12 +14,17 @@ class Comment extends Model
         'post_id',
         'body',
     ];
+    protected $with = [
+        'user',
+        // 'post_id',
+        // 'body',
+    ];
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    public function post(): BelongsTo
-    {
-        return $this->belongsTo(Post::class);
-    }
+    // public function post(): BelongsTo
+    // {
+    //     return $this->belongsTo(Post::class);
+    // }
 }

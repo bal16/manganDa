@@ -16,13 +16,17 @@ class Bookmark extends Model
         'post_id',
         'id'
     ];
-    public function user():BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-    public function post():BelongsTo
-    {
-        return $this->belongsTo(Post::class);
-    }
+    // protected $with = [
+        // 'user',
+        // 'post'
+    // ];
+    // public function user():BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
+    // public function post():BelongsTo
+    // {
+    //     return $this->belongsTo(Post::class);
+    // }
 }
 
