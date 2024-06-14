@@ -5,7 +5,7 @@ function StoreCard({ store }) {
     return (
         <Link
             href={`/profile/${store.user_id}`}
-            className="mb-3 shadow-xl w-52 card bg-base-100"
+            className="w-full mb-3 shadow-xl card bg-base-100"
         >
             <figure className="px-10 pt-10">
                 <img

@@ -94,7 +94,7 @@ export default function Explore({ auth, posts, stores }) {
                             Search
                         </button>
                     </section>
-                    <section>
+                    <section className="mx-auto border-b-[0.1px] border-marshland-950 py-5">
                         {storesList.length > 0 && storesList.map((store, index) => (
                             <StoreAccordion store={store} key={index} />
                         ))}
