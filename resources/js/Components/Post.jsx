@@ -161,6 +161,7 @@ function Post({ auth, content }) {
                     </form>
                 </div>
             </dialog>
+            {/* nambah */}
         </div>
     );
 }
