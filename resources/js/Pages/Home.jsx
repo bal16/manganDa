@@ -9,44 +9,41 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Icon } from "@iconify/react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
+import Select from "react-tailwindcss-select";
 
 export default function Home({ auth, posts, stores, bookmark }) {
+    const [imageLabel, setImageLabel] = useState(false);
+    const [tag, setTag] = useState(null);
     const page = {
-        'current':posts.current_page,
-        'last':posts.last_page,
-    }
+        current: posts.current_page,
+        last: posts.last_page,
+    };
+    const options = stores.map((store, index) => ({
+        value: store.id,
+        label: '@'+store.name
+    }));
+
+
     // console.log(page);
     posts = posts.data;
 
-    const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
+        tag:null
     });
     const submit = (e) => {
         e.preventDefault();
+        // console.log(data);
         post(route("home"));
-        reset("body", "image");
+        reset("body", "image", "tag");
     };
-
-    // console.log(posts)
-
+    const handleChange = (value) => {
+        // console.log("value:", value);
+        setTag(value);
+        return setData('tag', value.value);
+    };
     return (
         <>
-            <div
-                className={
-                    "fixed w-full h-full z-[99] backdrop-blur-sm items-center " +
-                    (!postModal ? " hidden" : " flex")
-                }
-            >
-                <div className="mx-auto bg-slate-200 shadow-md w-[80%] sm:w-[70%] md:w-[50%] rounded-2xl min-h-[50%] text-end">
-                    <button
-                        className="text-8xl"
-                        onClick={() => setPostModal(!postModal)}
-                    >
-                        X
-                    </button>
-                </div>
-            </div>
             <DefaultLayout>
                 <Head title="Home" />
                 <Navbar auth={auth} />
@@ -112,17 +109,37 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                     type="file"
                                     name="image"
                                     id="image"
-                                    onChange={(e) =>
-                                        setData("image", e.target.files[0])
-                                    }
+                                    onChange={(e) => {
+                                        setImageLabel(true);
+                                        return setData(
+                                            "image",
+                                            e.target.files[0]
+                                        );
+                                    }}
                                     className="hidden"
                                 />
                                 <label htmlFor="image" className="w-6 h-6 me-2">
-                                    <Icon
-                                        icon="bxs:image-add"
-                                        className="w-6 h-6"
-                                    />
+                                    {imageLabel == false ? (
+                                        <Icon
+                                            icon="bxs:image-add"
+                                            className="w-6 h-6"
+                                        />
+                                    ) : (
+                                        <Icon
+                                            icon="line-md:image"
+                                            className="w-6 h-6"
+                                        />
+                                    )}
                                 </label>
+                                <div className="h-6 -mt-2 bg-yellow-300 w-36 min-w-6 me-2">
+                                    <Select
+                                        value={tag}
+                                        onChange={handleChange}
+                                        options={options}
+                                        placeholder="Tag toko"
+                                        isSearchable
+                                    />
+                                </div>
                                 {/* store */}
                                 {/* */}
                                 {/* <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
@@ -147,11 +164,30 @@ export default function Home({ auth, posts, stores, bookmark }) {
                             <Post key={index} content={a} auth={auth} />
                         ))}
                     </section>
-                        <div className="my-10 join">
-                            <Link className={(page.current == 1 ? "btn-disabled" : "") + ` join-item btn`} href={"?page=" + (page.current - 1)}>«</Link>
-                            <Link className="join-item btn" href="#">Page {page.current}</Link>
-                            <Link className={(page.current == page.last ? "btn-disabled" : "") + ` join-item btn`} href={"?page=" + (page.current + 1)}>»</Link>
-                        </div>
+                    <div className="my-10 join">
+                        <Link
+                            className={
+                                (page.current == 1 ? "btn-disabled" : "") +
+                                ` join-item btn`
+                            }
+                            href={"?page=" + (page.current - 1)}
+                        >
+                            «
+                        </Link>
+                        <Link className="join-item btn" href="#">
+                            Page {page.current}
+                        </Link>
+                        <Link
+                            className={
+                                (page.current == page.last
+                                    ? "btn-disabled"
+                                    : "") + ` join-item btn`
+                            }
+                            href={"?page=" + (page.current + 1)}
+                        >
+                            »
+                        </Link>
+                    </div>
                 </MainContent>
                 <Sidebar auth={auth} stores={stores} />
             </DefaultLayout>

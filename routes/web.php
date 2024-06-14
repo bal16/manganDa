@@ -27,9 +27,9 @@ use App\Models\Store;
 
 Route::get('/test', function (){
     return response()->json([
-        'data'=>User::all(),
+        'data'=>Post::all(),
     ]);
-    // dd(User::all());
+//     // dd(User::all());
 });
 
 // dashboard

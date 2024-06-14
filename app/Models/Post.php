@@ -19,7 +19,7 @@ class Post extends Model
         // "like",
         // "bookmark",
         // "report",
-        // "store",
+        "store",
     ];
 
     use HasFactory;
@@ -53,8 +53,8 @@ class Post extends Model
     // {
     //     return $this->hasMany(Report::class);
     // }
-    // public function store():BelongsTo
-    // {
-    //     return $this->belongsTo(Store::class);
-    // }
+    public function store():BelongsTo
+    {
+        return $this->belongsTo(Store::class);
+    }
 }

@@ -7,7 +7,7 @@ import { Head, useForm } from "@inertiajs/react";
 
 function Post({ auth, content }) {
     const [bookmarked, setBookmarked] = useState(content.isBookmark);
-
+    console.log(content)
     const isOwner = auth.user && auth.user.id === content.user_id;
     // console.log(content.id)
 
@@ -82,8 +82,8 @@ function Post({ auth, content }) {
                         </div>
                     </div>
                     <div className="-mt-4 ps-2">
-                        <p className="text-sm font-light">
-                            <a href={`/profile/${content.user.id}`} className={content.user.is_store ?
+                        <p className="text-sm font-light text-start">
+                            <a href={`/profile/${content.user.id}`} className={content.user.role_id == 3 ?
                                 "px-4 py-1 text-sm rounded-full bg-green-yellow-500 w-16"
                                 :
                                 ""
@@ -125,6 +125,11 @@ function Post({ auth, content }) {
 
             <div className="-mt-1 font-normal ms-[3.75rem] text-start" style={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
                 <p>{content.body}</p>
+                {content.store_id != null ?(
+                    <p className="px-1 bg-green-yellow-500 w-max">
+                        <Icon icon="material-symbols-light:store" className="inline-flex" /> {content.store?.name}
+                    </p>
+                    ):''}
                 {content.image && (
                     <div className="overflow-hidden bg-slate-700 rounded-xl">
                         <img className="w-full" src={`/storage/${content.image}`} alt={`postimage-${content.id}`} />

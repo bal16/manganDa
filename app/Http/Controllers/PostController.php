@@ -70,15 +70,16 @@ class PostController extends Controller
             'body' => 'required',
         ]);
 
-        if(Store::where('user_id',auth()->user()->id)->exists()){
-            $validatedData['is_store'] = true;
-        }
+        // if(Store::where('user_id',auth()->user()->id)->exists()){
+        //     $validatedData['is_store'] = true;
+        // }
 
         if($request ->file('image')){
             $validatedData['image'] = $request->file('image')->store('post-images');
         }
-
+        if($request ->tag != null) $validatedData['store_id'] = $request->tag;
         $validatedData['user_id'] = auth()->user()->id;
+        // $validatedData['store_id'] = $validatedData['tag'];
         $validatedData['id'] = $id;
         $validatedData['created_at'] = date('Y-m-d H:i:s');
         $validatedData['updated_at'] = date('Y-m-d H:i:s');
@@ -120,14 +121,25 @@ class PostController extends Controller
         });
 
         // Update user name if user is a store
-        $posts->each(function ($post) {
-            if ($post->user->is_store) {
-                $store = $post->user->store;
-                if ($store) {
-                    $post->user->name = $store->name;
-                }
-            }
-        });
+        // $stores = [
+        //     [
+        //         'id'=> 1,
+        //         'name'=> 'nopalstore',
+        //         'user_id'=> 1
+        //     ]
+        // ];
+        $posts->each(function ($post) use ($stores) {
+    if ($post->user->role_id == 3) {
+        $store = ($stores->filter(function ($store) use ($post){
+            return $store['user_id'] == $post->user_id;
+        })[0]);
+        // dd($store);
+        if (!empty($store)) {
+            $post->user->name = $store->name;
+        }
+    }
+});
+
 
         // dd($posts);
         // Mengembalikan response dengan data yang telah dimodifikasi

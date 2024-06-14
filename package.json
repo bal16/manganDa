@@ -20,9 +20,6 @@
         "vite": "^5.0"
     },
     "dependencies": {
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "tailwindcss": "^3.2.1",
         "@fortawesome/fontawesome-free-solid": "^5.0.13",
         "@fortawesome/fontawesome-svg-core": "^6.5.2",
         "@fortawesome/free-brands-svg-icons": "^6.5.2",
@@ -33,10 +30,14 @@
         "chartjs-adapter-moment": "^1.0.1",
         "http-proxy-middleware": "^3.0.0",
         "moment": "^2.30.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
         "react-flatpickr": "^3.10.13",
         "react-modal": "^3.16.1",
+        "react-tailwindcss-select": "^1.8.5",
         "react-transition-group": "^4.4.5",
         "sweetalert2": "^11.11.1",
-        "sweetalert2-react-content": "^5.0.7"
+        "sweetalert2-react-content": "^5.0.7",
+        "tailwindcss": "^3.2.1"
     }
 }
