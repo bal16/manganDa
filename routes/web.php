@@ -95,6 +95,9 @@ Route::middleware('auth')->group(function () {
 
     // report
     Route::post('/report/{id}', [ReportController::class, 'store'])->name('report.store');
+
+    // menu
+    Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
 });
 
 Route::middleware(['is_admin', 'auth'])->group(function () {
@@ -117,8 +120,6 @@ Route::middleware(['is_admin', 'auth'])->group(function () {
     Route::patch('/db/stores/requests/{id}', [StoreController::class, 'validate_store']);
     Route::delete('/db/stores/requests/{id}', [StoreController::class, 'decline_store']);
 
-    // menu
-    // Route::post('/menu', [MenuController::class, 'store'])
 });
 
 

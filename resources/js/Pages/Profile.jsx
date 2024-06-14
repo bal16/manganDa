@@ -22,17 +22,30 @@ export default function Profile({
     userStore,
 }) {
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
+
+    const [menus, setMenus] = useState()
+    const [reviews, setReviews] = useState()
     const [tab, setTab] = useState(1)
-    const {
-        data,
-        setData,
-        post: submitPost,
-        processing,
-        errors,
-        reset,
-    } = useForm({
+
+    const fetchDatas = async () =>{
+        try {
+            const menusResponse = await axios.get(`/api/menus/${stores[0].id}`)
+            setMenus(menusResponse.data.menus)
+            const reviewResponse = await axios.get(`/api/taged-store/${stores[0].id}`)
+            setReviews(reviewResponse.data.reviews)
+            // console.log(reviewResponse)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(()=>{
+        fetchDatas()
+    },[])
+
+    const { data, setData, post: submitPost, processing, errors, reset } = useForm({
         name: "",
-        price: 0,
+        price: null,
         image: null,
         store_id: stores[0].id,
     });
@@ -100,10 +113,10 @@ export default function Profile({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // submitPost(route("menu.store"), {
-        //     onSuccess: () => reset(),
-        // });
-        console.log(data);
+        submitPost(route("menu.store"), {
+            onSuccess: () => reset(),
+        });
+        // console.log(data)
     };
 
     const postTab = () => (
@@ -114,44 +127,38 @@ export default function Profile({
         </section>
     );
 
-    const ulasanTab = () => {
-        return (
-            <section className="justify-center">
-                {post.map((a, index) => (
-                    <Post key={index} content={a} auth={auth} />
-                ))}
-            </section>
-        );
-    };
+    const ulasanTab = () => (
+        <section className="justify-center">
+            {reviews && reviews.map((a, index) => (
+                <Post key={index} content={a} auth={auth} />
+            ))}
+        </section>
+    );
+
+    // console.log(menus)
 
     const menuTab = () => (
         <section className="">
-            <button
-                onClick={() =>
-                    document.getElementById(`modal+${user.id}`).showModal()
-                }
-                className="justify-end btn btn-success"
-            >
-                {" "}
-                + menu
-            </button>
-            <div>
-                <div className="w-56 shadow-xl card bg-base-100">
-                    <figure className="px-10 pt-10">
-                        <img
-                            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                            alt="Shoes"
-                            className="rounded-xl"
-                        />
-                    </figure>
-                    <div className="items-center text-center card-body">
-                        <h2 className="card-title">tempe orek</h2>
-                        <p>Rp.5.000</p>
+        <button onClick={() => document.getElementById(`modal+${user.id}`).showModal()} className={auth.user.role_id != 3 ? "hidden" : "btn btn-success justify-end"}> + menu</button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-between text-center p-5">
+            {menus && menus.map((content, index) => (
+                <div key={index} className=" mb-4">
+                    <div className="card bg-base-100 w-full shadow-l">
+                        <figure className="px-10 pt-10">
+                            <img src={`/storage/${content.image}`} alt={`image-${content.image}`} className="rounded-xl" />
+                        </figure>
+                        <div className="card-body items-center text-center">
+                            <h2 className="card-title">{content.name}</h2>
+                            <p>Rp.{content.price}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            ))}
+        </div>
+    </section>
+
     );
+    
 
     const showTab = () => {
         if (user.role_id == 3) {
@@ -162,7 +169,7 @@ export default function Profile({
                             type="radio"
                             name="my_tabs_1"
                             className=" tab"
-                            onChange={()=>setTab(1)}
+                            onClick={()=>setTab(1)}
                             aria-label="postingan"
                             checked
                         />
@@ -171,7 +178,7 @@ export default function Profile({
                             type="radio"
                             name="my_tabs_1"
                             className=" tab"
-                            onChange={()=>setTab(2)}
+                            onClick={()=>setTab(2)}
                             aria-label="menu"
                         />
 
@@ -179,7 +186,7 @@ export default function Profile({
                             type="radio"
                             name="my_tabs_1"
                             className=" tab"
-                            onChange={()=>setTab(3)}
+                            onClick={()=>setTab(3)}
                             aria-label="ulasan"
                         />
                     </div>

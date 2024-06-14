@@ -7,7 +7,7 @@ import { Head, useForm } from "@inertiajs/react";
 
 function Post({ auth, content }) {
     const [bookmarked, setBookmarked] = useState(content.isBookmark);
-    console.log(content)
+    // console.log(content)
     const isOwner = auth.user && auth.user.id === content.user_id;
     // console.log(content.id)
 
@@ -34,6 +34,8 @@ function Post({ auth, content }) {
     //     body: "",
     //     postss: null,
     // });
+
+    // console.log(content)
 
     const [body, setBody] = useState()
     const [post_id, setPost_id] = useState()
@@ -99,7 +101,7 @@ function Post({ auth, content }) {
                     </div>
                 </div>
                 <div id="more" className="mb-5 dropdown dropdown-bottom dropdown-end">
-                    <button disabled={auth.user.is_admin} tabIndex={0} className="m-1 bg-transparent">
+                    <button disabled={auth.user.role_id == 2} tabIndex={0} className="m-1 bg-transparent">
                         <Icon
                             icon="ep:more-filled"
                             style={{ color: "#4B5563" }}
@@ -126,9 +128,9 @@ function Post({ auth, content }) {
             <div className="-mt-1 font-normal ms-[3.75rem] text-start" style={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
                 <p>{content.body}</p>
                 {content.store_id != null ?(
-                    <p className="px-1 bg-green-yellow-500 w-max">
+                    <Link href={`/profile/${content.store.user_id}`} className="px-1 bg-green-yellow-500 w-max">
                         <Icon icon="material-symbols-light:store" className="inline-flex" /> {content.store?.name}
-                    </p>
+                    </Link>
                     ):''}
                 {content.image && (
                     <div className="overflow-hidden bg-slate-700 rounded-xl">

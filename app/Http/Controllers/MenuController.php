@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Http\Requests\StoreMenuRequest;
 use App\Http\Requests\UpdateMenuRequest;
+use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
@@ -27,17 +28,35 @@ class MenuController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMenuRequest $request)
+    public function store(Request $request)
     {
-        //
+        // dd($request);
+        $store_id = $request->store_id;
+        $name = $request->name;
+        $price = $request->price;
+        $request->validate([
+            'image' => 'image|file|max:1024'
+        ]);
+        $image = $request->file('image')->store('post-images');
+
+        Menu::create([
+            'store_id' => $store_id,
+            'name' => $name,
+            'price' => $price,
+            'image' => $image,
+        ]);
+        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Menu $menu)
+    public function show($id)
     {
-        //
+        $menus = Menu::where('store_id', $id)->get();
+        return response()->json([
+            'menus' => $menus
+        ]);
     }
 
     /**
