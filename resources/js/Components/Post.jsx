@@ -38,9 +38,9 @@ function Post({ auth, content }) {
     const [body, setBody] = useState()
     const [post_id, setPost_id] = useState()
     
-    const handleReportSubmit = async (id, body) => {
+    const handleReportSubmit = async (id, body, e) => {
         try {
-            // e.preventDefault();
+            e.preventDefault();
             // console.log(post_id)
             await axios.post(`/report/${id}`, {body})
         } catch (error) {
@@ -145,7 +145,7 @@ function Post({ auth, content }) {
                     <form method="dialog">
                         <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
                     </form>
-                    <form onSubmit={()=>handleReportSubmit(content.id, body)}>
+                    <form onSubmit={(e)=>handleReportSubmit(content.id, body, e)}>
                         <h3 className="text-lg font-bold">Report Post</h3>
                         <textarea
                             name="body"
