@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin'),
             'is_admin' => true
         ]);
-        
+
         User::create([
             'name' => 'nopal',
             'username' => 'nopallll',
@@ -41,16 +41,18 @@ class DatabaseSeeder extends Seeder
 
 
         Store::create([
-            'user_id' => 1,
-            'name' => 'toko nopal',
-            'description' => 'menjual berbagai barang selundupan dan sitaan bea cukai',
-            'address' => 'pungkruk jepara',
+            'user_id' => 2,
+            'name' => 'Nopal Food',
+            'description' => 'Warteg Dekat UNNES',
+            'address' => 'Cempakasari',
             'is_validate' => true,
             'ratings' => 5,
         ]);
 
         //!! KLO MAO NGESEED PAKHE TINKER
-        // User::factory(5)->create();
+        User::factory(5)->create();
+        Post::factory(100)->create();
+        Bookmark::factory(200)->create();
         // App\Models\Post::factory(100)->create();
         // App\Models\Like::factory(100)->create();
         // App\Models\Bookmark::factory(200)->create();
