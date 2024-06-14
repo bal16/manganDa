@@ -142,7 +142,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                         </div>
                         <InputError message={errors.image} className="mt-2" />
                     </form>
-                    <section className="">
+                    <section className="min-h-screen">
                         {posts.map((a, index) => (
                             <Post key={index} content={a} auth={auth} />
                         ))}
