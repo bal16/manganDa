@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MenuController;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -115,6 +116,9 @@ Route::middleware(['is_admin', 'auth'])->group(function () {
     Route::get('/db/stores/requestsList', [StoreController::class, 'list'])->name('stores.list');
     Route::patch('/db/stores/requests/{id}', [StoreController::class, 'validate_store']);
     Route::delete('/db/stores/requests/{id}', [StoreController::class, 'decline_store']);
+
+    // menu
+    // Route::post('/menu', [MenuController::class, 'store'])
 });
 
 

@@ -57,34 +57,33 @@ class BookmarkController extends Controller
      * Display the specified resource.
      */
     public function show(Request $request)
-    {
-        $user = $request->user();
-
-        $posts = Post::whereHas('bookmark', function ($query) use ($user) {
-            $query->where('user_id', $user->id);        
-        })->with(['user','bookmark'])->get();
-
-        $userBookmarks = collect();
-
-        $stores = Store::all();
-        // Memeriksa apakah pengguna telah login
-        if ($request->user()) {
-            // Mendapatkan semua bookmark milik pengguna yang sedang login
-            $userBookmarks = Bookmark::where('user_id', $request->user()->id)->get()->keyBy('post_id');
-        }
-        $posts->each(function ($post) use ($userBookmarks) {
-            if ($userBookmarks->has($post->id)) {
-                $post->isBookmark = true;
-                $post->bookmark_id = $userBookmarks->get($post->id)->id;
-            } else {
-                $post->isBookmark = false;
-                $post->bookmark_id = null;
-            }
-        });
-        return Inertia::render('Bookmark',[
-            'posts'=>$posts,'bookmark'=>$userBookmarks,'stores'=>$stores, 'user'=>$user
-        ]);
+{
+    $user = $request->user();
+    if (!$user) {
+        return redirect()->route('login');
     }
+
+    $userBookmarks = Bookmark::with('post')->where('user_id', $user->id)->get();
+
+    if ($userBookmarks->isNotEmpty()) {
+        $bookmarkedPosts = $userBookmarks->pluck('post');
+        foreach ($bookmarkedPosts as $post) {
+            $post->isBookmark = true;
+        }
+    } else {
+        $bookmarkedPosts = collect();
+    }
+
+    $stores = Store::all();
+
+    return Inertia::render('Bookmark', [
+        'posts' => $bookmarkedPosts,
+        'bookmarks' => $userBookmarks,
+        'stores' => $stores,
+        'user' => $user
+    ]);
+}
+
 
     /**
      * Show the form for editing the specified resource.

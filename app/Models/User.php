@@ -85,8 +85,8 @@ class User extends Authenticatable
     // {
     //     return $this->hasMany(Report::class);
     // }
-    // public function bookmark():HasMany
-    // {
-    //     return $this->hasMany(Bookmark::class);
-    // }
+    public function bookmark():HasMany
+    {
+        return $this->hasMany(Bookmark::class);
+    }
 }
