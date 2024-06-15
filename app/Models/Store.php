@@ -15,7 +15,8 @@ class Store extends Model
         "description",
         "is_open",
         "user_id",
-        'name'
+        'name',
+        'map_link'
     ];
     protected $with = [
         // 'rating',

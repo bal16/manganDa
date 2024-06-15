@@ -11,12 +11,13 @@ export default function RegisterStore({ auth }) {
         name: "",
         description: "",
         address: "",
+        map_link:"",
         user_id: auth.user.id,
     });
 
     useEffect(() => {
         return () => {
-            reset("name", "description", "address");
+            reset("name", "description", "address","map_link");
         };
     }, []);
 
@@ -96,6 +97,21 @@ export default function RegisterStore({ auth }) {
                                 required
                             />
                             <InputError message={errors.address} className="mt-2" />
+                        </div>
+                        <div className="mt-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
+                                Google Maps Link
+                            </label>
+                            <input
+                                id="map_link"
+                                name="map_link"
+                                value={data.map_link}
+                                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                                autoComplete="map_link"
+                                onChange={(e) => setData("map_link", e.target.value)}
+                                required
+                            />
+                            <InputError message={errors.map_link} className="mt-2" />
                         </div>
                         <div className="mt-8">
                             <button

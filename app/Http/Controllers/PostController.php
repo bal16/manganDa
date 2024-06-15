@@ -97,7 +97,7 @@ class PostController extends Controller
         $posts = Post::orderBy('created_at', 'desc')->paginate(10);
 
         // Mendapatkan semua store
-        $stores = Store::all();
+        $stores = Store::where('is_validate', true)->get();
 
         // Inisialisasi variabel bookmark
         $userBookmarks = collect();
@@ -128,16 +128,16 @@ class PostController extends Controller
         //     ]
         // ];
         $posts->each(function ($post) use ($stores) {
-            if ($post->user->role_id == 3) {
-                $store = ($stores->filter(function ($store) use ($post) {
-                    return $store['user_id'] == $post->user_id;
-                })[0]);
-                // dd($store);
-                if (!empty($store)) {
-                    $post->user->name = $store->name;
-                }
-            }
-        });
+    if ($post->user->role_id == 3) {
+        $store = ($stores->filter(function ($store) use ($post){
+            return $store['user_id'] == $post->user_id;
+        })->first());
+        // dd($store);
+        if (!empty($store)) {
+            $post->user->name = $store->name;
+        }
+    }
+});
 
 
         // dd($posts);

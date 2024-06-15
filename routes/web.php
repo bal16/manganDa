@@ -98,6 +98,7 @@ Route::middleware('auth')->group(function () {
 
     // menu
     Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
+    Route::delete('/menus/{id}',[MenuController::class, 'destroy']);
 });
 
 Route::middleware(['is_admin', 'auth'])->group(function () {

@@ -36,10 +36,12 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
             'address' => 'required',
+            'map_link' => 'required',
             'user_id' => 'required|unique:stores,user_id'
         ]);
         // dd($request);
@@ -54,6 +56,7 @@ class StoreController extends Controller
             'name' => $request->name,
             'user_id' => auth()->user()->id,
             'description' => $request->description,
+            'map_link' => $request->map_link,
             'address' => $request->address
         ]);
 
@@ -83,7 +86,7 @@ class StoreController extends Controller
             // Memastikan user ditemukan
             if ($user) {
                 // Update properti is_store
-                $user->is_store = true;
+                $user->role_id = 3;
                 $user->save();
             }
         }

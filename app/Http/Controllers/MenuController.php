@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Http\Requests\StoreMenuRequest;
 use App\Http\Requests\UpdateMenuRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -78,8 +79,18 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Menu $menu)
+    public function destroy(Request $request)
     {
-        //
+        // dd($request);
+        $menu_id = $request->id;
+        $menu = Menu::findOrFail($menu_id);
+        
+        if(auth()->user()->role_id != 3){
+            return response()->json(['message'=>'anda tidak boleh menghapus menu ini!'], 403);
+        }
+
+        $menu->delete();
+        Storage::delete($menu->image);
+
     }
 }

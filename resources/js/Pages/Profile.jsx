@@ -12,6 +12,7 @@ import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { useForm } from "@inertiajs/react";
 import axios from "axios";
+import {Link} from "@inertiajs/react";
 
 export default function Profile({
     auth,
@@ -116,6 +117,8 @@ export default function Profile({
         submitPost(route("menu.store"), {
             onSuccess: () => reset(),
         });
+        alert('menu berhasil ditambahkan')
+        window.location.reload();
         // console.log(data)
     };
 
@@ -137,6 +140,18 @@ export default function Profile({
 
     // console.log(menus)
 
+    const handleDeleteMenu = async (id) =>{
+        if(window.confirm('yakin ingin menghapus menu?')){
+            try {
+                await axios.delete(`/menus/${id}`)
+                alert('menu berhasil dihapus')
+                window.location.reload()
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    }
+
     const menuTab = () => (
         <section className="">
         <button onClick={() => document.getElementById(`modal+${user.id}`).showModal()} className={auth.user.role_id != 3 ? "hidden" : "btn btn-success justify-end"}> + menu</button>
@@ -151,6 +166,9 @@ export default function Profile({
                             <h2 className="card-title">{content.name}</h2>
                             <p>Rp.{content.price}</p>
                         </div>
+                        <button 
+                            onClick={()=>handleDeleteMenu(content.id)}
+                            className={auth.user.id == user.id && auth.user.role_id == 3 ? "btn btn-error w-20 mx-auto mb-5" : "hidden"}>delete</button>
                     </div>
                 </div>
             ))}
@@ -250,9 +268,11 @@ export default function Profile({
                             </p>
                             {user.role_id == 3 ? (
                                 <span>
-                                    <p className="text-sm font-bold">
+                                    <a target="_blank" href={`http://${userStore.map_link}`} className="flex justify-center text-sm font-bold">
                                         {userStore.address}
-                                    </p>
+                                        
+                                        <Icon icon="logos:google-maps" />
+                                    </a>
                                     <p className="font-light">
                                         {userStore.description}
                                     </p>
