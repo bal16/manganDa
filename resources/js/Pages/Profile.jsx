@@ -22,7 +22,8 @@ export default function Profile({
     userRating,
     userStore,
 }) {
-    // console.log(userStore)
+    // console.log('userstore',userStore)
+    // console.log('auth',auth.user.id)
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
 
     const [menus, setMenus] = useState();
@@ -172,9 +173,11 @@ export default function Profile({
                     document.getElementById(`modal+${user.id}`).showModal()
                 }
                 className={
-                    auth.user.role_id != 3
-                        ? "hidden"
-                        : "btn btn-success justify-end"
+                    auth.user.role_id == 3 && auth.user.id == userStore.user_id
+                        ?
+                        "btn btn-success justify-end"
+                        :
+                        "hidden"
                 }
             >
                 {" "}
@@ -201,8 +204,7 @@ export default function Profile({
                                 <button
                                     onClick={() => handleDeleteMenu(content.id)}
                                     className={
-                                        auth.user.id == user.id &&
-                                        auth.user.role_id == 3
+                                        (auth.user.role_id == 3 && auth.user.id == userStore.user_id)
                                             ? "btn btn-error w-20 mx-auto mb-5"
                                             : "hidden"
                                     }
