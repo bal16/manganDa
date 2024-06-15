@@ -12,7 +12,7 @@ import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { useForm } from "@inertiajs/react";
 import axios from "axios";
-import {Link} from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 
 export default function Profile({
     auth,
@@ -22,33 +22,45 @@ export default function Profile({
     userRating,
     userStore,
 }) {
+    // console.log(userStore)
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
 
-    const [menus, setMenus] = useState()
-    const [reviews, setReviews] = useState()
-    const [tab, setTab] = useState(1)
+    const [menus, setMenus] = useState();
+    const [reviews, setReviews] = useState();
+    const [tab, setTab] = useState(1);
 
-    const fetchDatas = async () =>{
+    // console.log(userStore);
+
+    const fetchDatas = async () => {
         try {
-            const menusResponse = await axios.get(`/api/menus/${stores[0].id}`)
-            setMenus(menusResponse.data.menus)
-            const reviewResponse = await axios.get(`/api/taged-store/${stores[0].id}`)
-            setReviews(reviewResponse.data.reviews)
+            const menusResponse = await axios.get(`/api/menus/${userStore.id}`);
+            setMenus(menusResponse.data.menus);
+            const reviewResponse = await axios.get(
+                `/api/taged-store/${userStore.id}`
+            );
+            setReviews(reviewResponse.data.reviews);
             // console.log(reviewResponse)
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-    }
+    };
 
-    useEffect(()=>{
-        fetchDatas()
-    },[])
+    useEffect(() => {
+        fetchDatas();
+    }, []);
 
-    const { data, setData, post: submitPost, processing, errors, reset } = useForm({
+    const {
+        data,
+        setData,
+        post: submitPost,
+        processing,
+        errors,
+        reset,
+    } = useForm({
         name: "",
         price: null,
         image: null,
-        store_id: stores[0].id,
+        store_id: userStore?.id,
     });
 
     const mobileButton = () => (
@@ -117,7 +129,7 @@ export default function Profile({
         submitPost(route("menu.store"), {
             onSuccess: () => reset(),
         });
-        alert('menu berhasil ditambahkan')
+        alert("menu berhasil ditambahkan");
         window.location.reload();
         // console.log(data)
     };
@@ -132,51 +144,77 @@ export default function Profile({
 
     const ulasanTab = () => (
         <section className="justify-center">
-            {reviews && reviews.map((a, index) => (
-                <Post key={index} content={a} auth={auth} />
-            ))}
+            {reviews &&
+                reviews.map((a, index) => (
+                    <Post key={index} content={a} auth={auth} />
+                ))}
         </section>
     );
 
     // console.log(menus)
 
-    const handleDeleteMenu = async (id) =>{
-        if(window.confirm('yakin ingin menghapus menu?')){
+    const handleDeleteMenu = async (id) => {
+        if (window.confirm("yakin ingin menghapus menu?")) {
             try {
-                await axios.delete(`/menus/${id}`)
-                alert('menu berhasil dihapus')
-                window.location.reload()
+                await axios.delete(`/menus/${id}`);
+                alert("menu berhasil dihapus");
+                window.location.reload();
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
         }
-    }
+    };
 
     const menuTab = () => (
         <section className="">
-        <button onClick={() => document.getElementById(`modal+${user.id}`).showModal()} className={auth.user.role_id != 3 ? "hidden" : "btn btn-success justify-end"}> + menu</button>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-between text-center p-5">
-            {menus && menus.map((content, index) => (
-                <div key={index} className=" mb-4">
-                    <div className="card bg-base-100 w-full shadow-l">
-                        <figure className="px-10 pt-10">
-                            <img src={`/storage/${content.image}`} alt={`image-${content.image}`} className="rounded-xl" />
-                        </figure>
-                        <div className="card-body items-center text-center">
-                            <h2 className="card-title">{content.name}</h2>
-                            <p>Rp.{content.price}</p>
+            <button
+                onClick={() =>
+                    document.getElementById(`modal+${user.id}`).showModal()
+                }
+                className={
+                    auth.user.role_id != 3
+                        ? "hidden"
+                        : "btn btn-success justify-end"
+                }
+            >
+                {" "}
+                + menu
+            </button>
+            <div className="grid justify-between grid-cols-1 gap-10 p-5 text-center md:grid-cols-2">
+                {menus &&
+                    menus.map((content, index) => (
+                        <div key={index} className="mb-4 ">
+                            <div className="w-full card bg-base-100 shadow-l">
+                                <figure className="px-10 pt-10">
+                                    <img
+                                        src={`/storage/${content.image}`}
+                                        alt={`image-${content.image}`}
+                                        className="rounded-xl"
+                                    />
+                                </figure>
+                                <div className="items-center text-center card-body">
+                                    <h2 className="card-title">
+                                        {content.name}
+                                    </h2>
+                                    <p>Rp.{content.price}</p>
+                                </div>
+                                <button
+                                    onClick={() => handleDeleteMenu(content.id)}
+                                    className={
+                                        auth.user.id == user.id &&
+                                        auth.user.role_id == 3
+                                            ? "btn btn-error w-20 mx-auto mb-5"
+                                            : "hidden"
+                                    }
+                                >
+                                    delete
+                                </button>
+                            </div>
                         </div>
-                        <button 
-                            onClick={()=>handleDeleteMenu(content.id)}
-                            className={auth.user.id == user.id && auth.user.role_id == 3 ? "btn btn-error w-20 mx-auto mb-5" : "hidden"}>delete</button>
-                    </div>
-                </div>
-            ))}
-        </div>
-    </section>
-
+                    ))}
+            </div>
+        </section>
     );
-    
 
     const showTab = () => {
         if (user.role_id == 3) {
@@ -187,7 +225,7 @@ export default function Profile({
                             type="radio"
                             name="my_tabs_1"
                             className=" tab"
-                            onClick={()=>setTab(1)}
+                            onClick={() => setTab(1)}
                             aria-label="postingan"
                             checked
                         />
@@ -196,7 +234,7 @@ export default function Profile({
                             type="radio"
                             name="my_tabs_1"
                             className=" tab"
-                            onClick={()=>setTab(2)}
+                            onClick={() => setTab(2)}
                             aria-label="menu"
                         />
 
@@ -204,18 +242,19 @@ export default function Profile({
                             type="radio"
                             name="my_tabs_1"
                             className=" tab"
-                            onClick={()=>setTab(3)}
+                            onClick={() => setTab(3)}
                             aria-label="ulasan"
                         />
                     </div>
-                    {(tab == 1)?(
+                    {tab == 1 ? (
                         <div className="p-0 ">{postTab()}</div>
-                    ):(tab == 2)?(
+                    ) : tab == 2 ? (
                         <div className="p-0 ">{menuTab()}</div>
-                    ):(tab == 3)?(
+                    ) : tab == 3 ? (
                         <div className="p-0 ">{ulasanTab()}</div>
-                    ):""}
-
+                    ) : (
+                        ""
+                    )}
                 </div>
             );
         } else {
@@ -268,9 +307,13 @@ export default function Profile({
                             </p>
                             {user.role_id == 3 ? (
                                 <span>
-                                    <a target="_blank" href={`http://${userStore.map_link}`} className="flex justify-center text-sm font-bold">
+                                    <a
+                                        target="_blank"
+                                        href={`http://${userStore.map_link}`}
+                                        className="flex justify-center text-sm font-bold"
+                                    >
                                         {userStore.address}
-                                        
+
                                         <Icon icon="logos:google-maps" />
                                     </a>
                                     <p className="font-light">

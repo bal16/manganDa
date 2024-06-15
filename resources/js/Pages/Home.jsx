@@ -36,6 +36,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
         // console.log(data);
         post(route("home"));
         reset("body", "image", "tag");
+        setTag(null)
     };
     const handleChange = (value) => {
         // console.log("value:", value);

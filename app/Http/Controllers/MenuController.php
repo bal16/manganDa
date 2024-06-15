@@ -46,15 +46,15 @@ class MenuController extends Controller
             'price' => $price,
             'image' => $image,
         ]);
-        
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $menus = Menu::where('store_id', $id)->get();
+        $menus = Menu::where('store_id', $request->id)->get();
         return response()->json([
             'menus' => $menus
         ]);
@@ -84,7 +84,7 @@ class MenuController extends Controller
         // dd($request);
         $menu_id = $request->id;
         $menu = Menu::findOrFail($menu_id);
-        
+
         if(auth()->user()->role_id != 3){
             return response()->json(['message'=>'anda tidak boleh menghapus menu ini!'], 403);
         }
