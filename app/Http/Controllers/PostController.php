@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bookmark;
-use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Store;
+use App\Models\Comment;
+use App\Models\Bookmark;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdatePostRequest;
 
 
@@ -217,7 +218,10 @@ class PostController extends Controller
     {
         // dd($id);
         $post = Post::findOrFail($id);
-
+        if($post->image){
+            Storage::delete($post->image);
+        }
+        Post::destroy($post->id);
         if(auth()->user()->is_admin || auth()->user()->id == $post->user_id){
             $post->delete();
         }
