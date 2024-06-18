@@ -50,7 +50,7 @@ npm install
 ```bash
 cp .env.example .env
 ```
-Configure the .env file with your database and other credentials.
+Configure the .env file with your database and other credentials like storage, time locale, and database.
 
 5. Generate application key
 
