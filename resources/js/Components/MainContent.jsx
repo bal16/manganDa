@@ -1,5 +1,3 @@
-// import { } from "@inertiajs/react";
-
 export default function MainContent({children}) {
 
     return (

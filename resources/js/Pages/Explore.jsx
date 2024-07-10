@@ -63,7 +63,6 @@ export default function Explore({ auth, posts, stores }) {
             });
             setStoresList(response.data.stores);
             setPostsList(response.data.posts);
-            // console.log(response.data);
         } catch (error) {
             console.log(error);
         }

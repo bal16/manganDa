@@ -87,17 +87,6 @@ export default memo(function Navbar({ auth }) {
                         </NavbarLink>
                     </li>
                 </ul>
-                {/* <div className="fixed bottom-24">
-                    <a
-                        href=""
-                        className={
-                            " block w-full p-2 px-14 text-center rounded-full  bg-green-yellow-600 " +
-                            (!open ? " top-[35rem]" : "top-[25.5rem]")
-                        }
-                    >
-                        Posting
-                    </a>
-                </div> */}
                 <div className=""></div>
                 <div className="space-y-2 font-medium ">
                     <NavbarLink

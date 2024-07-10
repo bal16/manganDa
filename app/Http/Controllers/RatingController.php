@@ -26,13 +26,7 @@ class RatingController extends Controller
      */
     public function create(Request $request)
     {
-        // dd($request);
-
-        // $rating = Rating::create([
-        //     'user_id' => $request -> user_id,
-        //     'store_id' => $request -> store_id,
-        //     'rate' => $request->rate
-        // ]);
+        //
     }
 
     /**
@@ -57,7 +51,7 @@ class RatingController extends Controller
 
         $store = Store::findOrFail($request->store_id);
         $store->ratings = $averageRating;
-        $store->save();  
+        $store->save();
 
         return response()->json(['message' => 'Rating created successfully', 'rating' => $rating], 201);
     }
@@ -67,9 +61,7 @@ class RatingController extends Controller
      */
     public function show(Request $request)
     {
-        // $rating = Rating::where('store_id', $request->store_id)->average('rate');
-
-        // return Inertia::render('Profile', ['rating'=>$rating]);
+        //
     }
 
     /**
@@ -97,7 +89,7 @@ class RatingController extends Controller
 
         $store = Store::findOrFail($request->store_id);
         $store->ratings = $averageRating;
-        $store->save();        
+        $store->save();
 
         return response()->json(['message' => 'Rating updated successfully', 'rating' => $rating], 200);
     }

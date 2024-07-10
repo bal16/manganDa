@@ -5,7 +5,6 @@ import 'flatpickr/dist/themes/airbnb.css';  // Pilih tema yang sesuai
 function Datepicker({ align }) {
   const options = {
     mode: 'range',
-    // inline: true, // Kalender selalu terbuka
     static: false,
     monthSelectorType: 'static',
     dateFormat: 'M j, Y',

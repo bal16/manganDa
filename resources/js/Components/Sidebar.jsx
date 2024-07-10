@@ -1,10 +1,9 @@
 import { memo, useState, useEffect } from "react";
-import SearchBar from "./SearchBar";
 import { Link } from "@inertiajs/react";
 import axios from "axios";
 
 export default memo(function Sidebar({ auth }) {
-    const number = "12345"; // ISI NOMER WA
+    const number = "12345"; // ISI NOMER WA UNTUK DIHUBUNGI
     const message =
         "Halo,Admin%0aSaya%20ingin%20tanya%20makanan%20di%20sini%3F";
 
@@ -14,7 +13,6 @@ export default memo(function Sidebar({ auth }) {
         const fetchTopRatedStores = async () => {
             try {
                 const response = await axios.get("/api/top-rated-store");
-                // console.log(response.data)
                 setStores(response.data);
             } catch (error) {
                 console.error(error);
@@ -38,11 +36,11 @@ export default memo(function Sidebar({ auth }) {
                         membantu Anda dengan informasi dan dukungan yang Anda
                         butuhkan.
                     </p>
-                    <div className="grid xl:grid-cols-2 gap-2">
+                    <div className="grid gap-2 xl:grid-cols-2">
                         <a
                             href={`https://wa.me/${number}?text=${message}`}
                             target="_blank"
-                            className="px-4 py-2 rounded-full bg-green-yellow-600 block text-center"
+                            className="block px-4 py-2 text-center rounded-full bg-green-yellow-600"
                         >
                             Hubungi Kami
                         </a>

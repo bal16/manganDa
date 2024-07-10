@@ -37,7 +37,7 @@ class CommentController extends Controller
         ]);
 
         Comment::create([
-            'post_id' => $id, 
+            'post_id' => $id,
             'user_id' => auth()->id(),
             'body' => $request->body,
         ]);
@@ -50,19 +50,7 @@ class CommentController extends Controller
      */
     public function showByPost(Request $request)
     {
-        // $comments = Comment::where('post_id', $id)->get();
-
-        // // Mengembalikan view dengan data komentar
-        // return Inertia::render('Comments/ShowByPost', [
-        //     'comments' => $comments,
-        //     'postId' => $id,
-        // ]);
-
-        // $comment = Comment::where('post_id', $request->post_id)->get();
-
-        // return Inertia::render('SinglePost',[
-        //     'comments' => $comment
-        // ]);
+//
     }
 
     /**

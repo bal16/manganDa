@@ -9,7 +9,6 @@ import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function SinglePost({ auth, posts, stores, comments }) {
-    // console.log(comments);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",

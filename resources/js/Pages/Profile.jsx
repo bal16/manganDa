@@ -22,15 +22,12 @@ export default function Profile({
     userRating,
     userStore,
 }) {
-    // console.log('userstore',userStore)
-    // console.log('auth',auth.user.id)
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
 
     const [menus, setMenus] = useState();
     const [reviews, setReviews] = useState();
     const [tab, setTab] = useState(1);
 
-    // console.log(userStore);
 
     const fetchDatas = async () => {
         try {
@@ -40,7 +37,6 @@ export default function Profile({
                 `/api/taged-store/${userStore.id}`
             );
             setReviews(reviewResponse.data.reviews);
-            // console.log(reviewResponse)
         } catch (error) {
             console.error(error);
         }

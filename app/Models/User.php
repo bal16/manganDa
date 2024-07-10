@@ -20,12 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $with = [
-        // "comment",
         'store',
-        // "rating",
-        // "bookmark",
-        // "report",
-        // "post",
         "role",
     ];
     protected $fillable = [
@@ -65,26 +60,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Store::class);
     }
-    // public function like():HasMany
-    // {
-    //     return $this->hasMany(Like::class);
-    // }
-    // public function comment():HasMany
-    // {
-    //     return $this->hasMany(Comment::class);
-    // }
-    // public function rating():HasMany
-    // {
-    //     return $this->hasMany(Rating::class);
-    // }
-    // public function post():HasMany
-    // {
-    //     return $this->hasMany(Post::class);
-    // }
-    // public function report():HasMany
-    // {
-    //     return $this->hasMany(Report::class);
-    // }
+
     public function bookmark():HasMany
     {
         return $this->hasMany(Bookmark::class);

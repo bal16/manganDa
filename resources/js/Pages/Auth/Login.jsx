@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Checkbox from "@/Components/Checkbox";
-import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -39,8 +38,8 @@ export default function Login({ status, canResetPassword }) {
                             "url('https://plus.unsplash.com/premium_photo-1663852297267-827c73e7529e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
                     }}
                 ></div>
-                <div className="w-full p-8 lg:w-1/2 flex flex-col justify-center">
-                    <h2 className="text-4xl font-bold text-gray-700  text-center">
+                <div className="flex flex-col justify-center w-full p-8 lg:w-1/2">
+                    <h2 className="text-4xl font-bold text-center text-gray-700">
                         manganda
                     </h2>
                     <p className="text-center text-gray-600 text-l">Welcome back!</p>

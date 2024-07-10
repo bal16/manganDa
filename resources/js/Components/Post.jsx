@@ -7,9 +7,7 @@ import { Head, useForm } from "@inertiajs/react";
 
 function Post({ auth, content }) {
     const [bookmarked, setBookmarked] = useState(content.isBookmark);
-    // console.log(content)
     const isOwner = auth.user && auth.user.id === content.user_id;
-    // console.log(content.id)
 
     const handleBookmark = async () => {
         if (!auth || !auth.user) {
@@ -30,12 +28,6 @@ function Post({ auth, content }) {
         }
     };
 
-    // const { data, setData, post, processing, errors, reset } = useForm({
-    //     body: "",
-    //     postss: null,
-    // });
-
-    // console.log(content)
 
     const [body, setBody] = useState()
     const [post_id, setPost_id] = useState()
@@ -43,7 +35,6 @@ function Post({ auth, content }) {
     const handleReportSubmit = async (id, body, e) => {
         try {
             e.preventDefault();
-            // console.log(post_id)
             await axios.post(`/report/${id}`, {body})
             alert('laporan berhasil dikirim');
         } catch (error) {
@@ -168,7 +159,6 @@ function Post({ auth, content }) {
                     </form>
                 </div>
             </dialog>
-            {/* nambah */}
         </div>
     );
 }

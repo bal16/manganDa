@@ -70,16 +70,11 @@ class PostController extends Controller
             'body' => 'required',
         ]);
 
-        // if(Store::where('user_id',auth()->user()->id)->exists()){
-        //     $validatedData['is_store'] = true;
-        // }
-
         if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('post-images');
         }
         if ($request->tag != null) $validatedData['store_id'] = $request->tag;
         $validatedData['user_id'] = auth()->user()->id;
-        // $validatedData['store_id'] = $validatedData['tag'];
         $validatedData['id'] = $id;
         $validatedData['created_at'] = date('Y-m-d H:i:s');
         $validatedData['updated_at'] = date('Y-m-d H:i:s');
@@ -93,18 +88,13 @@ class PostController extends Controller
      */
     public function show(Request $request)
     {
-        // Mendapatkan semua post dengan relasi user dan store
         $posts = Post::orderBy('created_at', 'desc')->paginate(10);
 
-        // Mendapatkan semua store
         $stores = Store::where('is_validate', true)->get();
 
-        // Inisialisasi variabel bookmark
         $userBookmarks = collect();
 
-        // Memeriksa apakah pengguna telah login
         if ($request->user()) {
-            // Mendapatkan semua bookmark milik pengguna yang sedang login
             $userBookmarks = Bookmark::where('user_id', $request->user()->id)->get()->keyBy('post_id');
         }
 
@@ -119,20 +109,11 @@ class PostController extends Controller
             }
         });
 
-        // Update user name if user is a store
-        // $stores = [
-        //     [
-        //         'id'=> 1,
-        //         'name'=> 'nopalstore',
-        //         'user_id'=> 1
-        //     ]
-        // ];
         $posts->each(function ($post) use ($stores) {
     if ($post->user->role_id == 3) {
         $store = ($stores->filter(function ($store) use ($post){
             return $store['user_id'] == $post->user_id;
         })->first());
-        // dd($store);
         if (!empty($store)) {
             $post->user->name = $store->name;
         }
@@ -140,8 +121,7 @@ class PostController extends Controller
 });
 
 
-        // dd($posts);
-        // Mengembalikan response dengan data yang telah dimodifikasi
+
         return Inertia::render('Home', [
             'posts' => $posts,
             'stores' => $stores,
@@ -152,20 +132,10 @@ class PostController extends Controller
 
     public function explore(Request $request)
     {
-        // $query = $request -> input('query');
-
-        // // cari toko
-        // $stores = Store::where('name','like',"%$query%")->get();
-
-        // // cari postingan
-        // $posts = Post::where('body','like',"%$query%")->get();
 
         if ($request) {
             $query = $request->input('query');
 
-            // $stores = Store::where('is_validate', true)
-            //                 // ->where('name', 'like', "%$query%")s
-            //                 ->get();
             $stores = Store::where('is_validate', true)->get();
             $posts = Post::where('body', 'like', "%$query%")->get();
         } else {

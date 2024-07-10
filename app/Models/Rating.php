@@ -14,12 +14,5 @@ class Rating extends Model
         "store_id",
         "rate"
     ];
-    // public function user() :BelongsTo
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
-    // public function store():BelongsTo
-    // {
-    //     return $this->belongsTo(Store::class);
-    // }
+
 }

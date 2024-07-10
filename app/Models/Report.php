@@ -16,18 +16,9 @@ class Report extends Model
     ];
     protected $with = [
         "user",
-        // "post",
     ];
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    // public function store():BelongsTo
-    // {
-    //     return $this->belongsTo(Store::class);
-    // }
-    // public function post():BelongsTo
-    // {
-    //     return $this->belongsTo(Post::class);
-    // }
 }

@@ -1,10 +1,9 @@
 import { memo, forwardRef } from "react";
-// import React, { forwardRef } from "react";
 
 const SearchBar = forwardRef(({ value, handleChange, handleKeyPress }, ref) => {
     return (
-        <div className="mx-auto w-full px-0 transition-all">
-            <div className="grid relative w-full transition-all">
+        <div className="w-full px-0 mx-auto transition-all">
+            <div className="relative grid w-full transition-all">
                 <input
                     type="text"
                     name="searchbar"
@@ -13,7 +12,7 @@ const SearchBar = forwardRef(({ value, handleChange, handleKeyPress }, ref) => {
                     autoComplete="off"
                     onKeyDown={handleKeyPress}
                     ref={ref}
-                    className="peer cursor-pointer ms-0 relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12  outline-none border-marshland-950 focus:w-full focus:cursor-text focus:border-marshland-950 focus:pl-16 focus:pr-4 transition-all ease-in-out duration-500"
+                    className="relative z-10 w-12 h-12 pl-12 transition-all duration-500 ease-in-out bg-transparent border rounded-full outline-none cursor-pointer peer ms-0 border-marshland-950 focus:w-full focus:cursor-text focus:border-marshland-950 focus:pl-16 focus:pr-4"
                     autoFocus
                 />
                 <svg
@@ -32,25 +31,7 @@ const SearchBar = forwardRef(({ value, handleChange, handleKeyPress }, ref) => {
                 </svg>
             </div>
         </div>
-
-        // <input
-        //     className="w-full px-5 font-light border rounded-full text-start bg-marshland-950 bg-opacity-70 placeholder:text-ecru-white-100 focus:ring-green-yellow-950 focus:border-green-yellow-950 placeholder:font-light text-ecru-white-100 focus:bg-opacity-80"
-        //     type="text"
-        //     name="searchbar"
-        //     value={value}
-        //     placeholder="Search"
-        //     onChange={handleChange}
-        //     onKeyDown={handleKeyPress}
-        //     ref={ref}
-        // />
     );
 });
 
 export default SearchBar;
-
-// export default forwardRef(memo(function SearchBar({value='', handleChange}){
-//     return (
-//         <input  ref={ref} className="w-full px-5 font-light border rounded-full text-start bg-marshland-950 bg-opacity-70 placeholder:text-ecru-white-100 focus:ring-green-yellow-950 focus:border-green-yellow-950 placeholder:font-light text-ecru-white-100 focus:bg-opacity-80" type="text" name="searchbar" value={value} placeholder="Search" onChange={handleChange} />
-//     )
-// }
-// ))

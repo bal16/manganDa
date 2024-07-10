@@ -5,7 +5,6 @@ import Logo from "../../images/logo.png";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import NavLink from "@/Components/NavLink";
 import { Icon } from "@iconify/react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
 
 function Sidebar({ sidebarOpen, setSidebarOpen, jumlah }) {
     //   const location = useLocation();

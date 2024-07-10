@@ -46,7 +46,6 @@ function StoreValidate({auth, stores: initialStores , jumlah}) {
         <button className='btn btn-error btn-sm' onClick={() => handleDeclineStore(content.id)}>Decline</button>
       </td>
       <td>
-        {/* <Link href={`/profile/${content.user_id}`} className='btn btn-warning'>View</Link> */}
       </td>
     </tr>
   );
