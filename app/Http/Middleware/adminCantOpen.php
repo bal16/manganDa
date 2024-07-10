@@ -15,7 +15,7 @@ class adminCantOpen
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->is_admin){
+        if(auth()->user()->role_id == 2){
             // abort(code: 403);
             return redirect(route('dashboard'));
         }

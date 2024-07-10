@@ -24,7 +24,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         
-        $post = Post::where('user_id',$user->id)->with(['user','bookmark'])->orderBy('created_at','desc')->get();
+        $post = Post::where('user_id',$user->id)->get();
         $store = Store::all();
         $rating = NULL;
         $userStore = Store::where('user_id', $user->id)->where('is_validate', true)->first();
@@ -53,7 +53,7 @@ class ProfileController extends Controller
     public function userProfile(Request $request){
         
         $user_id = $request->id;
-        $post = Post::where('user_id',$user_id)->with(['user','bookmark'])->orderBy('created_at','desc')->get();
+        $post = Post::where('user_id',$user_id)->get();
         $store = Store::all();
         $user = (User::where('id',$user_id)->get())[0];
 

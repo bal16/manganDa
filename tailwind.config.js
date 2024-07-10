@@ -5,7 +5,7 @@ const plugin = require("tailwindcss/plugin");
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php", "./storage/framework/views/*.php", "./resources/views/**/*.blade.php", "./resources/js/**/*.jsx"
+    "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php", "./storage/framework/views/*.php", "./resources/views/**/*.blade.php", "./resources/js/**/*.jsx", "./node_modules/react-tailwindcss-select/dist/index.esm.js"
   ],
 
 //   darkMode: "class",

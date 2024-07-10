@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Like;
-use App\Http\Requests\StoreLikeRequest;
-use App\Http\Requests\UpdateLikeRequest;
+use App\Models\role;
+use App\Http\Requests\StoreroleRequest;
+use App\Http\Requests\UpdateroleRequest;
 
-class LikeController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class LikeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLikeRequest $request)
+    public function store(StoreroleRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class LikeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Like $like)
+    public function show(role $role)
     {
         //
     }
@@ -43,7 +43,7 @@ class LikeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Like $like)
+    public function edit(role $role)
     {
         //
     }
@@ -51,7 +51,7 @@ class LikeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLikeRequest $request, Like $like)
+    public function update(UpdateroleRequest $request, role $role)
     {
         //
     }
@@ -59,7 +59,7 @@ class LikeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Like $like)
+    public function destroy(role $role)
     {
         //
     }

@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('is_store')->default(false);
-            $table->boolean('is_admin')->default(false);
+            // $table->timestamp('email_verified_at')->nullable();
+            // $table->boolean('has_store')->default(false);
+            // $table->boolean('is_admin')->default(false);
+            // $table->foreignId('store_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('role_id')->default(1)->constrained()->onDelete('cascade');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -16,12 +16,13 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('body');
-            $table->integer('like')->nullable();
-            $table->char('store_id')->nullable();
+            // $table->integer('like')->nullable();
+            // $table->char('store_id')->nullable();
+            $table->foreignId('store_id')->nullable()->constrained()->onDelete('cascade');
             $table->text('image')->nullable();
-            $table->boolean('is_store')->default(false);
+            // $table->boolean('is_store')->default(false);
             $table->timestamps();
-            
+
         });
     }
 

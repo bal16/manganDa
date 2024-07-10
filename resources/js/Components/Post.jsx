@@ -7,9 +7,7 @@ import { Head, useForm } from "@inertiajs/react";
 
 function Post({ auth, content }) {
     const [bookmarked, setBookmarked] = useState(content.isBookmark);
-
     const isOwner = auth.user && auth.user.id === content.user_id;
-    // console.log(content.id)
 
     const handleBookmark = async () => {
         if (!auth || !auth.user) {
@@ -30,10 +28,6 @@ function Post({ auth, content }) {
         }
     };
 
-    // const { data, setData, post, processing, errors, reset } = useForm({
-    //     body: "",
-    //     postss: null,
-    // });
 
     const [body, setBody] = useState()
     const [post_id, setPost_id] = useState()
@@ -41,7 +35,6 @@ function Post({ auth, content }) {
     const handleReportSubmit = async (id, body, e) => {
         try {
             e.preventDefault();
-            // console.log(post_id)
             await axios.post(`/report/${id}`, {body})
             alert('laporan berhasil dikirim');
         } catch (error) {
@@ -82,8 +75,8 @@ function Post({ auth, content }) {
                         </div>
                     </div>
                     <div className="-mt-4 ps-2">
-                        <p className="text-sm font-light">
-                            <a href={`/profile/${content.user.id}`} className={content.user.is_store ?
+                        <p className="text-sm font-light text-start">
+                            <a href={`/profile/${content.user.id}`} className={content.user.role_id == 3 ?
                                 "px-4 py-1 text-sm rounded-full bg-green-yellow-500 w-16"
                                 :
                                 ""
@@ -99,7 +92,7 @@ function Post({ auth, content }) {
                     </div>
                 </div>
                 <div id="more" className="mb-5 dropdown dropdown-bottom dropdown-end">
-                    <button disabled={auth.user.is_admin} tabIndex={0} className="m-1 bg-transparent">
+                    <button disabled={auth.user.role_id == 2} tabIndex={0} className="m-1 bg-transparent">
                         <Icon
                             icon="ep:more-filled"
                             style={{ color: "#4B5563" }}
@@ -108,13 +101,13 @@ function Post({ auth, content }) {
                     </button>
                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-30">
                         <li style={{ display: isOwner ? "block" : "none" }}>
-                            <button disabled={auth.user.is_admin} onClick={handleDelete}>
+                            <button disabled={auth.user.role_id == 2} onClick={handleDelete}>
                                 <Icon icon="material-symbols:delete" style={{ color: "#ff0000" }} width="2rem" height="2rem" />
                                 <p className="text-m">delete</p>
                             </button>
                         </li>
                         <li style={{ display: isOwner ? "none" : "block" }}>
-                            <button disabled={auth.user.is_admin} onClick={() => document.getElementById("modal_"+content.id).showModal()}>
+                            <button disabled={auth.user.role_id == 2} onClick={() => document.getElementById("modal_"+content.id).showModal()}>
                                 <Icon icon="ic:round-report-problem" style={{ color: "#4B5563" }} width="2rem" height="2rem" />
                                 <p className="text-m">report</p>
                             </button>
@@ -125,6 +118,11 @@ function Post({ auth, content }) {
 
             <div className="-mt-1 font-normal ms-[3.75rem] text-start" style={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
                 <p>{content.body}</p>
+                {content.store_id != null ?(
+                    <Link href={`/profile/${content.store.user_id}`} className="px-1 bg-green-yellow-500 w-max">
+                        <Icon icon="material-symbols-light:store" className="inline-flex" /> {content.store?.name}
+                    </Link>
+                    ):''}
                 {content.image && (
                     <div className="overflow-hidden bg-slate-700 rounded-xl">
                         <img className="w-full" src={`/storage/${content.image}`} alt={`postimage-${content.id}`} />
@@ -133,7 +131,7 @@ function Post({ auth, content }) {
             </div>
 
             <div className="flex justify-end mt-2 space-x-4">
-                <button className="text-gray-600 hover:text-gray-800" disabled={auth.user.is_admin} onClick={handleBookmark}>
+                <button className="text-gray-600 hover:text-gray-800" disabled={auth.user.role_id == 2} onClick={handleBookmark}>
                     <Icon icon="material-symbols:bookmark" style={{ color: bookmarked ? "#ff0000" : "" }} width="2rem" height="2rem" />
                 </button>
                 <Link className="text-gray-600 hover:text-gray-800" href={"/post/" + content.id}>
@@ -161,7 +159,6 @@ function Post({ auth, content }) {
                     </form>
                 </div>
             </dialog>
-            {/* nambah */}
         </div>
     );
 }

@@ -8,31 +8,6 @@ function StoreList({auth, stores: initialStores, jumlah }) {
   const [stores, setStores] = useState(initialStores);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-//   const handleDeleteComment = async (post_id) => {
-//     if (window.confirm('Are you sure you want to delete this post?')) {
-//       try {
-//         await axios.delete(`/post/${post_id}`);
-//         setStores(stores.filter(report => report.post_id !== post_id));
-//         alert('Post has been deleted successfully.');
-//       } catch (error) {
-//         console.error('Error deleting post:', error);
-//         alert('There was an error deleting the post.');
-//       }
-//     }
-//   };
-
-//   const handleAllowComment = async (post_id) =>{
-//     if(window.confirm('Are you sure you want to allow this post?')){
-//       try {
-//         await axios.delete(`/report/${post_id}`);
-//         setStores(stores.filter(report => report.post_id !== post_id));
-//         alert('report has been deleted successfullty');
-//       } catch (error) {
-//         console.error('error: ',error)
-//         alert(`couldn't delete report`)
-//       }
-//     }
-//   }
 
   const template = (index, content) => (
     <tr key={content.post_id}>

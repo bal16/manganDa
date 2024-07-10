@@ -9,44 +9,39 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Icon } from "@iconify/react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
+import Select from "react-tailwindcss-select";
 
 export default function Home({ auth, posts, stores, bookmark }) {
+    const [imageLabel, setImageLabel] = useState(false);
+    const [tag, setTag] = useState(null);
     const page = {
-        'current':posts.current_page,
-        'last':posts.last_page,
-    }
-    // console.log(page);
+        current: posts.current_page,
+        last: posts.last_page,
+    };
+    const options = stores.map((store, index) => ({
+        value: store.id,
+        label: '@'+store.name
+    }));
+
+
     posts = posts.data;
 
-    const [postModal, setPostModal] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         body: "",
+        tag:null
     });
     const submit = (e) => {
         e.preventDefault();
         post(route("home"));
-        reset("body", "image");
+        reset("body", "image", "tag");
+        setTag(null)
     };
-
-    // console.log(posts)
-
+    const handleChange = (value) => {
+        setTag(value);
+        return setData('tag', value.value);
+    };
     return (
         <>
-            <div
-                className={
-                    "fixed w-full h-full z-[99] backdrop-blur-sm items-center " +
-                    (!postModal ? " hidden" : " flex")
-                }
-            >
-                <div className="mx-auto bg-slate-200 shadow-md w-[80%] sm:w-[70%] md:w-[50%] rounded-2xl min-h-[50%] text-end">
-                    <button
-                        className="text-8xl"
-                        onClick={() => setPostModal(!postModal)}
-                    >
-                        X
-                    </button>
-                </div>
-            </div>
             <DefaultLayout>
                 <Head title="Home" />
                 <Navbar auth={auth} />
@@ -54,18 +49,9 @@ export default function Home({ auth, posts, stores, bookmark }) {
                     <Header></Header>
                     <form
                         onSubmit={submit}
-                        // action=""
                         className="pt-5 px-4 md:px-10 h-36 border-b-[0.1px]  border-marshland-950 bg-ecru-white-100  "
                     >
-                        {/* Made a Post{auth&&","} {auth?.user?.name}? */}
                         <div className="grid grid-cols-[1fr_8fr] gap-5">
-                            {/* <div className="w-12 h-12 overflow-hidden bg-black rounded-full me-2">
-                                <img
-                                    className="w-full"
-                                    src="https://source.unsplash.com/50x50?photo-profile"
-                                    alt=""
-                                />
-                            </div> */}
                             <div className="w-12 h-12 avatar placeholder">
                                 <div className="w-12 rounded-full bg-neutral text-neutral-content">
                                     <span className="text-3xl">
@@ -76,16 +62,7 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                 </div>
                             </div>
 
-                            {/* <textarea
-                                className="w-4/5 h-12 px-5 py-3 font-light bg-transparent border-none resize-none overscroll-none focus:ring-0 focus:border-0"
-                                name="body"
-                                value={data.body}
-                                required
-                                onChange={(e) =>
-                                    setData("body", e.target.value)
-                                }
-                                placeholder="Ada Rekomendasi Makanan?!"
-                            /> */}
+
 
                             <div className="w-full h-5">
                                 <div className="relative w-full min-w-[200px]">
@@ -104,7 +81,6 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                     </label>
                                 </div>
                             </div>
-                            {/* </input> */}
                         </div>
                         <div className="flex mt-3">
                             <div className="flex w-5/6 mt-3">
@@ -112,29 +88,41 @@ export default function Home({ auth, posts, stores, bookmark }) {
                                     type="file"
                                     name="image"
                                     id="image"
-                                    onChange={(e) =>
-                                        setData("image", e.target.files[0])
-                                    }
+                                    onChange={(e) => {
+                                        setImageLabel(true);
+                                        return setData(
+                                            "image",
+                                            e.target.files[0]
+                                        );
+                                    }}
                                     className="hidden"
                                 />
                                 <label htmlFor="image" className="w-6 h-6 me-2">
-                                    <Icon
-                                        icon="bxs:image-add"
-                                        className="w-6 h-6"
-                                    />
+                                    {imageLabel == false ? (
+                                        <Icon
+                                            icon="bxs:image-add"
+                                            className="w-6 h-6"
+                                        />
+                                    ) : (
+                                        <Icon
+                                            icon="line-md:image"
+                                            className="w-6 h-6"
+                                        />
+                                    )}
                                 </label>
-                                {/* store */}
-                                {/* */}
-                                {/* <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span>
-                                <span className="block w-6 h-6 bg-green-yellow-600 me-2"></span> */}
+                                <div className="h-6 -mt-2 bg-yellow-300 w-36 min-w-6 me-2">
+                                    <Select
+                                        value={tag}
+                                        onChange={handleChange}
+                                        options={options}
+                                        placeholder="Tag toko"
+                                        isSearchable
+                                    />
+                                </div>
                             </div>
                             <button
                                 // type="submit"
                                 disabled={processing || auth.user.iadmin}
-                                // onClick={() => setPostModal(!postModal)}
                                 className="py-2 mt-1 rounded-full px-7 bg-green-yellow-600"
                             >
                                 Post
@@ -147,11 +135,30 @@ export default function Home({ auth, posts, stores, bookmark }) {
                             <Post key={index} content={a} auth={auth} />
                         ))}
                     </section>
-                        <div className="my-10 join">
-                            <Link className={(page.current == 1 ? "btn-disabled" : "") + ` join-item btn`} href={"?page=" + (page.current - 1)}>«</Link>
-                            <Link className="join-item btn" href="#">Page {page.current}</Link>
-                            <Link className={(page.current == page.last ? "btn-disabled" : "") + ` join-item btn`} href={"?page=" + (page.current + 1)}>»</Link>
-                        </div>
+                    <div className="my-10 join">
+                        <Link
+                            className={
+                                (page.current == 1 ? "btn-disabled" : "") +
+                                ` join-item btn`
+                            }
+                            href={"?page=" + (page.current - 1)}
+                        >
+                            «
+                        </Link>
+                        <Link className="join-item btn" href="#">
+                            Page {page.current}
+                        </Link>
+                        <Link
+                            className={
+                                (page.current == page.last
+                                    ? "btn-disabled"
+                                    : "") + ` join-item btn`
+                            }
+                            href={"?page=" + (page.current + 1)}
+                        >
+                            »
+                        </Link>
+                    </div>
                 </MainContent>
                 <Sidebar auth={auth} stores={stores} />
             </DefaultLayout>

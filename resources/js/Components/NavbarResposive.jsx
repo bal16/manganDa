@@ -1,4 +1,3 @@
-// import { } from "@inertiajs/react";
 import { Icon } from "@iconify/react";
 import  NavResLink from "./NavResLink";
 import { memo } from "react";
@@ -31,21 +30,12 @@ export default memo(function NavbarResponsive({ auth }) {
                 />
             </NavResLink>
             <NavResLink active={route().current("profile")} href="/profile">
-                {/*  href={`#${auth.user.id}`}> */}
                 <Icon
                     icon="healthicons:ui-user-profile"
                     width="2rem"
                     height="2rem"
                 />
             </NavResLink>
-            {/* <NavResLink>
-                <Icon
-                    icon="ph:dots-three-circle-light"
-                    width="2rem"
-                    height="2rem"
-                    rotate="90deg"
-                />
-            </NavResLink> */}
         </nav>
     );
 })

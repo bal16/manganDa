@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MenuController;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookmarkController;
+use App\Models\Bookmark;
+use App\Models\Post;
 use App\Models\Report;
 use App\Models\Store;
 
@@ -22,6 +25,12 @@ use App\Models\Store;
 //     dd($request);
 // });
 
+Route::get('/test', function (){
+    return response()->json([
+        'data'=>Post::all(),
+    ]);
+//     // dd(User::all());
+});
 
 // dashboard
 // Route::get('/dashboard', function () {
@@ -60,7 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/{id}', [ProfileController::class, 'userProfile'])->name('profile.single-user');
 
-    // post     
+    // post
     Route::post('/post/{user_id}/{store_id}', [PostController::class, 'create'])->name('post.create');
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
     // Route::delete('/post/{id}',[ReportController::class, 'index'])->name('report.index');
@@ -86,6 +95,10 @@ Route::middleware('auth')->group(function () {
 
     // report
     Route::post('/report/{id}', [ReportController::class, 'store'])->name('report.store');
+
+    // menu
+    Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
+    Route::delete('/menus/{id}',[MenuController::class, 'destroy']);
 });
 
 Route::middleware(['is_admin', 'auth'])->group(function () {
@@ -107,6 +120,7 @@ Route::middleware(['is_admin', 'auth'])->group(function () {
     Route::get('/db/stores/requestsList', [StoreController::class, 'list'])->name('stores.list');
     Route::patch('/db/stores/requests/{id}', [StoreController::class, 'validate_store']);
     Route::delete('/db/stores/requests/{id}', [StoreController::class, 'decline_store']);
+
 });
 
 

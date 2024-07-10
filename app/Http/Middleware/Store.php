@@ -15,7 +15,7 @@ class Store
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->is_store){
+        if(auth()->user()->role_id == 3){
             // abort(code: 403);
             return redirect(route('home'));
         }

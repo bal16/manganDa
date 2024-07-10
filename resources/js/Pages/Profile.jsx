@@ -7,9 +7,12 @@ import Post from "@/Components/Post";
 import RatingButton from "@/Components/RatingButton";
 import Sidebar from "@/Components/Sidebar";
 import DefaultLayout from "@/Layouts/DefaultLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
+import { useForm } from "@inertiajs/react";
+import axios from "axios";
+import { Link } from "@inertiajs/react";
 
 export default function Profile({
     auth,
@@ -17,12 +20,45 @@ export default function Profile({
     stores,
     user,
     userRating,
-    userStore
+    userStore,
 }) {
-    // console.log(userStore)
     const [isOpen, setIsOpen] = useState(stores[0]?.is_open);
 
-    const [showModal, setShowModal] = useState(false);
+    const [menus, setMenus] = useState();
+    const [reviews, setReviews] = useState();
+    const [tab, setTab] = useState(1);
+
+
+    const fetchDatas = async () => {
+        try {
+            const menusResponse = await axios.get(`/api/menus/${userStore.id}`);
+            setMenus(menusResponse.data.menus);
+            const reviewResponse = await axios.get(
+                `/api/taged-store/${userStore.id}`
+            );
+            setReviews(reviewResponse.data.reviews);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchDatas();
+    }, []);
+
+    const {
+        data,
+        setData,
+        post: submitPost,
+        processing,
+        errors,
+        reset,
+    } = useForm({
+        name: "",
+        price: null,
+        image: null,
+        store_id: userStore?.id,
+    });
 
     const mobileButton = () => (
         <div className="dropdown dropdown-bottom dropdown-end sm:hidden">
@@ -40,7 +76,9 @@ export default function Profile({
             >
                 <li
                     className={
-                        auth.user.is_store ? "hidden sm:hidden" : "sm:hidden"
+                        auth.user.role_id === 3
+                            ? "hidden sm:hidden"
+                            : " sm:hidden"
                     }
                 >
                     <NavbarLink href={route("store.create")}>
@@ -76,6 +114,158 @@ export default function Profile({
         }
     };
 
+    const handleChange = (e) => {
+        const key = e.target.name;
+        const value =
+            e.target.type === "file" ? e.target.files[0] : e.target.value;
+        setData(key, value);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        submitPost(route("menu.store"), {
+            onSuccess: () => reset(),
+        });
+        alert("menu berhasil ditambahkan");
+        window.location.reload();
+        // console.log(data)
+    };
+
+    const postTab = () => (
+        <section className="justify-center">
+            {post.map((a, index) => (
+                <Post key={index} content={a} auth={auth} />
+            ))}
+        </section>
+    );
+
+    const ulasanTab = () => (
+        <section className="justify-center">
+            {reviews &&
+                reviews.map((a, index) => (
+                    <Post key={index} content={a} auth={auth} />
+                ))}
+        </section>
+    );
+
+    // console.log(menus)
+
+    const handleDeleteMenu = async (id) => {
+        if (window.confirm("yakin ingin menghapus menu?")) {
+            try {
+                await axios.delete(`/menus/${id}`);
+                alert("menu berhasil dihapus");
+                window.location.reload();
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+
+    const menuTab = () => (
+        <section className="">
+            <button
+                onClick={() =>
+                    document.getElementById(`modal+${user.id}`).showModal()
+                }
+                className={
+                    auth.user.role_id == 3 && auth.user.id == userStore.user_id
+                        ?
+                        "btn btn-success justify-end"
+                        :
+                        "hidden"
+                }
+            >
+                {" "}
+                + menu
+            </button>
+            <div className="grid justify-between grid-cols-1 gap-10 p-5 text-center md:grid-cols-2">
+                {menus &&
+                    menus.map((content, index) => (
+                        <div key={index} className="mb-4 ">
+                            <div className="w-full card bg-base-100 shadow-l">
+                                <figure className="px-10 pt-10">
+                                    <img
+                                        src={`/storage/${content.image}`}
+                                        alt={`image-${content.image}`}
+                                        className="rounded-xl"
+                                    />
+                                </figure>
+                                <div className="items-center text-center card-body">
+                                    <h2 className="card-title">
+                                        {content.name}
+                                    </h2>
+                                    <p>Rp.{content.price}</p>
+                                </div>
+                                <button
+                                    onClick={() => handleDeleteMenu(content.id)}
+                                    className={
+                                        (auth.user.role_id == 3 && auth.user.id == userStore.user_id)
+                                            ? "btn btn-error w-20 mx-auto mb-5"
+                                            : "hidden"
+                                    }
+                                >
+                                    delete
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+            </div>
+        </section>
+    );
+
+    const showTab = () => {
+        if (user.role_id == 3) {
+            return (
+                <div>
+                    <div role="tablist" className="tabs tabs-bordered">
+                        <input
+                            type="radio"
+                            name="my_tabs_1"
+                            className=" tab"
+                            onClick={() => setTab(1)}
+                            aria-label="postingan"
+                            checked
+                        />
+
+                        <input
+                            type="radio"
+                            name="my_tabs_1"
+                            className=" tab"
+                            onClick={() => setTab(2)}
+                            aria-label="menu"
+                        />
+
+                        <input
+                            type="radio"
+                            name="my_tabs_1"
+                            className=" tab"
+                            onClick={() => setTab(3)}
+                            aria-label="ulasan"
+                        />
+                    </div>
+                    {tab == 1 ? (
+                        <div className="p-0 ">{postTab()}</div>
+                    ) : tab == 2 ? (
+                        <div className="p-0 ">{menuTab()}</div>
+                    ) : tab == 3 ? (
+                        <div className="p-0 ">{ulasanTab()}</div>
+                    ) : (
+                        ""
+                    )}
+                </div>
+            );
+        } else {
+            return (
+                <section className="justify-center">
+                    {post.map((a, index) => (
+                        <Post key={index} content={a} auth={auth} />
+                    ))}
+                </section>
+            );
+        }
+    };
+
     return (
         <>
             <DefaultLayout>
@@ -83,7 +273,7 @@ export default function Profile({
                 <Navbar auth={auth} />
                 <MainContent>
                     <Header>
-                        {auth.user.id !== user.id ? "" : <>{mobileButton()}</>}
+                        {auth.user.id != user.id ? "" : <>{mobileButton()}</>}
                     </Header>
                     <section className="p-2 min-h-36 border-b-[0.1px] border-marshland-950 bg-ecru-white-100 relative">
                         <div className="avatar placeholder">
@@ -96,7 +286,11 @@ export default function Profile({
                         <div className="">
                             <p>
                                 {user.name}{" "}
-                                <span className={user.is_store ? "" : "hidden"}>
+                                <span
+                                    className={
+                                        user.role_id == 3 ? "" : "hidden"
+                                    }
+                                >
                                     |{" "}
                                     <span
                                         className={
@@ -109,11 +303,17 @@ export default function Profile({
                                     </span>
                                 </span>
                             </p>
-                            {user.is_store ? (
+                            {user.role_id == 3 ? (
                                 <span>
-                                    <p className="text-sm font-bold">
+                                    <a
+                                        target="_blank"
+                                        href={`http://${userStore.map_link}`}
+                                        className="flex justify-center text-sm font-bold"
+                                    >
                                         {userStore.address}
-                                    </p>
+
+                                        <Icon icon="logos:google-maps" />
+                                    </a>
                                     <p className="font-light">
                                         {userStore.description}
                                     </p>
@@ -123,11 +323,13 @@ export default function Profile({
                             )}
                         </div>
                         <div className="mt-5">
-                            {user.is_store ? (
-                                <button
-                                    className="px-4 py-1 mb-6 -mt-1 text-sm text-white bg-red-500 rounded-full ms-2"
-                                >
-                                    {userStore.ratings > 0 ? `${userStore.ratings.toFixed(1)} / 5.0` : "belum ada rating"}
+                            {user.role_id == 3 ? (
+                                <button className="px-4 py-1 mb-6 -mt-1 text-sm text-white bg-red-500 rounded-full ms-2">
+                                    {userStore.ratings > 0
+                                        ? `${userStore.ratings.toFixed(
+                                              1
+                                          )} / 5.0`
+                                        : "belum ada rating"}
                                 </button>
                             ) : (
                                 ""
@@ -135,7 +337,7 @@ export default function Profile({
                         </div>
                         <div
                             className={
-                                auth.user.id === user.id && user.is_store
+                                auth.user.id === user.id && user.role_id == 3
                                     ? "absolute right-5 bottom-5"
                                     : "hidden"
                             }
@@ -149,40 +351,98 @@ export default function Profile({
                         </div>
                         <button
                             className={
-                                auth.user.id === user.id || auth.user.is_store || auth.user.is_admin
+                                auth.user.id == user.id ||
+                                auth.user.role_id == 3 ||
+                                auth.user.role_id == 2
                                     ? "hidden"
                                     : "btn btn-success absolute right-5 bottom-5 px-4 py-1 mb-6 -mt-1 rounded-full ms-2"
                             }
-                            onClick={()=>document.getElementById('my_modal_1').showModal()}
+                            onClick={() =>
+                                document
+                                    .getElementById("my_modal_1")
+                                    .showModal()
+                            }
                         >
                             rate store
                         </button>
-                        {/* <div className={
-                                auth.user.id === user.id && user.is_store
-                                    ? "absolute right-5 bottom-5"
-                                    : "hidden"
-                        }>
-                        </div> */}
-                        {user.is_store && userStore && !auth.user.is_store ? (
+                        {auth.user.id == user.id ||
+                        auth.user.role_id == 3 ||
+                        auth.user.role_id == 2 ? null : (
                             <RatingButton
                                 auth={auth}
                                 store={userStore}
                                 storeRating={userStore.rating}
                                 userRating={userRating}
                             />
-                        ) : null}
+                        )}
                     </section>
-                    <section className="">
-                        {post.map((a, index) => (
-                            <Post key={index} content={a} auth={auth} />
-                        ))}
-                    </section>
+                    <div className="">{showTab()}</div>
                 </MainContent>
                 <Sidebar stores={stores} auth={auth}>
                     Sidebar
                 </Sidebar>
             </DefaultLayout>
             <NavbarResponsive auth={auth} />
+
+            <dialog id={`modal+${user.id}`} className="modal">
+                <div className="modal-box">
+                    <form method="dialog">
+                        <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">
+                            ✕
+                        </button>
+                    </form>
+                    <form onSubmit={handleSubmit}>
+                        <h3 className="text-lg font-bold">Tambah Menu</h3>
+                        <div className="mt-4 form-control">
+                            <label className="label" htmlFor="name">
+                                Nama Menu:
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={data.name}
+                                onChange={handleChange}
+                                className="input input-bordered"
+                                required
+                            />
+                        </div>
+                        <div className="mt-4 form-control">
+                            <label className="label" htmlFor="price">
+                                Harga:
+                            </label>
+                            <input
+                                type="number"
+                                id="price"
+                                name="price"
+                                value={data.price}
+                                onChange={handleChange}
+                                className="input input-bordered"
+                                required
+                            />
+                        </div>
+                        <div className="mt-4 form-control">
+                            <label className="label" htmlFor="image">
+                                Gambar:
+                            </label>
+                            <input
+                                type="file"
+                                id="image"
+                                name="image"
+                                onChange={handleChange}
+                                className="input input-bordered"
+                                accept="image/*"
+                                required
+                            />
+                        </div>
+                        <div className="modal-action">
+                            <button type="submit" className="btn btn-success">
+                                Tambah
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </dialog>
         </>
     );
 }
